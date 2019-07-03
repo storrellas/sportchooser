@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Landing from "./epics/Landing.js";
+import Home from "./epics/Home.js";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
 
@@ -20,6 +21,7 @@ ReactDOM.render((
   <BrowserRouter>
     <div>      
       <Route path="/" exact component={Landing} />
+      <Route path="/home/" exact component={Home} />
     </div>
   </BrowserRouter>
 ), document.getElementById('root'))
