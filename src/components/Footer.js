@@ -16,7 +16,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import logo_min from '../../img/logo_min.png'
+import logo_min from '../assets/img/logo_min.png'
 
 const styles = theme => ({
   content: {

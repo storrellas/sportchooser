@@ -1,9 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import Login from "./js/Login.js";
-// import Map from "./js/Map.js";
-// import Chart from "./js/Chart.js";
-import Landing from "./js/Landing.js";
+import Landing from "./epics/Landing.js";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
 

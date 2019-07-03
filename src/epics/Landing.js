@@ -24,14 +24,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 
 // Project imports
-import HeaderBar from './components/HeaderBar';
-import Footer from './components/Footer';
+import HeaderBar from '../components/HeaderBar';
+import Footer from '../components/Footer';
 
-import titleSide from "../img/title_side.png"
-import titleImage from "../img/title_image.png"
+import titleSide from "../assets/img/title_side.png"
+import titleImage from "../assets/img/title_image.png"
 
-import learnIcon from "../img/learn_icon.png"
-import learnImage from "../img/learn_image.png"
+import learnIcon from "../assets/img/learn_icon.png"
+import learnImage from "../assets/img/learn_image.png"
 
 const styles = theme => ({
   root: {
