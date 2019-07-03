@@ -47,6 +47,10 @@ const styles = theme => ({
     backgroundColor: '#3498DB',
     textAlign: 'center',
     fontSize: '20px'
+  },
+  icon: {
+    textAlign: 'center',
+    fontWeight: 'bold',
   }
 });
 
@@ -65,8 +69,8 @@ class Home extends React.Component {
       <div style={{backgroundColor:'#E5E7E9'}}>
         <CssBaseline />
 
-        <Box mt={2} ml={3} mr={3} borderRadius={16}>
-          <Box ml={6} mr={6} borderRadius={16} className={classNames(classes.title)}>Basketball</Box>
+        <Box mt={2} ml={3} mr={3} borderRadius={16} style={{backgroundColor: 'red'}}>
+          <Box borderRadius={16} className={classNames(classes.title)} style={{position: 'absolute', width:'200px', top: '30px', margin: 'auto', left: '0', right: '0'}}>Basketball</Box>
           <img width="100%" src={sportImage} style={{borderRadius: '10px'}}></img>
           <Box ml={20} mr={20} mt={0} mb={0} style={{backgroundColor: 'yellow', borderRadius: '10px'}}>
             <img height="50px" src={wikipediaImage} style={{borderRadius: '10px'}}></img>
@@ -76,29 +80,30 @@ class Home extends React.Component {
 
         <Box mt={5} ml={3} mr={3} borderRadius={16}>
           <Grid container spacing={3}  >
-            <Grid item xs>
+            <Grid item xs className={classNames(classes.icon)}>
               <Box mt={2} ml={3} mr={3} p={1} style={{backgroundColor:'white'}}  borderRadius="50%">
                 <img width="100%" height="100%" src={undoImage}></img>
-                <p>Undo</p>
               </Box>
+              <p>Undo</p>
             </Grid>
-            <Grid item xs>
+            <Grid item xs className={classNames(classes.icon)}>
               <Box mt={2} ml={3} mr={3} p={1} style={{backgroundColor:'white'}}  borderRadius="50%">
                 <img width="100%" height="100%" src={noInterestImage}></img>
-                <p>No interest</p>
               </Box>
+              <p>No interest</p>
             </Grid>
-            <Grid item xs>
+            <Grid item xs className={classNames(classes.icon)}>
               <Box mt={2} ml={3} mr={3} p={1} style={{backgroundColor:'white'}}  borderRadius="50%">
                 <img width="100%" height="100%" src={likeToTryImage}></img>
-                <p>Like to try</p>
               </Box>
+              <p>Like to try</p>
             </Grid>
-            <Grid item xs>
+            <Grid item xs className={classNames(classes.icon)}>
               <Box mt={2} ml={3} mr={3} p={1} style={{backgroundColor:'white'}}  borderRadius="50%">
                 <img width="100%" height="100%" src={alreadyPlayedImage} style={{borderRadius: '50%'}}></img>
-                <p>Play<br></br>Already</p>
               </Box>
+              <p>Play Already</p>
+
             </Grid>
           </Grid>            
         </Box>
