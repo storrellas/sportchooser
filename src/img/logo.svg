@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="55px" height="30px" viewBox="0 0 55 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 14</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="0%" x2="2.13827673%" y2="93.9917137%" id="linearGradient-1">
+            <stop stop-color="#F770BB" offset="0%"></stop>
+            <stop stop-color="#F8CD87" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0%" y1="100%" x2="100%" y2="0%" id="linearGradient-2">
+            <stop stop-color="#8C99F9" offset="0%"></stop>
+            <stop stop-color="#7DDDE5" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0%" y1="100%" x2="100%" y2="0%" id="linearGradient-3">
+            <stop stop-color="#AEAAF1" offset="0%"></stop>
+            <stop stop-color="#6E98EE" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="3.5817179%" y1="-7.79004218%" x2="100%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#A7EBBA" offset="0%"></stop>
+            <stop stop-color="#7DDDE5" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="COMPLETE" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="Homepage" transform="translate(-9.000000, -13.000000)">
+            <g id="Group-14" transform="translate(11.000000, 15.000000)">
+                <path d="M15.6495468,25.3350691 L0.816393074,25.3350691 C0.733550361,25.3350691 0.666393074,25.2679118 0.666393074,25.1850691 C0.666393074,25.1574067 0.674042464,25.130283 0.688495591,25.1066966 L15.5207518,0.901643629 C15.5640357,0.8310078 15.6563859,0.808834668 15.7270217,0.852118552 C15.7474758,0.864652331 15.7646255,0.881909036 15.7770318,0.902440729 L30.5404792,25.3350691" id="Path-58" stroke="url(#linearGradient-1)" stroke-width="5.25"></path>
+                <path d="M29.0014387,6.45785955 L40.3602574,25.2469561 C40.3888299,25.2942192 40.4503068,25.3093708 40.4975699,25.2807983 C40.5291297,25.261719 40.5476269,25.2268182 40.5456978,25.18999 L40.3489863,21.4346396" id="Path-61" stroke="url(#linearGradient-2)" stroke-width="5"></path>
+                <path d="M40.5,11.5 L40.5,25.5" id="Path-61" stroke="url(#linearGradient-3)" stroke-width="5"></path>
+                <path d="M40.5,11.5 L49.7403551,25.189783" id="Path-61" stroke="url(#linearGradient-4)" stroke-width="5"></path>
+            </g>
+        </g>
+    </g>
+</svg>

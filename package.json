@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --mode development --config webpack.config.dev.js --watch",
+    "dev-single": "webpack --mode production --config webpack.config.prod.js --watch --info-verbosity verbose",
+    "build": "webpack --mode production --config webpack.config.prod.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +21,7 @@
     "@material-ui/core": "^4.1.1",
     "@material-ui/icons": "^3.0.2",
     "babel-loader": "^8.0.2",
+    "classnames": "^2.2.6",
     "css-loader": "^1.0.0",
     "file-loader": "^4.0.0",
     "image-webpack-loader": "^5.0.0",
