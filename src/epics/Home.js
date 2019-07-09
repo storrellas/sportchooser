@@ -98,7 +98,7 @@ class Home extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Container maxWidth={false} style={{backgroundColor:'#E5E7E9', height: '100vh'}}>
+      <Container maxWidth="sm" style={{backgroundColor:'#E5E7E9', height: '100vh'}}>
         <CssBaseline />
 
         <Box mt={2} ml={3} mr={3} borderRadius={16} style={{backgroundColor: 'red', position: 'relative'}}>
