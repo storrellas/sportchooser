@@ -40,7 +40,7 @@ class FriendDialog extends React.Component {
   }
 
   handleClose() {
-    onClose(selectedValue);
+    //onClose(selectedValue);
   }
 
   handleListItemClick(value) {
@@ -48,19 +48,16 @@ class FriendDialog extends React.Component {
   }
 
   render() {
-    const { classes, ...other } = this.props;
+    const { classes, onClose, ...other } = this.props;
     return (
-      <Dialog maxWidth="xs" fullWidth classes={{ paper: classes.dialogPaper }} onClose={this.handleClose} aria-labelledby="simple-dialog-title" {...other}>
-                  <IconButton aria-label="Close" className={classes.closeButton} 
-                onClick={this.handleClose}>
+      <Dialog maxWidth="xs" fullWidth classes={{ paper: classes.dialogPaper }} onClose={onClose} aria-labelledby="simple-dialog-title" {...other}>
+            <IconButton aria-label="Close" className={classes.closeButton} 
+                onClick={onClose}>
               <CloseIcon />
             </IconButton>
         <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 40}}>
             Enter your friends codes to find out if your 
             friends want to try the same new sports
-
-
-
         </DialogTitle>
         <List>
           {emails.map(email => (
