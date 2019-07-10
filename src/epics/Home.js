@@ -154,47 +154,54 @@ class Home extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Container maxWidth="sm" style={{backgroundColor:'#E5E7E9', height: '100vh', paddingTop: 20}}>
+      <Container maxWidth="sm" style={{backgroundColor:'#E5E7E9', height: '100vh', padding: 0}}>
         <CssBaseline />
-
-        <Box mt={2} ml={3} mr={3} borderRadius={16} style={{position: 'relative'}}>
-          <Box borderRadius={16} className={classNames(classes.title, classes.titlePosition)}>
-            Basketball
-          </Box>
-
-          <AwesomeSlider cssModule={AwsSliderStyles} bullets={false} 
-                      organicArrows={false} 
-                      selected={this.state.selected}
-                      className={"aws-btn"}>
-            <div data-src="https://3.121.215.237/media/fixture/picture_salsa.jpg" />
-            <div data-src="https://3.121.215.237/media/fixture/picture_hurdles.jpg" />
-            <div data-src="https://3.121.215.237/media/fixture/picture_finswimming.jpg" />
-          </AwesomeSlider>
-
-          <Box ml={20} mr={20} mt={0} mb={0} className={classNames(classes.link, classes.linkPosition)}>
-            <img height="100%" src={wikipediaImage} style={{borderRadius: '10px'}}></img>
-            <p className={classes.linkText}>More Info</p>
-          </Box>
+        <Box m={0} p ={0} style={{backgroundColor: 'orange'}}>
+            <b>Sport - Planner</b>
+            <p>Find New Sport</p>
         </Box>
 
+        <Container maxWidth={false} style={{paddingTop: 20}}>
 
-        <Grid container spacing={3} className={classNames(classes.iconContainer)}>
-          <Grid item xs className={classNames(classes.icon)}>
-            <IconMenu mt={2} text="Undo" image={undoImage} onClick={(e) => this.handleClick(e)}></IconMenu>
-          </Grid>
-          <Grid item xs className={classNames(classes.icon)}>
-            <IconMenu mt={6} text="No Interest" image={noInterestImage} onClick={(e) => this.handleClick(e)}></IconMenu>
-          </Grid>
-          <Grid item xs className={classNames(classes.icon)}>
-            <IconMenu mt={6} text="Like To Try" image={likeToTryImage} onClick={(e) => this.handleClick(e)}></IconMenu>
-          </Grid>
-          <Grid item xs className={classNames(classes.icon)}>
-            <IconMenu mt={2} text="Play Already" image={alreadyPlayedImage} onClick={(e) => this.handleClick(e)}></IconMenu>
-          </Grid>
-        </Grid>            
+          <Box mt={2} ml={3} mr={3} borderRadius={16} style={{position: 'relative'}}>
+            <Box borderRadius={16} className={classNames(classes.title, classes.titlePosition)}>
+              Basketball
+            </Box>
+
+            <AwesomeSlider cssModule={AwsSliderStyles} bullets={false} 
+                        organicArrows={false} 
+                        selected={this.state.selected}
+                        className={"aws-btn"}>
+              <div data-src="https://3.121.215.237/media/fixture/picture_salsa.jpg" />
+              <div data-src="https://3.121.215.237/media/fixture/picture_hurdles.jpg" />
+              <div data-src="https://3.121.215.237/media/fixture/picture_finswimming.jpg" />
+            </AwesomeSlider>
+
+            <Box ml={20} mr={20} mt={0} mb={0} className={classNames(classes.link, classes.linkPosition)}>
+              <img height="100%" src={wikipediaImage} style={{borderRadius: '10px'}}></img>
+              <p className={classes.linkText}>More Info</p>
+            </Box>
+          </Box>
 
 
-        <FriendDialog open={this.state.open} onClose={(e) => this.handleClose()} />
+          <Grid container spacing={3} className={classNames(classes.iconContainer)}>
+            <Grid item xs className={classNames(classes.icon)}>
+              <IconMenu mt={2} text="Undo" image={undoImage} onClick={(e) => this.handleClick(e)}></IconMenu>
+            </Grid>
+            <Grid item xs className={classNames(classes.icon)}>
+              <IconMenu mt={6} text="No Interest" image={noInterestImage} onClick={(e) => this.handleClick(e)}></IconMenu>
+            </Grid>
+            <Grid item xs className={classNames(classes.icon)}>
+              <IconMenu mt={6} text="Like To Try" image={likeToTryImage} onClick={(e) => this.handleClick(e)}></IconMenu>
+            </Grid>
+            <Grid item xs className={classNames(classes.icon)}>
+              <IconMenu mt={2} text="Play Already" image={alreadyPlayedImage} onClick={(e) => this.handleClick(e)}></IconMenu>
+            </Grid>
+          </Grid>            
+
+
+          <FriendDialog open={this.state.open} onClose={(e) => this.handleClose()} />
+        </Container>
       </Container>
     );
   }
