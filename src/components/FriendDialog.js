@@ -1,26 +1,16 @@
 import React from 'react';
-
 import { withStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import PersonIcon from '@material-ui/icons/Person';
-import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
-
 import Box from '@material-ui/core/Box';
-
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 
+
+// Project import
 import friendsImage from "../assets/img/tryasport/friends.png"
 
-
-const emails = ['username@gmail.com', 'user02@gmail.com'];
 const styles = theme => ({
   avatar: {
     backgroundColor: 'red',

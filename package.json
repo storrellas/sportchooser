@@ -22,6 +22,7 @@
     "@material-ui/icons": "^3.0.2",
     "babel-loader": "^8.0.2",
     "classnames": "^2.2.6",
+    "confetti-js": "0.0.15",
     "css-loader": "^1.0.0",
     "file-loader": "^4.0.0",
     "image-webpack-loader": "^5.0.0",

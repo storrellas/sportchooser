@@ -1,21 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { shadows } from '@material-ui/system';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-
-
-
 import Box from '@material-ui/core/Box';
-
-import { makeStyles } from '@material-ui/core/styles';
-
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+
+import ConfettiGenerator from "confetti-js";
+
 
 // AwesomeSlider
 import AwesomeSlider from 'react-awesome-slider';
@@ -136,6 +128,7 @@ class Home extends React.Component {
     SPORT_3: 4
   }
 
+
   constructor(props) {
     super(props);
 
@@ -158,6 +151,10 @@ class Home extends React.Component {
     e.preventDefault();
     console.log('The link was clicked.');
     
+    // const confettiSettings = { target: 'my-canvas' };
+    // const confetti = new ConfettiGenerator(confettiSettings);
+    // confetti.render();
+
     let selected = 0;
     let open = false;
     let status = this.state.status;
@@ -202,59 +199,64 @@ class Home extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Container maxWidth="sm" style={{backgroundColor:'#E5E7E9', height: '100vh', padding: 0}}>
-        <CssBaseline />
-        <Box m={0} p ={0} className={classes.mainTitle}>
-            <b>Sport - Planner</b>
-            <div style={{fontSize: 14}}>Find New Sport</div>
-        </Box>
+      <div> 
+        <canvas id="my-canvas" style={{ position:'absolute', backgroundColor: 'transparent' }}></canvas>
+        <Container maxWidth="sm" style={{backgroundColor:'#E5E7E9', height: '100vh', padding: 0}}>
 
-        <Container maxWidth={false} style={{paddingTop: 20}}>
-
-          <Box mt={2} ml={3} mr={3} borderRadius={16} style={{color:'grey'}}>
-            <b>Try new Sport</b>
+          <CssBaseline />
+          <Box m={0} p ={0} className={classes.mainTitle}>
+              <b>Sport - Planner</b>
+              <div style={{fontSize: 14}}>Find New Sport</div>
           </Box>
 
-          <Box mt={2} ml={3} mr={3} borderRadius={16} style={{position: 'relative'}}>
-            <Box borderRadius={16} className={classNames(classes.title, classes.titlePosition)}>
-              Basketball
+          <Container maxWidth={false} style={{paddingTop: 20}}>
+
+            <Box mt={2} ml={3} mr={3} borderRadius={16} style={{color:'grey'}}>
+              <b>Try new Sport</b>
             </Box>
 
-            <AwesomeSlider cssModule={AwsSliderStyles} bullets={false} 
-                        organicArrows={false} 
-                        selected={this.state.selected}
-                        className={"aws-btn"}>
-              {this.image_list.map((item) => <div key={item} data-src={item}></div>)}
-            </AwesomeSlider>
+            <Box mt={2} ml={3} mr={3} borderRadius={16} style={{position: 'relative'}}>
+              <Box borderRadius={16} className={classNames(classes.title, classes.titlePosition)}>
+                Basketball
+              </Box>
 
-            <Box ml={20} mr={20} mt={0} mb={0} className={classNames(classes.link, classes.linkPosition)}>
-              <img height="100%" src={wikipediaImage} style={{borderRadius: '10px'}}></img>
-              <p className={classes.linkText}>More Info</p>
+              <AwesomeSlider cssModule={AwsSliderStyles} bullets={false} 
+                          organicArrows={false} 
+                          selected={this.state.selected}
+                          className={"aws-btn"}>
+                {this.image_list.map((item) => <div key={item} data-src={item}></div>)}
+              </AwesomeSlider>
+
+              <Box ml={20} mr={20} mt={0} mb={0} className={classNames(classes.link, classes.linkPosition)}>
+                <img height="100%" src={wikipediaImage} style={{borderRadius: '10px'}}></img>
+                <p className={classes.linkText}>More Info</p>
+              </Box>
             </Box>
-          </Box>
 
 
-          <Grid container spacing={3} className={classNames(classes.iconContainer)}>
-            <Grid item xs className={classNames(classes.icon)}>
-              <IconMenu mt={2} text="Undo" image={undoImage} onClick={(e) => this.handleClick(e)}></IconMenu>
-            </Grid>
-            <Grid item xs className={classNames(classes.icon)}>
-              <IconMenu mt={6} text="No Interest" image={noInterestImage} onClick={(e) => this.handleClick(e)}></IconMenu>
-            </Grid>
-            <Grid item xs className={classNames(classes.icon)}>
-              <IconMenu mt={6} text="Like To Try" image={likeToTryImage} onClick={(e) => this.handleClick(e)}></IconMenu>
-            </Grid>
-            <Grid item xs className={classNames(classes.icon)}>
-              <IconMenu mt={2} text="Play Already" image={alreadyPlayedImage} onClick={(e) => this.handleClick(e)}></IconMenu>
-            </Grid>
-          </Grid>            
+            <Grid container spacing={3} className={classNames(classes.iconContainer)}>
+              <Grid item xs className={classNames(classes.icon)}>
+                <IconMenu mt={2} text="Undo" image={undoImage} onClick={(e) => this.handleClick(e)}></IconMenu>
+              </Grid>
+              <Grid item xs className={classNames(classes.icon)}>
+                <IconMenu mt={6} text="No Interest" image={noInterestImage} onClick={(e) => this.handleClick(e)}></IconMenu>
+              </Grid>
+              <Grid item xs className={classNames(classes.icon)}>
+                <IconMenu mt={6} text="Like To Try" image={likeToTryImage} onClick={(e) => this.handleClick(e)}></IconMenu>
+              </Grid>
+              <Grid item xs className={classNames(classes.icon)}>
+                <IconMenu mt={2} text="Play Already" image={alreadyPlayedImage} onClick={(e) => this.handleClick(e)}></IconMenu>
+              </Grid>
+            </Grid>            
 
 
-          {/* <FriendDialog open={true} onClose={(e) => this.handleClose()} /> */}
+            {/* <FriendDialog open={true} onClose={(e) => this.handleClose()} /> */}
 
-          <FriendDialog open={this.state.open} onClose={(e) => this.handleClose()} />
+            <FriendDialog open={this.state.open} onClose={(e) => this.handleClose()} />
+          </Container>
         </Container>
-      </Container>
+
+      </div>
     );
   }
 }
