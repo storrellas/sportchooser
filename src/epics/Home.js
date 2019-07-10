@@ -92,12 +92,29 @@ const styles = theme => ({
   }
 });
 
+//////////////////////////////
+
+import AwesomeSlider from 'react-awesome-slider';
+import AwsSliderStyles from 'react-awesome-slider/src/styles';
+/*
+const slider = (
+  <AwesomeSlider cssModule={AwsSliderStyles}>
+    <div data-src="https://s7e5a.scene7.com/is/image/waitrose/FloristGiftsProductPod/811431_a_roses-agapanthus-lisianthus-811431" />
+    <div data-src="https://s7e5a.scene7.com/is/image/waitrose/FloristGiftsProductPod/407928_a_scented-meadow-bouquet-407928" />
+    <div data-src="https://s7e5a.scene7.com/is/image/waitrose/FloristGiftsProductPod/899378_a_summer-sunshine-bouquet-899378" />
+  </AwesomeSlider>
+);
+/**/
+
+//////////////////////////////
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       open: false,
+      selected: 0
     };
 
   }
@@ -105,7 +122,10 @@ class Home extends React.Component {
   handleClick(e){
     e.preventDefault();
     console.log('The link was clicked.');
-    this.setState({open: true})
+    //this.setState({open: true})
+    let selected = this.state.selected + 1; 
+    console.log(selected)
+    this.setState({selected: selected})
   }
 
   handleClose(){
@@ -129,6 +149,13 @@ class Home extends React.Component {
             <p className={classes.linkText}>More Info</p>
           </Box>
         </Box>
+
+
+        <AwesomeSlider cssModule={AwsSliderStyles} bullets={false} organicArrows={false} selected={this.state.selected}>
+          <div data-src="https://3.121.215.237/media/fixture/picture_salsa.jpg" />
+          <div data-src="https://3.121.215.237/media/fixture/picture_hurdles.jpg" />
+          <div data-src="https://3.121.215.237/media/fixture/picture_finswimming.jpg" />
+        </AwesomeSlider>
 
         <Grid container spacing={3} className={classNames(classes.iconContainer)}>
           <Grid item xs className={classNames(classes.icon)}>
@@ -163,7 +190,6 @@ class Home extends React.Component {
 
 
         <FriendDialog open={this.state.open} onClose={(e) => this.handleClose()} />
-
       </Container>
     );
   }
