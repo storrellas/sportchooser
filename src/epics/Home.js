@@ -128,28 +128,66 @@ class IconMenu extends React.Component {
 
 
 class Home extends React.Component {
+  status_enum = {
+    SPORT_0: 0,
+    SPORT_1: 1,
+    SPORT_2: 2,
+    ACCOUNT_INFO: 3,
+    SPORT_3: 4
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
       open: false,
-      selected: 0
+      selected: 0,
+      status: this.status_enum.SPORT_0
     };
+
+
+
+  
   }
 
   handleClick(e){
     e.preventDefault();
     console.log('The link was clicked.');
-    /*
-    let selected = this.state.selected + 1;
+    
+    let selected = 0;
     let open = false;
-    if( selected % 4 == 0){
-      selected = 1;
-      open = true;
+    let status = this.state.status;
+    switch(this.state.status){
+      case this.status_enum.SPORT_0:
+        selected = 1
+        status = this.status_enum.SPORT_1
+        break;
+      case this.status_enum.SPORT_1:
+        selected = 2
+        status = this.status_enum.SPORT_2
+        break;
+      case this.status_enum.SPORT_2:
+        selected = 3
+        status = this.status_enum.ACCOUNT_INFO
+        break;
+      case this.status_enum.ACCOUNT_INFO:
+        open = true
+        selected = 3
+        status = this.status_enum.SPORT_3
+        break;
+      case this.status_enum.SPORT_3:
+        selected = 1
+        status = this.status_enum.SPORT_1
+        break;
     }
-    this.setState({selected: selected, open: open})
-    /**/
-    this.setState({open: true})
+
+    const state = {
+      selected: selected, 
+      open: open,
+      status: status
+    }
+    console.log(state)
+    this.setState(state)    
   }
 
   handleClose(){
@@ -168,6 +206,10 @@ class Home extends React.Component {
         </Box>
 
         <Container maxWidth={false} style={{paddingTop: 20}}>
+
+          <Box mt={2} ml={3} mr={3} borderRadius={16} style={{color:'grey'}}>
+            <b>Try new Sport</b>
+          </Box>
 
           <Box mt={2} ml={3} mr={3} borderRadius={16} style={{position: 'relative'}}>
             <Box borderRadius={16} className={classNames(classes.title, classes.titlePosition)}>
