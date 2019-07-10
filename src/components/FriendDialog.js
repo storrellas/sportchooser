@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import TextField from '@material-ui/core/TextField';
 
+import Box from '@material-ui/core/Box';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -52,6 +53,13 @@ class FriendDialog extends React.Component {
     onClose(value);
   }
 
+  handleKeyPress(){
+    console.log('The link was closed')  
+    if(event.key === 'Enter'){
+      console.log('enter press here! ')
+    }  
+  };
+
   render() {
     const { classes, onClose, ...other } = this.props;
     return (
@@ -64,8 +72,6 @@ class FriendDialog extends React.Component {
             style={{borderRadius: '10px', position: 'absolute', 
                     top: -30, margin: 'auto', left: 0, right: 0}}>
         </img>
-
-
         <IconButton aria-label="Close" className={classes.closeButton} 
             onClick={onClose}>
           <CloseIcon />
@@ -74,27 +80,22 @@ class FriendDialog extends React.Component {
             Enter your friends codes to find out if your 
             friends want to try the same new sports
         </DialogTitle>
-        <List>
-          {emails.map(email => (
-            <ListItem button onClick={() => handleListItemClick(email)} key={email}>
-              <ListItemAvatar>
-                <Avatar className={classes.avatar}>
-                  <PersonIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={email} />
-            </ListItem>
-          ))}
 
-          <ListItem button onClick={() => handleListItemClick('addAccount')}>
-            <ListItemAvatar>
-              <Avatar>
-                <AddIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="add account" />
-          </ListItem>
-        </List>
+        <Box mt={2} ml={3} mr={3} borderRadius={16}>
+          <TextField
+            id="outlined-email-input"
+            label="Friend Code"
+            className={classes.textField}
+            type="text"
+            name="code"
+            autoComplete="email"
+            margin="normal"
+            variant="outlined"
+            style={{width: "100%"}}
+
+            onKeyPress={(e) => this.handleKeyPress(e)}
+          />
+        </Box>
       </Dialog>
     );
   }

@@ -250,6 +250,8 @@ class Home extends React.Component {
           </Grid>            
 
 
+          {/* <FriendDialog open={true} onClose={(e) => this.handleClose()} /> */}
+
           <FriendDialog open={this.state.open} onClose={(e) => this.handleClose()} />
         </Container>
       </Container>
