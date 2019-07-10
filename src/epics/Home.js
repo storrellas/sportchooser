@@ -17,10 +17,14 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
+// AwesomeSlider
+import AwesomeSlider from 'react-awesome-slider';
+import AwsSliderStyles from 'react-awesome-slider/src/styles';
+
 // Components
 import FriendDialog from '../components/FriendDialog';
 
-// Project imports
+// Images
 import sportImage from "../assets/img/tryasport/basket.jpg"
 import undoImage from "../assets/img/tryasport/undo.png"
 import noInterestImage from "../assets/img/tryasport/no_interest.png"
@@ -28,6 +32,8 @@ import likeToTryImage from "../assets/img/tryasport/like_to_try.png"
 import alreadyPlayedImage from "../assets/img/tryasport/already_played.png"
 import wikipediaImage from "../assets/img/tryasport/wikipedia.png"
 
+// Styles
+import "../styles/Home.scss";
 
 const styles = theme => ({
   root: {
@@ -55,7 +61,8 @@ const styles = theme => ({
     top: 30, 
     margin: 'auto', 
     left: 0, 
-    right: 0
+    right: 0,
+    zIndex: 200
   },
   link:{
     backgroundColor: 'grey', 
@@ -71,7 +78,8 @@ const styles = theme => ({
     bottom: -20,
     margin: 'auto', 
     left: '0', 
-    right: '0'
+    right: '0',
+    zIndex: 200
   },
   linkText: {
     marginLeft: 10,
@@ -92,22 +100,27 @@ const styles = theme => ({
   }
 });
 
-//////////////////////////////
+class IconMenu extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-import AwesomeSlider from 'react-awesome-slider';
-import AwsSliderStyles from 'react-awesome-slider/src/styles';
-import "../styles/Home.scss";
-/*
-const slider = (
-  <AwesomeSlider cssModule={AwsSliderStyles}>
-    <div data-src="https://s7e5a.scene7.com/is/image/waitrose/FloristGiftsProductPod/811431_a_roses-agapanthus-lisianthus-811431" />
-    <div data-src="https://s7e5a.scene7.com/is/image/waitrose/FloristGiftsProductPod/407928_a_scented-meadow-bouquet-407928" />
-    <div data-src="https://s7e5a.scene7.com/is/image/waitrose/FloristGiftsProductPod/899378_a_summer-sunshine-bouquet-899378" />
-  </AwesomeSlider>
-);
-/**/
+  render() {
+    const { text, image, mt, onClick } = this.props;
 
-//////////////////////////////
+    return (
+      <div>
+        <Box mt={mt} ml={3} mr={3} p={1} style={{backgroundColor:'white'}}  
+            borderRadius="50%" onClick={onClick}>
+            <img width="100%" height="100%" src={image}></img>  
+        </Box>
+        <p>{text}</p>
+      </div>
+    )
+  }
+}
+
 
 class Home extends React.Component {
   constructor(props) {
@@ -137,14 +150,23 @@ class Home extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Container maxWidth="sm" style={{backgroundColor:'#E5E7E9', height: '100vh'}}>
+      <Container maxWidth="sm" style={{backgroundColor:'#E5E7E9', height: '100vh', paddingTop: 20}}>
         <CssBaseline />
 
-        <Box mt={2} ml={3} mr={3} borderRadius={16} style={{backgroundColor: 'red', position: 'relative'}}>
+        <Box mt={2} ml={3} mr={3} borderRadius={16} style={{position: 'relative'}}>
           <Box borderRadius={16} className={classNames(classes.title, classes.titlePosition)}>
             Basketball
           </Box>
-          <img width="100%" src={sportImage} style={{borderRadius: '10px'}} ></img>
+
+          <AwesomeSlider cssModule={AwsSliderStyles} bullets={false} 
+                      organicArrows={false} 
+                      selected={this.state.selected}
+                      className={"aws-btn"}>
+            <div data-src="https://3.121.215.237/media/fixture/picture_salsa.jpg" />
+            <div data-src="https://3.121.215.237/media/fixture/picture_hurdles.jpg" />
+            <div data-src="https://3.121.215.237/media/fixture/picture_finswimming.jpg" />
+          </AwesomeSlider>
+
           <Box ml={20} mr={20} mt={0} mb={0} className={classNames(classes.link, classes.linkPosition)}>
             <img height="100%" src={wikipediaImage} style={{borderRadius: '10px'}}></img>
             <p className={classes.linkText}>More Info</p>
@@ -152,43 +174,43 @@ class Home extends React.Component {
         </Box>
 
 
-        <AwesomeSlider cssModule={AwsSliderStyles} bullets={false} 
-                      organicArrows={false} 
-                      selected={this.state.selected}
-                      className={"aws-btn"}>
-          <div data-src="https://3.121.215.237/media/fixture/picture_salsa.jpg" />
-          <div data-src="https://3.121.215.237/media/fixture/picture_hurdles.jpg" />
-          <div data-src="https://3.121.215.237/media/fixture/picture_finswimming.jpg" />
-        </AwesomeSlider>
-
         <Grid container spacing={3} className={classNames(classes.iconContainer)}>
           <Grid item xs className={classNames(classes.icon)}>
-            <Box mt={2} ml={3} mr={3} p={1} style={{backgroundColor:'white'}}  
+            {/* <Box mt={2} ml={3} mr={3} p={1} style={{backgroundColor:'white'}}  
                 borderRadius="50%" onClick={(e) => this.handleClick(e)}>
               <img width="100%" height="100%" src={undoImage}></img>  
             </Box>
-            <p>Undo</p>
+            <p>Undo</p> */}
+            <IconMenu mt={2} text="Undo" image={undoImage} onClick={(e) => this.handleClick(e)}></IconMenu>
+
           </Grid>
           <Grid item xs className={classNames(classes.icon)}>
-            <Box mt={6} ml={3} mr={3} p={1} style={{backgroundColor:'white'}}  
+            {/* <Box mt={6} ml={3} mr={3} p={1} style={{backgroundColor:'white'}}  
                 borderRadius="50%" onClick={(e) => this.handleClick(e)}>
               <img width="100%" height="100%" src={noInterestImage}></img>
             </Box>
-            <p>No interest</p>
+            <p>No interest</p> */}
+            <IconMenu mt={6} text="No Interest" image={noInterestImage} onClick={(e) => this.handleClick(e)}></IconMenu>
+
           </Grid>
           <Grid item xs className={classNames(classes.icon)}>
-            <Box mt={6} ml={3} mr={3} p={1} style={{backgroundColor:'white'}}  
+            {/* <Box mt={6} ml={3} mr={3} p={1} style={{backgroundColor:'white'}}  
                 borderRadius="50%" onClick={(e) => this.handleClick(e)}>
               <img width="100%" height="100%" src={likeToTryImage}></img>
             </Box>
-            <p>Like to try</p>
+            <p>Like to try</p> */}
+
+            <IconMenu mt={6} text="Like To Try" image={likeToTryImage} onClick={(e) => this.handleClick(e)}></IconMenu>
           </Grid>
           <Grid item xs className={classNames(classes.icon)}>
-            <Box mt={2} ml={3} mr={3} p={1} style={{backgroundColor:'white'}} 
+            {/* <Box mt={2} ml={3} mr={3} p={1} style={{backgroundColor:'white'}} 
                 borderRadius="50%" onClick={(e) => this.handleClick(e)}>
               <img width="100%" height="100%" src={alreadyPlayedImage}></img>
             </Box>
-            <p>Play Already</p>
+            <p>Play Already</p> */}
+
+            <IconMenu mt={2} text="Play Already" image={alreadyPlayedImage} onClick={(e) => this.handleClick(e)}></IconMenu>
+
           </Grid>
         </Grid>            
 
