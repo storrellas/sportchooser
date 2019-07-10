@@ -96,6 +96,7 @@ const styles = theme => ({
 
 import AwesomeSlider from 'react-awesome-slider';
 import AwsSliderStyles from 'react-awesome-slider/src/styles';
+import "../styles/Home.scss";
 /*
 const slider = (
   <AwesomeSlider cssModule={AwsSliderStyles}>
@@ -151,7 +152,10 @@ class Home extends React.Component {
         </Box>
 
 
-        <AwesomeSlider cssModule={AwsSliderStyles} bullets={false} organicArrows={false} selected={this.state.selected}>
+        <AwesomeSlider cssModule={AwsSliderStyles} bullets={false} 
+                      organicArrows={false} 
+                      selected={this.state.selected}
+                      className={"aws-btn"}>
           <div data-src="https://3.121.215.237/media/fixture/picture_salsa.jpg" />
           <div data-src="https://3.121.215.237/media/fixture/picture_hurdles.jpg" />
           <div data-src="https://3.121.215.237/media/fixture/picture_finswimming.jpg" />
