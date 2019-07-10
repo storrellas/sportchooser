@@ -16,6 +16,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 
+import friendsImage from "../assets/img/tryasport/friends.png"
+
+
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 const styles = theme => ({
   avatar: {
@@ -25,6 +28,8 @@ const styles = theme => ({
   dialogPaper: {
     minHeight: '80vh',
     maxHeight: '80vh',
+    position: 'relative',
+    overflowY: 'initial'
   },
   closeButton: {
     position: 'absolute',
@@ -50,12 +55,22 @@ class FriendDialog extends React.Component {
   render() {
     const { classes, onClose, ...other } = this.props;
     return (
-      <Dialog maxWidth="xs" fullWidth classes={{ paper: classes.dialogPaper }} onClose={onClose} aria-labelledby="simple-dialog-title" {...other}>
-            <IconButton aria-label="Close" className={classes.closeButton} 
-                onClick={onClose}>
-              <CloseIcon />
-            </IconButton>
-        <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 40}}>
+      <Dialog maxWidth="xs" fullWidth 
+              classes={{ paper: classes.dialogPaper }} onClose={onClose} 
+              aria-labelledby="simple-dialog-title" {...other}>
+
+
+        <img height="15%" src={friendsImage} 
+            style={{borderRadius: '10px', position: 'absolute', 
+                    top: -30, margin: 'auto', left: 0, right: 0}}>
+        </img>
+
+
+        <IconButton aria-label="Close" className={classes.closeButton} 
+            onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+        <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
             Enter your friends codes to find out if your 
             friends want to try the same new sports
         </DialogTitle>

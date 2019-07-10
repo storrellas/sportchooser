@@ -25,7 +25,6 @@ import AwsSliderStyles from 'react-awesome-slider/src/styles';
 import FriendDialog from '../components/FriendDialog';
 
 // Images
-import sportImage from "../assets/img/tryasport/basket.jpg"
 import undoImage from "../assets/img/tryasport/undo.png"
 import noInterestImage from "../assets/img/tryasport/no_interest.png"
 import likeToTryImage from "../assets/img/tryasport/like_to_try.png"
@@ -130,16 +129,21 @@ class Home extends React.Component {
       open: false,
       selected: 0
     };
-
   }
 
   handleClick(e){
     e.preventDefault();
     console.log('The link was clicked.');
-    //this.setState({open: true})
-    let selected = this.state.selected + 1; 
-    console.log(selected)
-    this.setState({selected: selected})
+    /*
+    let selected = this.state.selected + 1;
+    let open = false;
+    if( selected % 4 == 0){
+      selected = 1;
+      open = true;
+    }
+    this.setState({selected: selected, open: open})
+    /**/
+    this.setState({open: true})
   }
 
   handleClose(){
@@ -176,41 +180,16 @@ class Home extends React.Component {
 
         <Grid container spacing={3} className={classNames(classes.iconContainer)}>
           <Grid item xs className={classNames(classes.icon)}>
-            {/* <Box mt={2} ml={3} mr={3} p={1} style={{backgroundColor:'white'}}  
-                borderRadius="50%" onClick={(e) => this.handleClick(e)}>
-              <img width="100%" height="100%" src={undoImage}></img>  
-            </Box>
-            <p>Undo</p> */}
             <IconMenu mt={2} text="Undo" image={undoImage} onClick={(e) => this.handleClick(e)}></IconMenu>
-
           </Grid>
           <Grid item xs className={classNames(classes.icon)}>
-            {/* <Box mt={6} ml={3} mr={3} p={1} style={{backgroundColor:'white'}}  
-                borderRadius="50%" onClick={(e) => this.handleClick(e)}>
-              <img width="100%" height="100%" src={noInterestImage}></img>
-            </Box>
-            <p>No interest</p> */}
             <IconMenu mt={6} text="No Interest" image={noInterestImage} onClick={(e) => this.handleClick(e)}></IconMenu>
-
           </Grid>
           <Grid item xs className={classNames(classes.icon)}>
-            {/* <Box mt={6} ml={3} mr={3} p={1} style={{backgroundColor:'white'}}  
-                borderRadius="50%" onClick={(e) => this.handleClick(e)}>
-              <img width="100%" height="100%" src={likeToTryImage}></img>
-            </Box>
-            <p>Like to try</p> */}
-
             <IconMenu mt={6} text="Like To Try" image={likeToTryImage} onClick={(e) => this.handleClick(e)}></IconMenu>
           </Grid>
           <Grid item xs className={classNames(classes.icon)}>
-            {/* <Box mt={2} ml={3} mr={3} p={1} style={{backgroundColor:'white'}} 
-                borderRadius="50%" onClick={(e) => this.handleClick(e)}>
-              <img width="100%" height="100%" src={alreadyPlayedImage}></img>
-            </Box>
-            <p>Play Already</p> */}
-
             <IconMenu mt={2} text="Play Already" image={alreadyPlayedImage} onClick={(e) => this.handleClick(e)}></IconMenu>
-
           </Grid>
         </Grid>            
 
