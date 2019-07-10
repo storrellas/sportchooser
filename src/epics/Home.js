@@ -146,7 +146,11 @@ class Home extends React.Component {
     };
 
 
-
+    this.image_list = [
+      "https://3.121.215.237/media/fixture/picture_salsa.jpg",
+      "https://3.121.215.237/media/fixture/picture_hurdles.jpg",
+      "https://3.121.215.237/media/fixture/picture_finswimming.jpg"
+    ]
   
   }
 
@@ -220,9 +224,7 @@ class Home extends React.Component {
                         organicArrows={false} 
                         selected={this.state.selected}
                         className={"aws-btn"}>
-              <div data-src="https://3.121.215.237/media/fixture/picture_salsa.jpg" />
-              <div data-src="https://3.121.215.237/media/fixture/picture_hurdles.jpg" />
-              <div data-src="https://3.121.215.237/media/fixture/picture_finswimming.jpg" />
+              {this.image_list.map((item) => <div key={item} data-src={item}></div>)}
             </AwesomeSlider>
 
             <Box ml={20} mr={20} mt={0} mb={0} className={classNames(classes.link, classes.linkPosition)}>
