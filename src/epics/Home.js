@@ -43,6 +43,12 @@ const styles = theme => ({
     margin: 0,
     padding:0
   },
+  mainTitle:{
+    backgroundColor: 'orange',
+    textAlign: 'center',
+    fontSize: 16,
+    color: 'white'
+  },
   content: {
     marginTop: 20,
     padding:0
@@ -156,9 +162,9 @@ class Home extends React.Component {
     return (
       <Container maxWidth="sm" style={{backgroundColor:'#E5E7E9', height: '100vh', padding: 0}}>
         <CssBaseline />
-        <Box m={0} p ={0} style={{backgroundColor: 'orange'}}>
+        <Box m={0} p ={0} className={classes.mainTitle}>
             <b>Sport - Planner</b>
-            <p>Find New Sport</p>
+            <div style={{fontSize: 14}}>Find New Sport</div>
         </Box>
 
         <Container maxWidth={false} style={{paddingTop: 20}}>
