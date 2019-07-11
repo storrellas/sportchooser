@@ -212,6 +212,9 @@ class Home extends React.Component {
   };
 
   render() {
+    console.log("Rendering")
+
+
     const { classes } = this.props;
     return (
       <div> 
@@ -276,3 +279,5 @@ class Home extends React.Component {
   }
 }
 export default withStyles(styles)(Home);
+//export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home));
+
