@@ -36,5 +36,8 @@
     "webpack": "^4.35.3",
     "webpack-cli": "^3.1.1",
     "webpack-dev-server": "^3.1.14"
+  },
+  "devDependencies": {
+    "redux": "^4.0.4"
   }
 }

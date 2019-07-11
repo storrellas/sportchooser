@@ -118,6 +118,8 @@ class IconMenu extends React.Component {
   }
 }
 
+import store from "../redux/store/index";
+import { addArticle } from "../redux/actions/index";
 
 class Home extends React.Component {
   status_enum = {
@@ -145,6 +147,15 @@ class Home extends React.Component {
       "https://3.121.215.237/media/fixture/picture_finswimming.jpg"
     ]
   
+///////////////////////////////
+    console.log( store.getState() )
+    store.subscribe(() => { 
+      console.log('Look ma, Redux!!')
+      console.log( store.getState() )
+    })
+    store.dispatch( addArticle({ title: 'React Redux Tutorial for Beginners', id: 1 }) )
+///////////////////////////////
+
   }
 
   handleEnableConfetti(e){
