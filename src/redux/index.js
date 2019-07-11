@@ -4,12 +4,15 @@ import { createStore } from "redux";
 // Actions
 // ---------------------
 export const ADD_ARTICLE = "ADD_ARTICLE";
-export const ENABLE_CONFETTI = "ENABLED_CONFETTI";
+export const ENABLE_CONFETTI = "RENDER_CONFETTI";
 
 export function addArticle(payload) {
   return { type: ADD_ARTICLE, payload }
 };
 
+export function renderConfetti(payload = null) {
+  return { type: ENABLE_CONFETTI, payload }
+};
 
 // Reducers
 // ---------------------

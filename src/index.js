@@ -20,12 +20,43 @@ ReactDOM.render((
 ), document.getElementById('root'))
 /**/
 
+import ConfettiGenerator from "confetti-js";
+
+class Startup extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount(){
+    const confettiSettings = { target: 'my-canvas2' };
+    const confetti = new ConfettiGenerator(confettiSettings);
+    confetti.render();
+
+    setTimeout(() => { confetti.clear();}, 3000);
+  }
+
+  render() {
+    console.log("Rendering Confetti")
+    return (
+      <div>
+        <canvas id="my-canvas2" style={{ position:'absolute', backgroundColor: 'transparent' }}></canvas>
+        {this.props.children}
+      </div>
+    );
+  }
+}
+
+
+
 ReactDOM.render((
   <Provider store={store}>
-    <BrowserRouter>
-      <div>      
-        <Route path="/" exact component={Home} />
-      </div>
-    </BrowserRouter>
+    <Startup>
+      <BrowserRouter>
+        <div>      
+          <Route path="/" exact component={Home} />
+        </div>
+      </BrowserRouter>
+    </Startup>
   </Provider>
 ), document.getElementById('root'))

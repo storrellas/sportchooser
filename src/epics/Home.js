@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
-import ConfettiGenerator from "confetti-js";
+
 
 // React-redux
 import { connect } from "react-redux";
@@ -121,7 +121,7 @@ class IconMenu extends React.Component {
   }
 }
 
-import { addArticle } from "../redux";
+import { enableConfetti } from "../redux";
 
 const mapStateToProps = state => {
   return { articles: state.articles };
@@ -164,7 +164,7 @@ class Home extends React.Component {
     // const confettiSettings = { target: 'my-canvas' };
     // const confetti = new ConfettiGenerator(confettiSettings);
     // confetti.render();
-    this.props.addArticle({ "MyTitle": "MyId" });
+    this.props.renderConfetti({ "confetti" : true });
   }
 
   handleClick(e){
