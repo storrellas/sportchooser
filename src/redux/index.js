@@ -4,20 +4,21 @@ import { createStore } from "redux";
 // Actions
 // ---------------------
 export const ADD_ARTICLE = "ADD_ARTICLE";
-export const ENABLE_CONFETTI = "RENDER_CONFETTI";
+export const RENDER_CONFETTI = "RENDER_CONFETTI";
 
 export function addArticle(payload) {
   return { type: ADD_ARTICLE, payload }
 };
 
 export function renderConfetti(payload = null) {
-  return { type: ENABLE_CONFETTI, payload }
+  return { type: RENDER_CONFETTI, payload }
 };
 
 // Reducers
 // ---------------------
 const initialState = {
-  articles: []
+  articles: [],
+  confetti: false
 };
 
 export function rootReducer(state = initialState, action) {
@@ -25,6 +26,11 @@ export function rootReducer(state = initialState, action) {
   if (action.type === ADD_ARTICLE) {
     return Object.assign({}, state, {
       articles: state.articles.concat(action.payload)
+    });
+  }
+  if (action.type === RENDER_CONFETTI) {
+    return Object.assign({}, state, {
+      confetti: action.payload
     });
   }
   return state;

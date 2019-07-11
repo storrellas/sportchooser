@@ -121,14 +121,16 @@ class IconMenu extends React.Component {
   }
 }
 
-import { enableConfetti } from "../redux";
+import { renderConfetti } from "../redux";
+
 
 const mapStateToProps = state => {
   return { articles: state.articles };
 };
 function mapDispatchToProps(dispatch) {
   return {
-    addArticle: article => dispatch(addArticle(article))
+    addArticle: article => dispatch(addArticle(article)),
+    renderConfetti: enabled => dispatch(renderConfetti(enabled))
   };
 }
 
@@ -164,7 +166,10 @@ class Home extends React.Component {
     // const confettiSettings = { target: 'my-canvas' };
     // const confetti = new ConfettiGenerator(confettiSettings);
     // confetti.render();
-    this.props.renderConfetti({ "confetti" : true });
+    console.log("Dispatch renderConfetti -->")
+    this.props.renderConfetti( true );
+    setTimeout(() => { this.props.renderConfetti( false ); }, 3000);
+
   }
 
   handleClick(e){
