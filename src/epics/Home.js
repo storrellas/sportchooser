@@ -147,13 +147,17 @@ class Home extends React.Component {
   
   }
 
+  handleEnableConfetti(e){
+    const confettiSettings = { target: 'my-canvas' };
+    const confetti = new ConfettiGenerator(confettiSettings);
+    confetti.render();
+  }
+
   handleClick(e){
     e.preventDefault();
     console.log('The link was clicked.');
     
-    // const confettiSettings = { target: 'my-canvas' };
-    // const confetti = new ConfettiGenerator(confettiSettings);
-    // confetti.render();
+
 
     let selected = 0;
     let open = false;
@@ -245,7 +249,7 @@ class Home extends React.Component {
                 <IconMenu mt={6} text="Like To Try" image={likeToTryImage} onClick={(e) => this.handleClick(e)}></IconMenu>
               </Grid>
               <Grid item xs className={classNames(classes.icon)}>
-                <IconMenu mt={2} text="Play Already" image={alreadyPlayedImage} onClick={(e) => this.handleClick(e)}></IconMenu>
+                <IconMenu mt={2} text="Play Already" image={alreadyPlayedImage} onClick={(e) => this.handleEnableConfetti(e)}></IconMenu>
               </Grid>
             </Grid>            
 
