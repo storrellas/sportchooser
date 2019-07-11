@@ -121,7 +121,7 @@ class IconMenu extends React.Component {
   }
 }
 
-import { addArticle } from "../redux/actions";
+import { addArticle } from "../redux";
 
 const mapStateToProps = state => {
   return { articles: state.articles };
