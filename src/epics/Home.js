@@ -8,6 +8,9 @@ import Container from '@material-ui/core/Container';
 
 import ConfettiGenerator from "confetti-js";
 
+// React-redux
+import { connect } from "react-redux";
+
 
 // AwesomeSlider
 import AwesomeSlider from 'react-awesome-slider';
@@ -118,8 +121,16 @@ class IconMenu extends React.Component {
   }
 }
 
-import store from "../redux/store/index";
-import { addArticle } from "../redux/actions/index";
+import { addArticle } from "../redux/actions";
+
+const mapStateToProps = state => {
+  return { articles: state.articles };
+};
+function mapDispatchToProps(dispatch) {
+  return {
+    addArticle: article => dispatch(addArticle(article))
+  };
+}
 
 class Home extends React.Component {
   status_enum = {
@@ -147,21 +158,13 @@ class Home extends React.Component {
       "https://3.121.215.237/media/fixture/picture_finswimming.jpg"
     ]
   
-///////////////////////////////
-    console.log( store.getState() )
-    store.subscribe(() => { 
-      console.log('Look ma, Redux!!')
-      console.log( store.getState() )
-    })
-    store.dispatch( addArticle({ title: 'React Redux Tutorial for Beginners', id: 1 }) )
-///////////////////////////////
-
   }
 
   handleEnableConfetti(e){
-    const confettiSettings = { target: 'my-canvas' };
-    const confetti = new ConfettiGenerator(confettiSettings);
-    confetti.render();
+    // const confettiSettings = { target: 'my-canvas' };
+    // const confetti = new ConfettiGenerator(confettiSettings);
+    // confetti.render();
+    this.props.addArticle({ "MyTitle": "MyId" });
   }
 
   handleClick(e){
@@ -212,7 +215,8 @@ class Home extends React.Component {
   };
 
   render() {
-    console.log("Rendering")
+    console.log("Rendering", this.props.articles)
+
 
 
     const { classes } = this.props;
@@ -278,6 +282,6 @@ class Home extends React.Component {
     );
   }
 }
-export default withStyles(styles)(Home);
-//export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home));
+//export default withStyles(styles)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home));
 

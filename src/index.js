@@ -4,6 +4,9 @@ import ReactDOM from "react-dom";
 import Home from "./epics/Home.js";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
+// Redux
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 /*
 ReactDOM.render((
@@ -18,9 +21,11 @@ ReactDOM.render((
 /**/
 
 ReactDOM.render((
-  <BrowserRouter>
-    <div>      
-      <Route path="/" exact component={Home} />
-    </div>
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <div>      
+        <Route path="/" exact component={Home} />
+      </div>
+    </BrowserRouter>
+  </Provider>
 ), document.getElementById('root'))
