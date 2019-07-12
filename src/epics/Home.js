@@ -259,9 +259,9 @@ class Home extends React.Component {
                 <p className={classes.linkText}>More Info</p>
               </Box>
             </Box>
+          </Container>
 
-
-            <Grid container spacing={3} className={classNames(classes.iconContainer)}>
+          <Grid container spacing={0} className={classNames(classes.iconContainer)}>
               <Grid item xs className={classNames(classes.icon)}>
                 <IconMenu mt={2} text="Undo" image={undoImage} onClick={(e) => this.handleClick(e)}></IconMenu>
               </Grid>
@@ -280,7 +280,7 @@ class Home extends React.Component {
             {/* <FriendDialog open={true} onClose={(e) => this.handleClose()} /> */}
 
             <FriendDialog open={this.state.open} onClose={(e) => this.handleClose()} />
-          </Container>
+
         </Container>
 
       </div>
