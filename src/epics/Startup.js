@@ -1,5 +1,6 @@
 import React from "react";
-import ConfettiGenerator from "confetti-js";
+//import ConfettiGenerator from "confetti-js";
+import ConfettiGenerator from "../components/Confetti";
 
 // React-redux
 import { connect } from "react-redux";
@@ -12,25 +13,32 @@ const mapStateToProps = state => {
 class Startup extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      zIndex: 1000
+    }
 
     // Confetti holder    
     this.confetti = null
+    this.confettiSettings = { target: 'my-canvas' }
   }
 
   componentDidMount(){
 
     // Create confetti object
-    const confettiSettings = { target: 'my-canvas2' };
-    this.confetti = new ConfettiGenerator(confettiSettings);
+    this.confetti = new ConfettiGenerator(this.confettiSettings);
   }
 
   componentDidUpdate(){
-    //console.log("Startup: ComponentDidUpdate", this.props.confetti)
+    console.log("Startup: ComponentDidUpdate", this.props.confetti)
+    console.log("Startup: ComponentDidUpdate", this.confetti)
 
+    
     if(this.props.confetti){
+      this.state.zIndex = 1000
       this.confetti.render();
     }else{
+      this.confettiSettings.width = 0
+      this.confettiSettings.height = 0
       this.confetti.clear();
     }
 
@@ -38,10 +46,10 @@ class Startup extends React.Component {
   }
 
   render() {
-    //console.log("Startup: Render Startup", this.props)
+    console.log("Startup: Render Startup", this.props)
     return (
       <div>
-        <canvas id="my-canvas2" style={{ position:'absolute', backgroundColor: 'transparent' }}></canvas>
+        <canvas id="my-canvas" width={200} height={200} style={{ position:'absolute', backgroundColor: 'transparent', zIndex: this.state.zIndex }}></canvas>
         {this.props.children}
       </div>
     );

@@ -123,6 +123,7 @@ class IconMenu extends React.Component {
   }
 }
 
+
 //import { store, renderConfetti } from "../redux";
 //import store from "../redux";
 // const mapStateToProps = state => {
@@ -156,15 +157,7 @@ class Home extends React.Component {
         { name: 'sport', picture: 'https://3.121.215.237/media/default/placeholder_sport.jpg' }
       ]
     };
-
-    /*
-    this.image_list = [
-      "https://3.121.215.237/media/fixture/picture_salsa.jpg",
-      "https://3.121.215.237/media/fixture/picture_hurdles.jpg",
-      "https://3.121.215.237/media/fixture/picture_finswimming.jpg"
-    ]
-    /**/
-  
+ 
   }
 
   async componentDidMount(){
@@ -178,7 +171,7 @@ class Home extends React.Component {
     })
     const data = await response.json()
     console.log(data)
-    this.setState({ sport_list: data })
+    this.setState({ sport_list: data, selected: 1 })
     this.forceUpdate();
   }
 
@@ -188,8 +181,10 @@ class Home extends React.Component {
     // confetti.render();
     console.log("Dispatch renderConfetti -->")
     //this.props.renderConfetti( true );
+    //setTimeout(() => { this.props.renderConfetti( false ); }, 3000);
+
     store.dispatch( renderConfetti(true) )
-    setTimeout(() => { this.props.renderConfetti( false ); }, 3000);
+    setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
 
   }
 
@@ -199,32 +194,35 @@ class Home extends React.Component {
     
 
 
-    let selected = 0;
-    let open = false;
-    let status = this.state.status;
-    switch(this.state.status){
-      case this.status_enum.SPORT_0:
-        selected = 1
-        status = this.status_enum.SPORT_1
-        break;
-      case this.status_enum.SPORT_1:
-        selected = 2
-        status = this.status_enum.SPORT_2
-        break;
-      case this.status_enum.SPORT_2:
-        selected = 3
-        status = this.status_enum.ACCOUNT_INFO
-        break;
-      case this.status_enum.ACCOUNT_INFO:
-        open = true
-        selected = 3
-        status = this.status_enum.SPORT_3
-        break;
-      case this.status_enum.SPORT_3:
-        selected = 1
-        status = this.status_enum.SPORT_1
-        break;
-    }
+    //let selected = 0;
+    // let open = false;
+    // let status = this.state.status;
+    // switch(this.state.status){
+    //   case this.status_enum.SPORT_0:
+    //     selected = 1
+    //     status = this.status_enum.SPORT_1
+    //     break;
+    //   case this.status_enum.SPORT_1:
+    //     selected = 2
+    //     status = this.status_enum.SPORT_2
+    //     break;
+    //   case this.status_enum.SPORT_2:
+    //     selected = 3
+    //     status = this.status_enum.ACCOUNT_INFO
+    //     break;
+    //   case this.status_enum.ACCOUNT_INFO:
+    //     open = true
+    //     selected = 3
+    //     status = this.status_enum.SPORT_3
+    //     break;
+    //   case this.status_enum.SPORT_3:
+    //     selected = 1
+    //     status = this.status_enum.SPORT_1
+    //     break;
+    // }
+    let selected = this.state.selected
+    selected = selected +1
+    var open = false
 
     const state = {
       selected: selected, 
@@ -242,14 +240,11 @@ class Home extends React.Component {
 
   render() {
     console.log("rendering home", this.state.sport_list)
-
-    const test = this.state.sport_list.map((item) => <div key={item.name} data-src={item.picture}></div>)
-    console.log("test", test)
-
     const { classes } = this.props;
+    const { sport_list,selected } = this.state;
+    const selected_sport = sport_list[selected].name
     return (
       <div> 
-        <canvas id="my-canvas" style={{ position:'absolute', backgroundColor: 'transparent' }}></canvas>
         <Container maxWidth="sm" style={{backgroundColor:'#E5E7E9', height: '100vh', padding: 0}}>
 
           <CssBaseline />
@@ -266,18 +261,15 @@ class Home extends React.Component {
 
             <Box mt={2} ml={3} mr={3} borderRadius={16} style={{position: 'relative'}}>
               <Box borderRadius={16} className={classNames(classes.title, classes.titlePosition)}>
-                Basketball
+                {selected_sport}
               </Box>
 
               <AwesomeSlider cssModule={AwsSliderStyles} bullets={false} 
                           organicArrows={false} 
                           selected={this.state.selected}
                           className={"aws-btn"}>
-                {this.state.sport_list.map((item) => <div key={item.name} data-src={item.picture}></div>)}
+                {sport_list.map((item) => <div key={item.name} data-src={item.picture}></div>)}
               </AwesomeSlider>
-
-{this.state.sport_list.map((item) => <img height="100%" key={item.name} src={item.picture} style={{borderRadius: '10px'}}></img>)}
-
               <Box ml={20} mr={20} mt={0} mb={0} className={classNames(classes.link, classes.linkPosition)}>
                 <img height="100%" src={wikipediaImage} style={{borderRadius: '10px'}}></img>
                 <p className={classes.linkText}>More Info</p>
