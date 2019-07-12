@@ -220,9 +220,9 @@ class Home extends React.Component {
     //     status = this.status_enum.SPORT_1
     //     break;
     // }
-    let selected = this.state.selected
-    selected = selected +1
-    var open = false
+    // let selected = this.state.selected
+    // selected = selected +1
+    var open = true
 
     const state = {
       selected: selected, 
