@@ -6,10 +6,12 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
-
+// Redux
+import { store, renderConfetti } from "../redux";
 
 // React-redux
 import { connect } from "react-redux";
+
 
 
 // AwesomeSlider
@@ -121,18 +123,17 @@ class IconMenu extends React.Component {
   }
 }
 
-import { renderConfetti } from "../redux";
-
-
-const mapStateToProps = state => {
-  return { articles: state.articles };
-};
-function mapDispatchToProps(dispatch) {
-  return {
-    addArticle: article => dispatch(addArticle(article)),
-    renderConfetti: enabled => dispatch(renderConfetti(enabled))
-  };
-}
+//import { store, renderConfetti } from "../redux";
+//import store from "../redux";
+// const mapStateToProps = state => {
+//   return { articles: state.articles };
+// };
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     addArticle: article => dispatch(addArticle(article)),
+//     renderConfetti: enabled => dispatch(renderConfetti(enabled))
+//   };
+// }
 
 class Home extends React.Component {
   status_enum = {
@@ -150,16 +151,35 @@ class Home extends React.Component {
     this.state = {
       open: false,
       selected: 0,
-      status: this.status_enum.SPORT_0
+      status: this.status_enum.SPORT_0,
+      sport_list: [
+        { name: 'sport', picture: 'https://3.121.215.237/media/default/placeholder_sport.jpg' }
+      ]
     };
 
-
+    /*
     this.image_list = [
       "https://3.121.215.237/media/fixture/picture_salsa.jpg",
       "https://3.121.215.237/media/fixture/picture_hurdles.jpg",
       "https://3.121.215.237/media/fixture/picture_finswimming.jpg"
     ]
+    /**/
   
+  }
+
+  async componentDidMount(){
+
+    const response = await fetch('https://3.121.215.237/api/sport/?lan=en', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }        
+    })
+    const data = await response.json()
+    console.log(data)
+    this.setState({ sport_list: data })
+    this.forceUpdate();
   }
 
   handleEnableConfetti(e){
@@ -167,7 +187,8 @@ class Home extends React.Component {
     // const confetti = new ConfettiGenerator(confettiSettings);
     // confetti.render();
     console.log("Dispatch renderConfetti -->")
-    this.props.renderConfetti( true );
+    //this.props.renderConfetti( true );
+    store.dispatch( renderConfetti(true) )
     setTimeout(() => { this.props.renderConfetti( false ); }, 3000);
 
   }
@@ -220,9 +241,10 @@ class Home extends React.Component {
   };
 
   render() {
-    console.log("Rendering", this.props.articles)
+    console.log("rendering home", this.state.sport_list)
 
-
+    const test = this.state.sport_list.map((item) => <div key={item.name} data-src={item.picture}></div>)
+    console.log("test", test)
 
     const { classes } = this.props;
     return (
@@ -251,8 +273,10 @@ class Home extends React.Component {
                           organicArrows={false} 
                           selected={this.state.selected}
                           className={"aws-btn"}>
-                {this.image_list.map((item) => <div key={item} data-src={item}></div>)}
+                {this.state.sport_list.map((item) => <div key={item.name} data-src={item.picture}></div>)}
               </AwesomeSlider>
+
+{this.state.sport_list.map((item) => <img height="100%" key={item.name} src={item.picture} style={{borderRadius: '10px'}}></img>)}
 
               <Box ml={20} mr={20} mt={0} mb={0} className={classNames(classes.link, classes.linkPosition)}>
                 <img height="100%" src={wikipediaImage} style={{borderRadius: '10px'}}></img>
@@ -287,6 +311,6 @@ class Home extends React.Component {
     );
   }
 }
-//export default withStyles(styles)(Home);
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home));
+export default withStyles(styles)(Home);
+//export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home));
 
