@@ -22,18 +22,12 @@ class Startup extends React.Component {
     this.confettiSettings = { target: 'my-canvas' }
   }
 
-  componentDidMount(){
+  componentDidMount(){}
 
-    // Create confetti object
-    this.confetti = new ConfettiGenerator(this.confettiSettings);
-  }
-
-  componentDidUpdate(){
-    console.log("Startup: ComponentDidUpdate", this.props.confetti)
-    console.log("Startup: ComponentDidUpdate", this.confetti)
-
-    
+  componentDidUpdate(){   
     if(this.props.confetti){
+      // Create confetti object
+      this.confetti = new ConfettiGenerator(this.confettiSettings);
       this.state.zIndex = 1000
       this.confetti.render();
     }else{
@@ -41,12 +35,9 @@ class Startup extends React.Component {
       this.confettiSettings.height = 0
       this.confetti.clear();
     }
-
-    //setTimeout(() => { confetti.clear();}, 3000);
   }
 
   render() {
-    console.log("Startup: Render Startup", this.props)
     return (
       <div>
         <canvas id="my-canvas" width={200} height={200} style={{ position:'absolute', backgroundColor: 'transparent', zIndex: this.state.zIndex }}></canvas>

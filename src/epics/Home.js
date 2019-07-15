@@ -154,7 +154,11 @@ class Home extends React.Component {
       selected: 0,
       status: this.status_enum.SPORT_0,
       sport_list: [
-        { name: 'sport', picture: 'https://3.121.215.237/media/default/placeholder_sport.jpg' }
+        { name: 'sport', 
+          images: [
+              {picture:'https://3.121.215.237/media/default/placeholder_sport.jpg' }
+          ]
+        }
       ]
     };
  
@@ -220,16 +224,27 @@ class Home extends React.Component {
     //     status = this.status_enum.SPORT_1
     //     break;
     // }
-    // let selected = this.state.selected
-    // selected = selected +1
-    var open = true
+    let selected = this.state.selected
+    selected = selected +1
+    var open = false
 
     const state = {
       selected: selected, 
       open: open,
       status: status
     }
-    console.log(state)
+    this.setState(state)    
+  }
+
+  handleOpen(e){
+    e.preventDefault();
+    console.log('The link was clicked.');
+
+    var open = true
+
+    const state = {
+      open: open
+    }
     this.setState(state)    
   }
 
@@ -243,6 +258,7 @@ class Home extends React.Component {
     const { classes } = this.props;
     const { sport_list,selected } = this.state;
     const selected_sport = sport_list[selected].name
+
     return (
       <div> 
         <Container maxWidth="sm" style={{backgroundColor:'#E5E7E9', height: '100vh', padding: 0}}>
@@ -268,7 +284,7 @@ class Home extends React.Component {
                           organicArrows={false} 
                           selected={this.state.selected}
                           className={"aws-btn"}>
-                {sport_list.map((item) => <div key={item.name} data-src={item.picture}></div>)}
+                {sport_list.map((item) => <div key={item.name} data-src={item.images[0].picture}></div>)}
               </AwesomeSlider>
               <Box ml={20} mr={20} mt={0} mb={0} className={classNames(classes.link, classes.linkPosition)}>
                 <img height="100%" src={wikipediaImage} style={{borderRadius: '10px'}}></img>
