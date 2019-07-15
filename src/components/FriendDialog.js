@@ -11,8 +11,6 @@ import Dialog from '@material-ui/core/Dialog';
 // Project import
 import friendsImage from "../assets/img/tryasport/friends.png"
 
-import ConfettiGenerator from "../components/Confetti";
-
 // Redux
 import { store, renderConfetti } from "../redux";
 
@@ -59,12 +57,6 @@ class FriendDialog extends React.Component {
       // Launch confetti
       store.dispatch( renderConfetti(true) )
       setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
-
-      // this.confettiSettings = { target: 'my-canvas' }
-      // this.confetti = new ConfettiGenerator(this.confettiSettings);
-      // this.state.zIndex = 1500
-      // this.confetti.render();
-
     }  
   };
 

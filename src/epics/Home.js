@@ -64,12 +64,12 @@ const styles = theme => ({
     fontWeight: 'bold',
     backgroundColor: '#3498DB',
     textAlign: 'center',
-    fontSize: '20px',
+    fontSize: '1.5em',
   },
   titlePosition: {
     position: 'absolute', 
-    width:'45%', 
-    top: 30, 
+    width:'55%', 
+    top: 15, 
     margin: 'auto', 
     left: 0, 
     right: 0,
@@ -78,23 +78,27 @@ const styles = theme => ({
   link:{
     backgroundColor: 'grey', 
     borderRadius: 10,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center'
   },
   linkPosition:{
     position: 'absolute', 
     height: "15%",
-    width: "35%", 
-    bottom: -20,
+    width: "45%", 
+    bottom: -35,
     margin: 'auto', 
     left: '0', 
     right: '0',
     zIndex: 200
   },
+  linkContainer:{
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width:"100%", 
+    height:"100%"
+  },
   linkText: {
     marginLeft: 10,
-    fontSize: 15,
+    fontSize: '1em',
     fontWeight: 'bold'
   },
   iconContainer:{
@@ -259,8 +263,10 @@ class Home extends React.Component {
                       {sport_list.map((item) => <div key={item.name} data-src={item.images[0].picture}></div>)}
                     </AwesomeSlider>
                     <Box ml={20} mr={20} mt={0} mb={0} className={classNames(classes.link, classes.linkPosition)}>
-                      <img height="100%" src={wikipediaImage} style={{borderRadius: '10px'}}></img>
-                      <p className={classes.linkText}>More Info</p>
+                      <a href={sport_list[selected].url} className={classNames(classes.linkContainer)}>
+                        <img height="100%" src={wikipediaImage} style={{borderRadius: '10px'}}></img>
+                        <div className={classes.linkText}>More Info</div>
+                      </a>
                     </Box>
                 </div>;
     }
