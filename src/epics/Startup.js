@@ -14,7 +14,7 @@ class Startup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      zIndex: 1000
+      zIndex: 1500
     }
 
     // Confetti holder    
@@ -28,7 +28,7 @@ class Startup extends React.Component {
     if(this.props.confetti){
       // Create confetti object
       this.confetti = new ConfettiGenerator(this.confettiSettings);
-      this.state.zIndex = 1000
+      this.state.zIndex = 1500
       this.confetti.render();
     }else{
       this.confettiSettings.width = 0

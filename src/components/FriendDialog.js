@@ -11,7 +11,10 @@ import Dialog from '@material-ui/core/Dialog';
 // Project import
 import friendsImage from "../assets/img/tryasport/friends.png"
 
+import ConfettiGenerator from "../components/Confetti";
 
+// Redux
+import { store, renderConfetti } from "../redux";
 
 const styles = theme => ({
   avatar: {
@@ -35,6 +38,9 @@ const styles = theme => ({
 class FriendDialog extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      zIndex: 1000
+    }
   }
 
   handleClose() {
@@ -54,6 +60,11 @@ class FriendDialog extends React.Component {
       store.dispatch( renderConfetti(true) )
       setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
 
+      // this.confettiSettings = { target: 'my-canvas' }
+      // this.confetti = new ConfettiGenerator(this.confettiSettings);
+      // this.state.zIndex = 1500
+      // this.confetti.render();
+
     }  
   };
 
@@ -63,6 +74,7 @@ class FriendDialog extends React.Component {
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
               aria-labelledby="simple-dialog-title" {...other}>
+        <canvas id="my-canvas" width={200} height={200} style={{ position:'absolute', backgroundColor: 'transparent', zIndex: this.state.zIndex }}></canvas>
 
 
         <img height="15%" src={friendsImage} 
