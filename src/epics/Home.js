@@ -151,13 +151,14 @@ class Home extends React.Component {
 
     this.state = {
       open: false,
-      selected: 0,
+      selected: 1,
       status: this.status_enum.SPORT_0,
       sport_list: [
         { name: 'sport', 
-          images: [
-              {picture:'https://3.121.215.237/media/default/placeholder_sport.jpg' }
-          ]
+          images: [{picture:'https://3.121.215.237/media/default/placeholder_sport.jpg' }]
+        },
+        { name: 'sport2', 
+          images: [{picture:'https://3.121.215.237/media/default/placeholder_sport.jpg' }]
         }
       ]
     };
@@ -175,8 +176,8 @@ class Home extends React.Component {
     })
     const data = await response.json()
     console.log(data)
-    this.setState({ sport_list: data, selected: 1 })
-    this.forceUpdate();
+    this.setState({ sport_list: data, selected: 0 })
+    //this.forceUpdate();
   }
 
   handleEnableConfetti(e){
@@ -198,14 +199,16 @@ class Home extends React.Component {
 
     // Decide selected action
     let selected = this.state.selected - 1
-    if( selected - 1  < 1 )
+    if( selected < 0 )
       selected = this.state.sport_list.length - 1
+
+    //console.log(selected)
     this.setState({ selected: selected })    
   }
 
   handleSportClick(e){
     e.preventDefault();
-    console.log('The link was clicked.');
+    //console.log('The link was clicked.');
     
 
 
@@ -236,7 +239,7 @@ class Home extends React.Component {
     //     break;
     // }
     let selected = this.state.selected
-    selected = selected +1
+    selected = selected + 1
     var open = false
 
     const state = {
@@ -265,10 +268,11 @@ class Home extends React.Component {
   };
 
   render() {
-    console.log("rendering home", this.state.sport_list)
     const { classes } = this.props;
     const { sport_list,selected } = this.state;
     const selected_sport = sport_list[selected].name
+
+    console.log("Rendering: ", selected)
 
     return (
       <div> 
