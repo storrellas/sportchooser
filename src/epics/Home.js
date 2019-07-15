@@ -192,7 +192,18 @@ class Home extends React.Component {
 
   }
 
-  handleClick(e){
+  handleUndo(e){
+    e.preventDefault();
+    console.log('Undo clicked');
+
+    // Decide selected action
+    let selected = this.state.selected - 1
+    if( selected - 1  < 1 )
+      selected = this.state.sport_list.length - 1
+    this.setState({ selected: selected })    
+  }
+
+  handleSportClick(e){
     e.preventDefault();
     console.log('The link was clicked.');
     
@@ -295,13 +306,13 @@ class Home extends React.Component {
 
           <Grid container spacing={0} className={classNames(classes.iconContainer)}>
               <Grid item xs className={classNames(classes.icon)}>
-                <IconMenu mt={2} text="Undo" image={undoImage} onClick={(e) => this.handleClick(e)}></IconMenu>
+                <IconMenu mt={2} text="Undo" image={undoImage} onClick={(e) => this.handleUndo(e)}></IconMenu>
               </Grid>
               <Grid item xs className={classNames(classes.icon)}>
-                <IconMenu mt={6} text="No Interest" image={noInterestImage} onClick={(e) => this.handleClick(e)}></IconMenu>
+                <IconMenu mt={6} text="No Interest" image={noInterestImage} onClick={(e) => this.handleSportClick(e)}></IconMenu>
               </Grid>
               <Grid item xs className={classNames(classes.icon)}>
-                <IconMenu mt={6} text="Like To Try" image={likeToTryImage} onClick={(e) => this.handleClick(e)}></IconMenu>
+                <IconMenu mt={6} text="Like To Try" image={likeToTryImage} onClick={(e) => this.handleSportClick(e)}></IconMenu>
               </Grid>
               <Grid item xs className={classNames(classes.icon)}>
                 <IconMenu mt={2} text="Play Already" image={alreadyPlayedImage} onClick={(e) => this.handleEnableConfetti(e)}></IconMenu>
