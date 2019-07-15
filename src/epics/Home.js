@@ -43,7 +43,11 @@ const styles = theme => ({
     padding:0
   },
   loadingContainer:{
-
+    height: '100%', 
+    borderRadius: 16, 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center'
   },
   mainTitle:{
     backgroundColor: 'orange',
@@ -238,11 +242,11 @@ class Home extends React.Component {
 
 
     console.log("Rendering: ", selected)
-    
+
     // Determine whether loading or spinner
-    let sport_box = <Box mt={2} borderRadius={16} style={{height: '30vh', backgroundColor: '#D5DBDB', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+    let sport_box = <div className={classNames(classes.loadingContainer)}>
                       <CircularProgress/>
-                    </Box>;
+                    </div>;                                        
     if(sport_list.length > 0){
       sport_box = <div>
                     <Box borderRadius={16} className={classNames(classes.title, classes.titlePosition)}>
@@ -260,7 +264,7 @@ class Home extends React.Component {
                     </Box>
                 </div>;
     }
-   
+
     return (
       <div> 
         <Container maxWidth="sm" style={{backgroundColor:'#E5E7E9', height: '100vh', padding: 0}}>
@@ -277,7 +281,7 @@ class Home extends React.Component {
               <b>Try new Sport</b>
             </Box>
 
-            <Box mt={2} ml={3} mr={3} borderRadius={16} style={{position: 'relative'}}>
+            <Box mt={2} ml={3} mr={3} borderRadius={16} style={{position: 'relative', backgroundColor: '#D5DBDB', height: '30vh'}}>
               {sport_box}
             </Box>
           </Container>
