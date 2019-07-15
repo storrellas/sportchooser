@@ -11,6 +11,8 @@ import Dialog from '@material-ui/core/Dialog';
 // Project import
 import friendsImage from "../assets/img/tryasport/friends.png"
 
+
+
 const styles = theme => ({
   avatar: {
     backgroundColor: 'red',
@@ -47,6 +49,11 @@ class FriendDialog extends React.Component {
     console.log('The link was closed')  
     if(event.key === 'Enter'){
       console.log('enter press here! ')
+
+      // Launch confetti
+      store.dispatch( renderConfetti(true) )
+      setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
+
     }  
   };
 

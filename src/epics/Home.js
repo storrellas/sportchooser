@@ -191,8 +191,8 @@ class Home extends React.Component {
     //this.props.renderConfetti( true );
     //setTimeout(() => { this.props.renderConfetti( false ); }, 3000);
 
-    store.dispatch( renderConfetti(true) )
-    setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
+    // store.dispatch( renderConfetti(true) )
+    // setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
 
   }
 
