@@ -5,6 +5,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 // Redux
 import { store, renderConfetti } from "../redux";
@@ -39,6 +41,9 @@ const styles = theme => ({
     backgroundColor: 'yellow',
     margin: 0,
     padding:0
+  },
+  loadingContainer:{
+
   },
   mainTitle:{
     backgroundColor: 'orange',
@@ -137,30 +142,24 @@ class IconMenu extends React.Component {
 // }
 
 class Home extends React.Component {
-  status_enum = {
-    SPORT_0: 0,
-    SPORT_1: 1,
-    SPORT_2: 2,
-    ACCOUNT_INFO: 3,
-    SPORT_3: 4
-  }
+  // status_enum = {
+  //   SPORT_0: 0,
+  //   SPORT_1: 1,
+  //   SPORT_2: 2,
+  //   ACCOUNT_INFO: 3,
+  //   SPORT_3: 4
+  // }
 
 
   constructor(props) {
     super(props);
 
     this.state = {
-      open: false,
       selected: 1,
-      status: this.status_enum.SPORT_0,
-      sport_list: [
-        { name: 'sport', 
-          images: [{picture:'https://3.121.215.237/media/default/placeholder_sport.jpg' }]
-        },
-        { name: 'sport2', 
-          images: [{picture:'https://3.121.215.237/media/default/placeholder_sport.jpg' }]
-        }
-      ]
+      user_prompt_space: 3,
+      user_prompt_counter : 0,
+      user_prompt_open: false,
+      sport_list: []
     };
  
   }
@@ -209,71 +208,59 @@ class Home extends React.Component {
   handleSportClick(e){
     e.preventDefault();
     //console.log('The link was clicked.');
+    let {user_prompt_open, user_prompt_counter, user_prompt_space, selected} = this.state
+    user_prompt_counter = user_prompt_counter + 1
+    if( user_prompt_counter >= user_prompt_space){
+      user_prompt_open = true
+    }else{
+      selected = selected + 1
+      user_prompt_open = false
+    }
     
 
 
-    //let selected = 0;
-    // let open = false;
-    // let status = this.state.status;
-    // switch(this.state.status){
-    //   case this.status_enum.SPORT_0:
-    //     selected = 1
-    //     status = this.status_enum.SPORT_1
-    //     break;
-    //   case this.status_enum.SPORT_1:
-    //     selected = 2
-    //     status = this.status_enum.SPORT_2
-    //     break;
-    //   case this.status_enum.SPORT_2:
-    //     selected = 3
-    //     status = this.status_enum.ACCOUNT_INFO
-    //     break;
-    //   case this.status_enum.ACCOUNT_INFO:
-    //     open = true
-    //     selected = 3
-    //     status = this.status_enum.SPORT_3
-    //     break;
-    //   case this.status_enum.SPORT_3:
-    //     selected = 1
-    //     status = this.status_enum.SPORT_1
-    //     break;
-    // }
-    let selected = this.state.selected
-    selected = selected + 1
-    var open = false
-
     const state = {
       selected: selected, 
-      open: open,
-      status: status
-    }
-    this.setState(state)    
-  }
-
-  handleOpen(e){
-    e.preventDefault();
-    console.log('The link was clicked.');
-
-    var open = true
-
-    const state = {
-      open: open
+      user_prompt_counter: user_prompt_counter,
+      user_prompt_open: user_prompt_open
     }
     this.setState(state)    
   }
 
   handleClose(){
     console.log('The link was closed')
-    this.setState({open: false})
+    this.setState({user_prompt_open: false, user_prompt_counter: 0 })
   };
 
   render() {
     const { classes } = this.props;
-    const { sport_list,selected } = this.state;
-    const selected_sport = sport_list[selected].name
+    const { sport_list, selected } = this.state;
+
 
     console.log("Rendering: ", selected)
-
+    
+    // Determine whether loading or spinner
+    let sport_box = <Box mt={2} borderRadius={16} style={{height: '30vh', backgroundColor: '#D5DBDB', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                      <CircularProgress/>
+                    </Box>;
+    if(sport_list.length > 0){
+      sport_box = <div>
+                    <Box borderRadius={16} className={classNames(classes.title, classes.titlePosition)}>
+                      {sport_list[selected].name}
+                    </Box>
+                    <AwesomeSlider cssModule={AwsSliderStyles} bullets={false} 
+                                organicArrows={false} 
+                                selected={this.state.selected}
+                                className={"aws-btn"}>
+                      {sport_list.map((item) => <div key={item.name} data-src={item.images[0].picture}></div>)}
+                    </AwesomeSlider>
+                    <Box ml={20} mr={20} mt={0} mb={0} className={classNames(classes.link, classes.linkPosition)}>
+                      <img height="100%" src={wikipediaImage} style={{borderRadius: '10px'}}></img>
+                      <p className={classes.linkText}>More Info</p>
+                    </Box>
+                </div>;
+    }
+   
     return (
       <div> 
         <Container maxWidth="sm" style={{backgroundColor:'#E5E7E9', height: '100vh', padding: 0}}>
@@ -291,20 +278,7 @@ class Home extends React.Component {
             </Box>
 
             <Box mt={2} ml={3} mr={3} borderRadius={16} style={{position: 'relative'}}>
-              <Box borderRadius={16} className={classNames(classes.title, classes.titlePosition)}>
-                {selected_sport}
-              </Box>
-
-              <AwesomeSlider cssModule={AwsSliderStyles} bullets={false} 
-                          organicArrows={false} 
-                          selected={this.state.selected}
-                          className={"aws-btn"}>
-                {sport_list.map((item) => <div key={item.name} data-src={item.images[0].picture}></div>)}
-              </AwesomeSlider>
-              <Box ml={20} mr={20} mt={0} mb={0} className={classNames(classes.link, classes.linkPosition)}>
-                <img height="100%" src={wikipediaImage} style={{borderRadius: '10px'}}></img>
-                <p className={classes.linkText}>More Info</p>
-              </Box>
+              {sport_box}
             </Box>
           </Container>
 
@@ -326,7 +300,7 @@ class Home extends React.Component {
 
             {/* <FriendDialog open={true} onClose={(e) => this.handleClose()} /> */}
 
-            <FriendDialog open={this.state.open} onClose={(e) => this.handleClose()} />
+            <FriendDialog open={this.state.user_prompt_open} onClose={(e) => this.handleClose()} />
 
         </Container>
 
