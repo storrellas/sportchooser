@@ -5,6 +5,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
 
 // Redux
@@ -16,10 +18,9 @@ import { connect } from "react-redux";
 
 // Images
 import logoImage from "../assets/img/logo.png"
+import ukImage from "../assets/img/uk.png"
+import nlImage from "../assets/img/nl.png"
 
-
-// Styles
-import "../styles/Home.scss";
 
 const styles = theme => ({
   root: {
@@ -40,6 +41,18 @@ const styles = theme => ({
     textAlign: 'center',
     fontSize: 16,
     color: 'white'
+  },
+  flag:{
+    width: "40%", 
+    cursor: 'pointer'
+  },
+  button:{
+    borderRadius: 25,
+    width: "50%",
+    backgroundColor: '#117A65',
+    '&:hover':{
+      backgroundColor: '#055D5B'
+    }
   }
 });
 
@@ -51,18 +64,14 @@ class Landing extends React.Component {
     this.state = {};
   }
 
-  handleSettings(e){
-    console.log("Opening Settings")
-    this.setState({ settings_prompt: true })
+  handleSelectLanguage(e, lan){
+    console.log("Launguage")
+    console.log(lan)
   }
 
   render() {
     const { classes } = this.props;
     const { sport_list, selected } = this.state;
-
-
-    console.log("Rendering: ", selected)
-
 
     return (
       <div> 
@@ -90,6 +99,33 @@ class Landing extends React.Component {
 
             <Box mt={2} ml={3} mr={3} borderRadius={16}>
               <div>Choose your language to start:</div>
+            </Box>
+
+            <Box mt={3} ml={3} mr={3} pl={15} pr={15} borderRadius={16}>
+              <Grid container spacing={3}>
+                <Grid item xs={6} onClick={(e) => this.handleSelectLanguage(e, 'uk')}>
+                  <img src={ukImage} className={classes.flag}></img> 
+                </Grid>
+                <Grid item xs={6} onClick={(e) => this.handleSelectLanguage(e, 'nl')}>
+                  <img src={nlImage} className={classes.flag}></img> 
+                </Grid>
+              </Grid>
+            </Box>
+
+            <Box mt={2} ml={3} mr={3} borderRadius={16}>
+              <b>Coming back and seeing this screen again?</b>
+            </Box>
+
+            <Box mt={2} ml={3} mr={3}>
+              <Button variant="contained" color="secondary" className={classes.button}>       
+                <b>Enter Email</b>
+              </Button>
+            </Box>
+
+
+            <Box mt={2} ml={3} mr={3} borderRadius={16}>
+              <div>Don't worry</div>
+              <div>Enter your email or use the link we sent to continue from last time</div>
             </Box>
 
           </Container>

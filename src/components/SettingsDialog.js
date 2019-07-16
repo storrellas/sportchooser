@@ -56,7 +56,7 @@ class SettingsItem extends React.Component {
     const { classes, text, onClick } = this.props;
     return (
       <Box mt={2} >
-        <Button variant="contained" color="secondary" className={classes.button}>
+        <Button variant="contained" className={classes.button}>
           {this.props.children}          
           <div style={{flexGrow: 1}}>{text}</div>              
         </Button>
