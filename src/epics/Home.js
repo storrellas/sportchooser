@@ -22,6 +22,7 @@ import AwsSliderStyles from 'react-awesome-slider/src/styles';
 
 // Components
 import FriendDialog from '../components/FriendDialog';
+import SettingsDialog from '../components/SettingsDialog';
 
 // Images
 import undoImage from "../assets/img/tryasport/undo.png"
@@ -148,7 +149,6 @@ class IconMenu extends React.Component {
 //   };
 // }
 
-import IconButton from '@material-ui/core/IconButton';
 
 
 class Home extends React.Component {
@@ -166,9 +166,12 @@ class Home extends React.Component {
 
     this.state = {
       selected: 1,
-      user_prompt_space: 3,
-      user_prompt_counter : 0,
-      user_prompt_open: false,
+      user_prompt: {
+        space: 3,
+        counter: 0,
+        open: false
+      },
+      settings_prompt: false,
       sport_list: []
     };
  
@@ -204,6 +207,7 @@ class Home extends React.Component {
 
   handleSettings(e){
     console.log("Opening Settings")
+    this.setState({ settings_prompt: true })
   }
 
   handleUndo(e){
@@ -222,28 +226,30 @@ class Home extends React.Component {
   handleSportClick(e){
     e.preventDefault();
     //console.log('The link was clicked.');
-    let {user_prompt_open, user_prompt_counter, user_prompt_space, selected} = this.state
-    user_prompt_counter = user_prompt_counter + 1
-    if( user_prompt_counter >= user_prompt_space){
-      user_prompt_open = true
+    let {user_prompt, selected} = this.state
+    user_prompt.counter = user_prompt.counter + 1
+    if( user_prompt.counter >= user_prompt.space){
+      user_prompt.open = true
     }else{
       selected = selected + 1
-      user_prompt_open = false
+      user_prompt.open = false
     }
     
 
 
     const state = {
       selected: selected, 
-      user_prompt_counter: user_prompt_counter,
-      user_prompt_open: user_prompt_open
+      user_prompt: user_prompt
     }
     this.setState(state)    
   }
 
   handleClose(){
     console.log('The link was closed')
-    this.setState({user_prompt_open: false, user_prompt_counter: 0 })
+    let {user_prompt} = this.state;
+    user_prompt.open = false;
+    user_prompt.counter = 0
+    this.setState({ user_prompt : user_prompt, settings_prompt: false })
   };
 
   render() {
@@ -319,9 +325,9 @@ class Home extends React.Component {
             </Grid>            
 
 
-            {/* <FriendDialog open={true} onClose={(e) => this.handleClose()} /> */}
+            <SettingsDialog open={this.state.settings_prompt} onClose={(e) => this.handleClose()} />
 
-            <FriendDialog open={this.state.user_prompt_open} onClose={(e) => this.handleClose()} />
+            <FriendDialog open={this.state.user_prompt.open} onClose={(e) => this.handleClose()} />
 
         </Container>
 
