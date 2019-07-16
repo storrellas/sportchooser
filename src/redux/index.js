@@ -22,7 +22,7 @@ const initialState = {
 };
 
 export function rootReducer(state = initialState, action) {
-  console.log("rootReducer", action)
+  //console.log("rootReducer", action)
   if (action.type === ADD_ARTICLE) {
     return Object.assign({}, state, {
       articles: state.articles.concat(action.payload)

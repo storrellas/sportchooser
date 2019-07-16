@@ -29,18 +29,16 @@ import noInterestImage from "../assets/img/tryasport/no_interest.png"
 import likeToTryImage from "../assets/img/tryasport/like_to_try.png"
 import alreadyPlayedImage from "../assets/img/tryasport/already_played.png"
 import wikipediaImage from "../assets/img/tryasport/wikipedia.png"
+import gearImage from "../assets/img/tryasport/gear.png"
 
 // Styles
 import "../styles/Home.scss";
 
 const styles = theme => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    flexGrow: 1,
-    backgroundColor: 'yellow',
-    margin: 0,
-    padding:0
+    backgroundColor:'#E5E7E9', 
+    height: '100vh', 
+    padding: 0
   },
   loadingContainer:{
     height: '100%', 
@@ -50,6 +48,7 @@ const styles = theme => ({
     alignItems: 'center'
   },
   mainTitle:{
+    position: 'relative',
     backgroundColor: 'orange',
     textAlign: 'center',
     fontSize: 16,
@@ -149,6 +148,9 @@ class IconMenu extends React.Component {
 //   };
 // }
 
+import IconButton from '@material-ui/core/IconButton';
+
+
 class Home extends React.Component {
   // status_enum = {
   //   SPORT_0: 0,
@@ -198,6 +200,10 @@ class Home extends React.Component {
     // store.dispatch( renderConfetti(true) )
     // setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
 
+  }
+
+  handleSettings(e){
+    console.log("Opening Settings")
   }
 
   handleUndo(e){
@@ -273,12 +279,17 @@ class Home extends React.Component {
 
     return (
       <div> 
-        <Container maxWidth="sm" style={{backgroundColor:'#E5E7E9', height: '100vh', padding: 0}}>
+        <Container maxWidth="sm" className={classes.root}>
 
           <CssBaseline />
           <Box m={0} p ={0} className={classes.mainTitle}>
               <b>Sport - Planner</b>
               <div style={{fontSize: 14}}>Find New Sport</div>
+              <div  onClick={(e) => this.handleSettings(e)}>
+                <img src={gearImage} style={{position: 'absolute', right: 10, top: "12%", height: "75%", cursor: 'pointer'}}></img>
+              </div>
+
+
           </Box>
 
           <Container maxWidth={false} style={{paddingTop: 20}}>
