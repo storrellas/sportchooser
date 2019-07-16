@@ -25,12 +25,12 @@ import FriendDialog from '../components/FriendDialog';
 import SettingsDialog from '../components/SettingsDialog';
 
 // Images
-import undoImage from "../assets/img/tryasport/undo.png"
-import noInterestImage from "../assets/img/tryasport/no_interest.png"
-import likeToTryImage from "../assets/img/tryasport/like_to_try.png"
-import alreadyPlayedImage from "../assets/img/tryasport/already_played.png"
-import wikipediaImage from "../assets/img/tryasport/wikipedia.png"
-import gearImage from "../assets/img/tryasport/gear.png"
+import undoImage from "../assets/img/undo.png"
+import noInterestImage from "../assets/img/no_interest.png"
+import likeToTryImage from "../assets/img/like_to_try.png"
+import alreadyPlayedImage from "../assets/img/already_played.png"
+import wikipediaImage from "../assets/img/wikipedia.png"
+import gearImage from "../assets/img/gear.png"
 
 // Styles
 import "../styles/Home.scss";

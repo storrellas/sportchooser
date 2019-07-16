@@ -9,7 +9,7 @@ import Dialog from '@material-ui/core/Dialog';
 
 
 // Project import
-import friendsImage from "../assets/img/tryasport/friends.png"
+import friendsImage from "../assets/img/friends.png"
 
 // Redux
 import { store, renderConfetti } from "../redux";

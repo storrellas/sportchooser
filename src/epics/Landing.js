@@ -15,7 +15,7 @@ import { connect } from "react-redux";
 
 
 // Images
-import logoImage from "../assets/img/tryasport/logo.png"
+import logoImage from "../assets/img/logo.png"
 
 
 // Styles

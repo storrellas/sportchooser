@@ -16,7 +16,7 @@ import Dialog from '@material-ui/core/Dialog';
 
 
 // Project import
-import settingsImage from "../assets/img/tryasport/settings.png"
+import settingsImage from "../assets/img/settings.png"
 
 // Redux
 import { store, renderConfetti } from "../redux";
