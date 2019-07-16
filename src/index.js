@@ -16,8 +16,8 @@ ReactDOM.render((
     <Startup>
       <BrowserRouter>
         <div>      
-          <Route path="/" exact component={Home} />
-          <Route path="/landing/" exact component={Landing} />
+          <Route path="/home" exact component={Home} />
+          <Route path="/" exact component={Landing} />
         </div>
       </BrowserRouter>
     </Startup>

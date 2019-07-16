@@ -172,24 +172,33 @@ class Home extends React.Component {
         open: false
       },
       settings_prompt: false,
-      sport_list: []
+      sport_list: [],
     };
+    this.mounted = false;
  
   }
 
-  async componentDidMount(){
+  componentDidMount(){
+    this.mounted = true
 
-    const response = await fetch('https://3.121.215.237/api/sport/?lan=en', {
+    fetch('https://3.121.215.237/api/sport/?lan=en', {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         }        
     })
-    const data = await response.json()
-    console.log(data)
-    this.setState({ sport_list: data, selected: 0 })
-    //this.forceUpdate();
+    .then(response => response.json())
+    .then( (data) =>{
+      console.log(data)
+      if(this.mounted == true){
+        this.setState({ sport_list: data, selected: 0 })
+      }
+    })
+  }
+
+  componentWillUnmount(){
+    this.mounted = false;
   }
 
   handleEnableConfetti(e){

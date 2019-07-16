@@ -7,7 +7,6 @@ import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import { Redirect } from 'react-router-dom'
 
 // Redux
 import { store, renderConfetti } from "../redux";
@@ -15,6 +14,7 @@ import { store, renderConfetti } from "../redux";
 // React-redux
 import { connect } from "react-redux";
 
+import CookieMgr from "../utils/CookieMgr"
 
 // Images
 import logoImage from "../assets/img/logo.png"
@@ -67,32 +67,18 @@ class Landing extends React.Component {
   }
 
   handleSelectLanguage(e, lan){
-    console.log("Launguage")
-    console.log(lan)
-    this.setState({
-      redirect: true
-    })
+    this.props.history.push('/home')
+    CookieMgr.set('lan', lan)
   }
 
-  renderRedirect = () => {
-    if (this.state.redirect) {
-      return <Redirect to='/' />
-    }
-  }
+
 
   render() {
     const { classes } = this.props;
-    const { sport_list, selected } = this.state;
-
-    console.log("Rerendering")
 
     return (
       <div> 
         <Container maxWidth="sm" className={classes.root}>
-
-        {this.renderRedirect()}
-
-
           <CssBaseline />
           <Box m={0} p ={0} className={classes.mainTitle}>
               <b>Sport - Planner</b>
