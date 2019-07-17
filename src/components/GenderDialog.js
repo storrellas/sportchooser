@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
@@ -31,6 +32,17 @@ const styles = theme => ({
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
+  button:{
+    width: '75%', 
+    display: 'flex',
+    borderRadius:'100px', 
+    justifyContent: 'center',
+    backgroundColor: '#00CA9D',
+    color: 'white',
+    '&:hover':{
+      backgroundColor: '#005643'
+    }
+  }
 });
 
 class GenderDialog extends React.Component {
@@ -78,25 +90,33 @@ class GenderDialog extends React.Component {
           <CloseIcon />
         </IconButton>
         <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-            Enter your friends codes to find out if your 
-            friends want to try the same new sports
+          What's your gender?
         </DialogTitle>
 
-        <Box mt={2} ml={3} mr={3} borderRadius={16}>
-          <TextField
-            id="outlined-email-input"
-            label="Friend Code"
-            className={classes.textField}
-            type="text"
-            name="code"
-            autoComplete="email"
-            margin="normal"
-            variant="outlined"
-            style={{width: "100%"}}
-
-            onKeyPress={(e) => this.handleKeyPress(e)}
-          />
+        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
+          <Button variant="contained">
+            <div>Male</div>
+          </Button>
+          
+          <b style={{alignSelf: 'center', marginLeft: 10, marginRight: 10}}>OR</b>
+          
+          <Button variant="contained">
+            <div>Female</div>
+          </Button>
         </Box>
+
+        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
+          <Button variant="contained" className={classes.button}>
+            <div style={{flexGrow: 1}}>OK</div>
+          </Button>
+        </Box>
+
+        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
+          <Button variant="contained">
+            Dont want to tell
+          </Button>
+        </Box>
+
       </Dialog>
     );
   }

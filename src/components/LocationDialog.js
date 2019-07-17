@@ -78,14 +78,14 @@ class LocationDialog extends React.Component {
           <CloseIcon />
         </IconButton>
         <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-            Enter your friends codes to find out if your 
-            friends want to try the same new sports
+          Add a location so we can inform you when we find activities of the sports
+          you like to try near you
         </DialogTitle>
 
         <Box mt={2} ml={3} mr={3} borderRadius={16}>
           <TextField
-            id="outlined-email-input"
-            label="Friend Code"
+            id="outlined-location-input"
+            label="Enter your location"
             className={classes.textField}
             type="text"
             name="code"
