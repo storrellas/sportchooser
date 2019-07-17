@@ -14,7 +14,7 @@ import { store, renderConfetti } from "../redux";
 // React-redux
 import { connect } from "react-redux";
 
-
+import config from '../config/env'
 
 // AwesomeSlider
 import AwesomeSlider from 'react-awesome-slider';
@@ -22,6 +22,7 @@ import AwsSliderStyles from 'react-awesome-slider/src/styles';
 
 // Components
 import FriendDialog from '../components/FriendDialog';
+import LocationDialog from '../components/LocationDialog';
 import SettingsDialog from '../components/SettingsDialog';
 
 // Images
@@ -30,7 +31,7 @@ import noInterestImage from "../assets/img/no_interest.png"
 import likeToTryImage from "../assets/img/like_to_try.png"
 import alreadyPlayedImage from "../assets/img/already_played.png"
 import wikipediaImage from "../assets/img/wikipedia.png"
-import gearImage from "../assets/img/gear.png"
+import gearImage from "../assets/img/tryasport/icn_gear.png"
 
 // Styles
 import "../styles/Home.scss";
@@ -181,7 +182,7 @@ class Home extends React.Component {
   componentDidMount(){
     this.mounted = true
 
-    fetch('https://3.121.215.237/api/sport/?lan=en', {
+    fetch(config.BASE_API_URL + '/api/sport/?lan=en', {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -336,7 +337,8 @@ class Home extends React.Component {
 
             <SettingsDialog open={this.state.settings_prompt} onClose={(e) => this.handleClose()} />
 
-            <FriendDialog open={this.state.user_prompt.open} onClose={(e) => this.handleClose()} />
+            <LocationDialog open={this.state.user_prompt.open} onClose={(e) => this.handleClose()} />
+            {/* <FriendDialog open={this.state.user_prompt.open} onClose={(e) => this.handleClose()} /> */}
 
         </Container>
 

@@ -17,7 +17,7 @@ import { connect } from "react-redux";
 import CookieMgr from "../utils/CookieMgr"
 
 // Images
-import logoImage from "../assets/img/logo.png"
+import logoImage from "../assets/img/tryasport/img_logo.png"
 import ukImage from "../assets/img/uk.png"
 import nlImage from "../assets/img/nl.png"
 
