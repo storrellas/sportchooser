@@ -1,6 +1,9 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+
+import Grid from '@material-ui/core/Grid';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
@@ -31,6 +34,16 @@ const styles = theme => ({
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
+  cell:{
+    margin: 10,
+    backgroundColor: 'grey',
+    width: "12%",
+    transition: "0.3s",
+    borderRadius: 3,
+    '&:hover': {
+      backgroundColor: 'orange'
+    }
+  }
 });
 
 class MomentsDialog extends React.Component {
@@ -78,25 +91,74 @@ class MomentsDialog extends React.Component {
           <CloseIcon />
         </IconButton>
         <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-            Enter your friends codes to find out if your 
-            friends want to try the same new sports
+          <div>By adding your regular moments to do sports to your profile,
+          we can inform your options to try out your selected sports at a time that
+          is most likely to fit your schedule</div>
+          <i>Click on a time to select/cancel</i>
         </DialogTitle>
 
         <Box mt={2} ml={3} mr={3} borderRadius={16}>
-          <TextField
-            id="outlined-email-input"
-            label="Friend Code"
-            className={classes.textField}
-            type="text"
-            name="code"
-            autoComplete="email"
-            margin="normal"
-            variant="outlined"
-            style={{width: "100%"}}
 
-            onKeyPress={(e) => this.handleKeyPress(e)}
-          />
+          <table style={{width:"100%"}}>
+            <thead>
+              <tr>
+                {['', 'M', 'T', 'W', 'T', 'F', 'S', 'S'].map((item,index) => 
+                  <th key={index}>{item}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>00-06</td>
+                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+              </tr>
+              <tr>
+                <td>06-08</td>
+                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+              </tr>
+              <tr>
+                <td>00-06</td>
+                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+              </tr>
+              <tr>
+                <td>08-10</td>
+                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+              </tr>
+              <tr>
+                <td>10-12</td>
+                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+              </tr>
+              <tr>
+                <td>12-14</td>
+                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+              </tr>
+              <tr>
+                <td>14-16</td>
+                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+              </tr>
+              <tr>
+                <td>16-18</td>
+                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+              </tr>
+              <tr>
+                <td>18-20</td>
+                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+              </tr>
+              <tr>
+                <td>20-22</td>
+                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+              </tr>
+              <tr>
+                <td>22-00</td>
+                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+              </tr>
+
+            </tbody>
+          </table>
+
         </Box>
+
+
+
       </Dialog>
     );
   }
