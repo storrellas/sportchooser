@@ -21,9 +21,14 @@ import AwesomeSlider from 'react-awesome-slider';
 import AwsSliderStyles from 'react-awesome-slider/src/styles';
 
 // Components
+import BirthyearDialog from '../components/BirthyearDialog';
+import EmailDialog from '../components/EmailDialog';
 import FriendDialog from '../components/FriendDialog';
+import GenderDialog from '../components/GenderDialog';
 import LocationDialog from '../components/LocationDialog';
+import MomentsDialog from '../components/MomentsDialog';
 import SettingsDialog from '../components/SettingsDialog';
+
 
 // Images
 import undoImage from "../assets/img/undo.png"
@@ -153,30 +158,73 @@ class IconMenu extends React.Component {
 
 
 class Home extends React.Component {
-  // status_enum = {
-  //   SPORT_0: 0,
-  //   SPORT_1: 1,
-  //   SPORT_2: 2,
-  //   ACCOUNT_INFO: 3,
-  //   SPORT_3: 4
-  // }
+
 
 
   constructor(props) {
     super(props);
+
+    // Indicates all user_prompts available
+    this.user_prompt_enum = {
+      FRIENDS: 'friends',
+      SHARE: 'share',
+      EMAIL: 'email',
+      LOCATION: 'location',
+      MOMENTS: 'moments',
+      GENDER: 'gender',
+      BIRTHYEAR: 'birthyear'
+    }
+
+    // Selected order
+    // this.user_prompt_order = [
+    //   this.user_prompt_enum.FRIENDS,
+    //   this.user_prompt_enum.LOCATION,
+    // ]
+    this.user_prompt_order = [
+      this.user_prompt_enum.FRIENDS,
+      this.user_prompt_enum.EMAIL,
+      this.user_prompt_enum.LOCATION,
+      this.user_prompt_enum.MOMENTS,
+      this.user_prompt_enum.GENDER,
+      this.user_prompt_enum.BIRTHYEAR
+    ]
+
 
     this.state = {
       selected: 1,
       user_prompt: {
         space: 3,
         counter: 0,
-        open: false
+        open: false,
+        current: null,
+        display:{
+          friends: false,
+          share: false,
+          location: false,
+          email: false,
+          moments: false,
+          gender: false,
+          birthyear: false
+        }
       },
       settings_prompt: false,
       sport_list: [],
     };
     this.mounted = false;
- 
+
+    /*
+    this.user_prompt_order = [
+      user_prompt_enum.FRIENDS,
+      user_prompt_enum.SHARE,
+      user_prompt_enum.EMAIL,
+      user_prompt_enum.LOCATION,
+      user_prompt_enum.MOMENTS,
+      user_prompt_enum.GENDER,
+      user_prompt_enum.BIRTHYEAR
+    ]
+    /**/
+
+
   }
 
   componentDidMount(){
@@ -236,17 +284,29 @@ class Home extends React.Component {
   handleSportClick(e){
     e.preventDefault();
     //console.log('The link was clicked.');
-    let {user_prompt, selected} = this.state
+    let {user_prompt, selected, sport_list} = this.state
     user_prompt.counter = user_prompt.counter + 1
     if( user_prompt.counter >= user_prompt.space){
+      // Determine next modal show
+      if(user_prompt.current == undefined){
+        user_prompt.current = 0
+      } else {
+        user_prompt.current = user_prompt.current + 1
+        if(user_prompt.current >= this.user_prompt_order.length) user_prompt.current = 0        
+      } 
+      const user_prompt_next = this.user_prompt_order[user_prompt.current]
+      user_prompt.display[user_prompt_next] = true
       user_prompt.open = true
     }else{
       selected = selected + 1
+      if( selected >= sport_list.length )
+        selected = 0
       user_prompt.open = false
     }
     
 
-
+    console.log("user_prompt")
+    console.log(user_prompt)
     const state = {
       selected: selected, 
       user_prompt: user_prompt
@@ -259,6 +319,15 @@ class Home extends React.Component {
     let {user_prompt} = this.state;
     user_prompt.open = false;
     user_prompt.counter = 0
+
+    // Reset all modals
+    for (var key in user_prompt.display) {
+      // check if the property/key is defined in the object itself, not in parent
+      if (user_prompt.display.hasOwnProperty(key)) {           
+        user_prompt.display[key] = false
+      }
+    }
+
     this.setState({ user_prompt : user_prompt, settings_prompt: false })
   };
 
@@ -337,8 +406,12 @@ class Home extends React.Component {
 
             <SettingsDialog open={this.state.settings_prompt} onClose={(e) => this.handleClose()} />
 
-            <LocationDialog open={this.state.user_prompt.open} onClose={(e) => this.handleClose()} />
-            {/* <FriendDialog open={this.state.user_prompt.open} onClose={(e) => this.handleClose()} /> */}
+            <BirthyearDialog open={this.state.user_prompt.display.birthyear} onClose={(e) => this.handleClose()} />
+            <EmailDialog open={this.state.user_prompt.display.email} onClose={(e) => this.handleClose()} />
+            <FriendDialog open={this.state.user_prompt.display.friends} onClose={(e) => this.handleClose()} />
+            <GenderDialog open={this.state.user_prompt.display.gender} onClose={(e) => this.handleClose()} />
+            <LocationDialog open={this.state.user_prompt.display.location} onClose={(e) => this.handleClose()} />
+            <MomentsDialog open={this.state.user_prompt.display.moments} onClose={(e) => this.handleClose()} />
 
         </Container>
 
@@ -346,6 +419,8 @@ class Home extends React.Component {
     );
   }
 }
+
+
 export default withStyles(styles)(Home);
 //export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home));
 
