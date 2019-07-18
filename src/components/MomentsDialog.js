@@ -45,6 +45,17 @@ const styles = theme => ({
     },
     cursor: 'pointer'
   },
+  cellEnable:{
+    margin: 10,
+    backgroundColor: 'orange',
+    width: "12%",
+    transition: "0.3s",
+    borderRadius: 3,
+    '&:hover': {
+      backgroundColor: 'grey'
+    },
+    cursor: 'pointer'
+  },
   button:{
     width: '75%', 
     display: 'flex',
@@ -93,7 +104,7 @@ class MomentsDialog extends React.Component {
   generate_row = (classes, weekday_array, title, slot) =>  <tr>
                                                               <td>{title}</td>
                                                               {weekday_array.map((item, index) =>
-                                                                <td key={index} className={classes.cell} 
+                                                                <td key={index} className={item.active?this.props.classes.cellEnable:this.props.classes.cell} 
                                                                   onClick={(e) => this.handleClick(e, item.day, slot)} />)}
                                                             </tr>
   
@@ -102,15 +113,17 @@ class MomentsDialog extends React.Component {
     const { classes, onClose, ...other } = this.props;
     const { moments } = this.state
     const header_array = Array.from(' MTWTFSS')
-    const weekday_array = [{day:'monday'}, {day:'tuesday'}, {day:'wednesday'}, 
-                            {day:'thursday'}, {day:'friday'}, {day:'saturday'}, {day:'sunday'}]
+    const weekday_array = [{day:'monday', active: false}, {day:'tuesday', active: false}, 
+                            {day:'wednesday', active: false}, {day:'thursday', active: false}, 
+                            {day:'friday', active: false}, {day:'saturday', active: false}, {day:'sunday', active: false}]
 
 
+    const weekday_before_0_6_array = [...weekday_array]
+    weekday_before_0_6_array[0].active = true
+    weekday_before_0_6_array[2].active = true
 
 
-    //const weekday_between_0_6_array = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
-
-    const row_before_0_6 = this.generate_row(classes, weekday_array, '00-06', 'before_6_am')
+    const row_before_0_6 = this.generate_row(classes, weekday_before_0_6_array, '00-06', 'before_6_am')
     const row_between_6_8 = this.generate_row(classes, weekday_array, '06-08', 'between_6_8')
     const row_between_8_10 = this.generate_row(classes, weekday_array, '08-10', 'between_8_10')
     const row_between_10_12 = this.generate_row(classes, weekday_array, '10-12', 'between_10_12')
