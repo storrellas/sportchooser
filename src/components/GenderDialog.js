@@ -11,6 +11,10 @@ import Dialog from '@material-ui/core/Dialog';
 
 // Project import
 import genderImage from "../assets/img/tryasport/img_gender_orange.png"
+import maleImage from "../assets/img/tryasport/img_male.png"
+import femaleImage from "../assets/img/tryasport/img_female.png"
+
+
 
 // Redux
 import { store, renderConfetti } from "../redux";
@@ -53,24 +57,14 @@ class GenderDialog extends React.Component {
     }
   }
 
-  handleClose() {
+  handleClick(e, gender) {
     //onClose(selectedValue);
+    console.log('handleClick', gender)
+
+    this.props.onClose()
   }
 
-  handleListItemClick(value) {
-    onClose(value);
-  }
 
-  handleKeyPress(){
-    console.log('The link was closed')  
-    if(event.key === 'Enter'){
-      console.log('enter press here! ')
-
-      // Launch confetti
-      store.dispatch( renderConfetti(true) )
-      setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
-    }  
-  };
 
   render() {
     const { classes, onClose, ...other } = this.props;
@@ -93,15 +87,15 @@ class GenderDialog extends React.Component {
           What's your gender?
         </DialogTitle>
 
-        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-          <Button variant="contained">
-            <div>Male</div>
+        <Box mt={2} mr={10} ml={10} style={{display:'flex', justifyContent: 'center'}}>
+          <Button variant="contained" style={{width: "30%"}} onClick={(e) => this.handleClick(e, 'female')}>
+            <img src={maleImage} style={{width:"100%"}} />
           </Button>
           
           <b style={{alignSelf: 'center', marginLeft: 10, marginRight: 10}}>OR</b>
           
-          <Button variant="contained">
-            <div>Female</div>
+          <Button variant="contained" style={{width: "30%"}} onClick={(e) => this.handleClick(e, 'female')}>
+            <img style={{width:"100%"}} src={femaleImage} />
           </Button>
         </Box>
 
@@ -112,7 +106,7 @@ class GenderDialog extends React.Component {
         </Box>
 
         <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-          <Button variant="contained">
+          <Button variant="contained" onClick={(e) => this.handleClick(e, 'prefer_not_to_say')}>
             Dont want to tell
           </Button>
         </Box>

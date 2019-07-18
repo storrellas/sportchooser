@@ -98,12 +98,20 @@ class MomentsDialog extends React.Component {
     }
   }
 
-  handleClick(e, weekday, moment, enabled){
-    console.log("HandleClick", weekday, moment, enabled)
+  handleClick(e, slot, weekday, enabled){
+    let { moment_list } = this.state;
+    if( enabled ){
+      moment_list.push({slot: slot, weekday: weekday})
+      this.setState({moment_list: moment_list})
+    }else{
+      const idx = moment_list.findIndex( item => (item.slot === slot && item.weekday === weekday) )
+      moment_list.splice(idx, 1)
+      this.setState({moment_list: moment_list})
+    }
   }
 
   handleSubmit(e){
-    console.log("Contacting Backend", this.state.friend)
+    console.log("Contacting Backend", this.state.moment_list)
     // Closing modal
     this.props.onClose()
   }
@@ -112,7 +120,7 @@ class MomentsDialog extends React.Component {
                                             <td>{title}</td>
                                             {array.map((item, index) =>
                                               <td key={index} className={item.active?this.props.classes.cellEnable:this.props.classes.cell} 
-                                                onClick={(e) => this.handleClick(e, item.day, slot, (item.active?false:true) )} />)}
+                                                onClick={(e) => this.handleClick(e, slot, item.weekday, (item.active?false:true) )} />)}
                                           </tr>
 
   generated_weekday_selected_list(pattern){
@@ -125,9 +133,9 @@ class MomentsDialog extends React.Component {
     }
 
     // Generate slot array
-    const weekday_array = [{day:'monday', active: false}, {day:'tuesday', active: false}, 
-                            {day:'wednesday', active: false}, {day:'thursday', active: false}, 
-                            {day:'friday', active: false}, {day:'saturday', active: false}, {day:'sunday', active: false}]  
+    const weekday_array = [{weekday:'monday', active: false}, {weekday:'tuesday', active: false}, 
+                            {weekday:'wednesday', active: false}, {weekday:'thursday', active: false}, 
+                            {weekday:'friday', active: false}, {weekday:'saturday', active: false}, {weekday:'sunday', active: false}]  
     let weekday_slot_array = weekday_array.map(a => Object.assign({}, a));
     for (const [idx,value] of weekday_selected_list.entries()) {
       weekday_slot_array[idx].active = value      
