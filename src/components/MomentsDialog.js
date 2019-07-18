@@ -80,7 +80,7 @@ class MomentsDialog extends React.Component {
           weekday: 'tuesday'
         },
         {
-          slot: 'before_6_am',
+          slot: 'before_6',
           weekday: 'tuesday'
         },
         {
@@ -88,6 +88,11 @@ class MomentsDialog extends React.Component {
           weekday: 'friday'
         }
       ]
+    }
+
+    this.weekday2idx = {
+      monday:0, tuesday:1, wednesday:2, 
+      thursday:3, friday: 4, saturday:5, sunday:6
     }
   }
 
@@ -119,46 +124,60 @@ class MomentsDialog extends React.Component {
     return weekday_slot_array;
   }
 
+  generated_weekday_selected_list(pattern){
+    let weekday_selected_list = Array(7).fill(false)
+    for (const moment of this.state.moment_list) {
+      if( moment.slot == pattern ){
+        weekday_selected_list[this.weekday2idx[moment.weekday]] = true
+      }
+    }
+    return weekday_selected_list
+  }
 
   render() {
     const { classes, onClose, ...other } = this.props;
-    const { moments } = this.state
     const header_array = Array.from(' MTWTFSS')
-    const weekday_array = [{day:'monday', active: false}, {day:'tuesday', active: false}, 
-                            {day:'wednesday', active: false}, {day:'thursday', active: false}, 
-                            {day:'friday', active: false}, {day:'saturday', active: false}, {day:'sunday', active: false}]
 
 
+    let weekday_selected_list = this.generated_weekday_selected_list('before_6')
+    let weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
+    const row_before_0_6 = this.generate_row(weekday_slot_array, '00-06', 'before_6')
 
-    let weekday_slot_array = this.generate_weekday_slot_array([false, false, false, true, false, false, true])
-    const row_before_0_6 = this.generate_row(weekday_slot_array, '00-06', 'before_6_am')
-
-    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, false, false, false, false])
+    weekday_selected_list = this.generated_weekday_selected_list('between_6_8')
+    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
     const row_between_6_8 = this.generate_row(weekday_slot_array, '06-08', 'between_6_8')
 
-    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, false, false, false, false])
+    weekday_selected_list = this.generated_weekday_selected_list('between_8_10')
+    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
     const row_between_8_10 = this.generate_row(weekday_slot_array, '08-10', 'between_8_10')
 
-    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, false, false, false, false])
+    weekday_selected_list = this.generated_weekday_selected_list('between_10_12')
+    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
     const row_between_10_12 = this.generate_row(weekday_slot_array, '10-12', 'between_10_12')
 
-    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, false, false, false, false])
+    weekday_selected_list = this.generated_weekday_selected_list('between_12_14')
+    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
     const row_between_12_14 = this.generate_row(weekday_slot_array, '12-14', 'between_12_14')
 
-    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, false, false, false, false])   
+    weekday_selected_list = this.generated_weekday_selected_list('between_14_16')
+    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
     const row_between_14_16 = this.generate_row(weekday_slot_array, '14-16', 'between_14_16')
 
-    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, false, false, false, false])    
+    weekday_selected_list = this.generated_weekday_selected_list('between_16_18')
+    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
     const row_between_16_18 = this.generate_row(weekday_slot_array, '16-18', 'between_16_18')
 
-    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, false, false, false, false])   
+    weekday_selected_list = this.generated_weekday_selected_list('between_18_20')
+    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
     const row_between_18_20 = this.generate_row(weekday_slot_array, '18-20', 'between_18_20')
 
-    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, true, false, false, true])    
+    weekday_selected_list = this.generated_weekday_selected_list('between_20_22')
+    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
     const row_between_20_22 = this.generate_row(weekday_slot_array, '20-22', 'between_20_22')
 
-    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, true, false, false, true])
-    const row_between_22_00 = this.generate_row(weekday_slot_array, '22-00', 'between_22_00')
+    weekday_selected_list = this.generated_weekday_selected_list('after_22')
+    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
+    const row_between_22_00 = this.generate_row(weekday_slot_array, '22-00', 'after_22')
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
