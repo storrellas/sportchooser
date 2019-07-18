@@ -1,6 +1,8 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
@@ -53,12 +55,19 @@ class LocationDialog extends React.Component {
     console.log('The link was closed')  
     if(event.key === 'Enter'){
       console.log('enter press here! ')
+      this.handleSubmit()
 
-      // Launch confetti
-      store.dispatch( renderConfetti(true) )
-      setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
+      // // Launch confetti
+      // store.dispatch( renderConfetti(true) )
+      // setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
     }  
   };
+
+  handleSubmit(){
+    console.log("Contacting Backend")
+    // Closing modal
+    this.props.onClose()
+  }
 
   render() {
     const { classes, onClose, ...other } = this.props;
@@ -93,8 +102,21 @@ class LocationDialog extends React.Component {
             margin="normal"
             variant="outlined"
             style={{width: "100%"}}
-
             onKeyPress={(e) => this.handleKeyPress(e)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    edge="end"
+                    aria-label="Toggle password visibility"
+                    onClick={(e) => this.handleSubmit(e)}
+                  >
+                    <PlayArrowIcon style={{color:'green'}}></PlayArrowIcon>
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+
           />
         </Box>
       </Dialog>
