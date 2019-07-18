@@ -62,7 +62,21 @@ class MomentsDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      zIndex: 1000
+      zIndex: 1000,
+      moment_list: [
+        {
+          slot: 'between_10_12',
+          weekday: 'tuesday'
+        },
+        {
+          slot: 'before_6_am',
+          weekday: 'tuesday'
+        },
+        {
+          slot: 'between_14_16',
+          weekday: 'friday'
+        }
+      ]
     }
   }
 
@@ -76,10 +90,36 @@ class MomentsDialog extends React.Component {
     this.props.onClose()
   }
 
+  generate_row = (classes, weekday_array, title, slot) =>  <tr>
+                                                              <td>{title}</td>
+                                                              {weekday_array.map((item, index) =>
+                                                                <td key={index} className={classes.cell} 
+                                                                  onClick={(e) => this.handleClick(e, item.day, slot)} />)}
+                                                            </tr>
+  
+
   render() {
     const { classes, onClose, ...other } = this.props;
+    const { moments } = this.state
     const header_array = Array.from(' MTWTFSS')
-    const weekday_array = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+    const weekday_array = [{day:'monday'}, {day:'tuesday'}, {day:'wednesday'}, 
+                            {day:'thursday'}, {day:'friday'}, {day:'saturday'}, {day:'sunday'}]
+
+
+
+
+    //const weekday_between_0_6_array = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+
+    const row_before_0_6 = this.generate_row(classes, weekday_array, '00-06', 'before_6_am')
+    const row_between_6_8 = this.generate_row(classes, weekday_array, '06-08', 'between_6_8')
+    const row_between_8_10 = this.generate_row(classes, weekday_array, '08-10', 'between_8_10')
+    const row_between_10_12 = this.generate_row(classes, weekday_array, '10-12', 'between_10_12')
+    const row_between_12_14 = this.generate_row(classes, weekday_array, '12-14', 'between_12_14')
+    const row_between_14_16 = this.generate_row(classes, weekday_array, '14-16', 'between_14_16')
+    const row_between_16_18 = this.generate_row(classes, weekday_array, '16-18', 'between_16_18')
+    const row_between_18_20 = this.generate_row(classes, weekday_array, '18-20', 'between_18_20')
+    const row_between_20_22 = this.generate_row(classes, weekday_array, '20-22', 'between_20_22')
+    const row_between_22_00 = this.generate_row(classes, weekday_array, '22-00', 'between_22_00')
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
@@ -112,67 +152,16 @@ class MomentsDialog extends React.Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>00-06</td>
-                {weekday_array.map((item, index) => 
-                      <td key={index} className={classes.cell} 
-                      onClick={(e) => this.handleClick(e, item, 'before_6_am')} />)}
-              </tr>
-              <tr>
-                <td>06-08</td>
-                {weekday_array.map((item, index) => 
-                      <td key={index} className={classes.cell} 
-                      onClick={(e) => this.handleClick(e, item, 'between_6_8')} />)}
-              </tr>
-              <tr>
-                <td>08-10</td>
-                {weekday_array.map((item, index) => 
-                      <td key={index} className={classes.cell} 
-                      onClick={(e) => this.handleClick(e, item, 'between_8_10')} />)}
-              </tr>
-              <tr>
-                <td>10-12</td>
-                {weekday_array.map((item, index) => 
-                      <td key={index} className={classes.cell} 
-                      onClick={(e) => this.handleClick(e, item, 'between_10_12')} />)}
-              </tr>
-              <tr>
-                <td>12-14</td>
-                {weekday_array.map((item, index) => 
-                      <td key={index} className={classes.cell} 
-                      onClick={(e) => this.handleClick(e, item, 'between_12_14')} />)}
-              </tr>
-              <tr>
-                <td>14-16</td>
-                {weekday_array.map((item, index) => 
-                      <td key={index} className={classes.cell} 
-                      onClick={(e) => this.handleClick(e, item, 'between_14_16')} />)}
-              </tr>
-              <tr>
-                <td>16-18</td>
-                {weekday_array.map((item, index) => 
-                      <td key={index} className={classes.cell} 
-                      onClick={(e) => this.handleClick(e, item, 'between_16_18')} />)}
-              </tr>
-              <tr>
-                <td>18-20</td>
-                {weekday_array.map((item, index) => 
-                      <td key={index} className={classes.cell} 
-                      onClick={(e) => this.handleClick(e, item, 'between_18_20')} />)}
-              </tr>
-              <tr>
-                <td>20-22</td>
-                {weekday_array.map((item, index) => 
-                      <td key={index} className={classes.cell} 
-                      onClick={(e) => this.handleClick(e, item, 'between_20_22')} />)}
-              </tr>
-              <tr>
-                <td>22-00</td>
-                {weekday_array.map((item, index) => 
-                      <td key={index} className={classes.cell} 
-                      onClick={(e) => this.handleClick(e, item, 'between_22_00')} />)}
-              </tr>
-
+            {row_before_0_6}
+            {row_between_6_8}
+            {row_between_8_10}
+            {row_between_10_12}
+            {row_between_12_14}
+            {row_between_14_16}
+            {row_between_16_18}
+            {row_between_18_20}
+            {row_between_20_22}
+            {row_between_22_00}
             </tbody>
           </table>
 
