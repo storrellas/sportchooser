@@ -101,13 +101,24 @@ class MomentsDialog extends React.Component {
     this.props.onClose()
   }
 
-  generate_row = (classes, weekday_array, title, slot) =>  <tr>
-                                                              <td>{title}</td>
-                                                              {weekday_array.map((item, index) =>
-                                                                <td key={index} className={item.active?this.props.classes.cellEnable:this.props.classes.cell} 
-                                                                  onClick={(e) => this.handleClick(e, item.day, slot)} />)}
-                                                            </tr>
+  generate_row = (array, title, slot) =>  <tr>
+                                            <td>{title}</td>
+                                            {array.map((item, index) =>
+                                              <td key={index} className={item.active?this.props.classes.cellEnable:this.props.classes.cell} 
+                                                onClick={(e) => this.handleClick(e, item.day, slot)} />)}
+                                          </tr>
   
+  generate_weekday_slot_array(slot_array){
+    const weekday_array = [{day:'monday', active: false}, {day:'tuesday', active: false}, 
+                            {day:'wednesday', active: false}, {day:'thursday', active: false}, 
+                            {day:'friday', active: false}, {day:'saturday', active: false}, {day:'sunday', active: false}]
+    let weekday_slot_array = weekday_array.map(a => Object.assign({}, a));
+    for (const [idx,value] of slot_array.entries()) {
+      weekday_slot_array[idx].active = value      
+    }                            
+    return weekday_slot_array;
+  }
+
 
   render() {
     const { classes, onClose, ...other } = this.props;
@@ -118,21 +129,36 @@ class MomentsDialog extends React.Component {
                             {day:'friday', active: false}, {day:'saturday', active: false}, {day:'sunday', active: false}]
 
 
-    const weekday_before_0_6_array = [...weekday_array]
-    weekday_before_0_6_array[0].active = true
-    weekday_before_0_6_array[2].active = true
 
+    let weekday_slot_array = this.generate_weekday_slot_array([false, false, false, true, false, false, true])
+    const row_before_0_6 = this.generate_row(weekday_slot_array, '00-06', 'before_6_am')
 
-    const row_before_0_6 = this.generate_row(classes, weekday_before_0_6_array, '00-06', 'before_6_am')
-    const row_between_6_8 = this.generate_row(classes, weekday_array, '06-08', 'between_6_8')
-    const row_between_8_10 = this.generate_row(classes, weekday_array, '08-10', 'between_8_10')
-    const row_between_10_12 = this.generate_row(classes, weekday_array, '10-12', 'between_10_12')
-    const row_between_12_14 = this.generate_row(classes, weekday_array, '12-14', 'between_12_14')
-    const row_between_14_16 = this.generate_row(classes, weekday_array, '14-16', 'between_14_16')
-    const row_between_16_18 = this.generate_row(classes, weekday_array, '16-18', 'between_16_18')
-    const row_between_18_20 = this.generate_row(classes, weekday_array, '18-20', 'between_18_20')
-    const row_between_20_22 = this.generate_row(classes, weekday_array, '20-22', 'between_20_22')
-    const row_between_22_00 = this.generate_row(classes, weekday_array, '22-00', 'between_22_00')
+    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, false, false, false, false])
+    const row_between_6_8 = this.generate_row(weekday_slot_array, '06-08', 'between_6_8')
+
+    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, false, false, false, false])
+    const row_between_8_10 = this.generate_row(weekday_slot_array, '08-10', 'between_8_10')
+
+    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, false, false, false, false])
+    const row_between_10_12 = this.generate_row(weekday_slot_array, '10-12', 'between_10_12')
+
+    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, false, false, false, false])
+    const row_between_12_14 = this.generate_row(weekday_slot_array, '12-14', 'between_12_14')
+
+    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, false, false, false, false])   
+    const row_between_14_16 = this.generate_row(weekday_slot_array, '14-16', 'between_14_16')
+
+    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, false, false, false, false])    
+    const row_between_16_18 = this.generate_row(weekday_slot_array, '16-18', 'between_16_18')
+
+    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, false, false, false, false])   
+    const row_between_18_20 = this.generate_row(weekday_slot_array, '18-20', 'between_18_20')
+
+    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, true, false, false, true])    
+    const row_between_20_22 = this.generate_row(weekday_slot_array, '20-22', 'between_20_22')
+
+    weekday_slot_array = this.generate_weekday_slot_array([false, false, false, true, false, false, true])
+    const row_between_22_00 = this.generate_row(weekday_slot_array, '22-00', 'between_22_00')
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
