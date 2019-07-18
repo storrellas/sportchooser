@@ -42,6 +42,18 @@ const styles = theme => ({
     borderRadius: 3,
     '&:hover': {
       backgroundColor: 'orange'
+    },
+    cursor: 'pointer'
+  },
+  button:{
+    width: '75%', 
+    display: 'flex',
+    borderRadius:'100px', 
+    justifyContent: 'center',
+    backgroundColor: '#00CA9D',
+    color: 'white',
+    '&:hover':{
+      backgroundColor: '#005643'
     }
   }
 });
@@ -54,27 +66,20 @@ class MomentsDialog extends React.Component {
     }
   }
 
-  handleClose() {
-    //onClose(selectedValue);
+  handleClick(e, weekday, moment){
+    console.log("HandleClick", weekday, moment)
   }
 
-  handleListItemClick(value) {
-    onClose(value);
+  handleSubmit(e){
+    console.log("Contacting Backend", this.state.friend)
+    // Closing modal
+    this.props.onClose()
   }
-
-  handleKeyPress(){
-    console.log('The link was closed')  
-    if(event.key === 'Enter'){
-      console.log('enter press here! ')
-
-      // Launch confetti
-      store.dispatch( renderConfetti(true) )
-      setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
-    }  
-  };
 
   render() {
     const { classes, onClose, ...other } = this.props;
+    const header_array = Array.from(' MTWTFSS')
+    const weekday_array = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
@@ -102,54 +107,70 @@ class MomentsDialog extends React.Component {
           <table style={{width:"100%"}}>
             <thead>
               <tr>
-                {['', 'M', 'T', 'W', 'T', 'F', 'S', 'S'].map((item,index) => 
+                {header_array.map((item,index) => 
                   <th key={index}>{item}</th>)}
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>00-06</td>
-                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+                {weekday_array.map((item, index) => 
+                      <td key={index} className={classes.cell} 
+                      onClick={(e) => this.handleClick(e, item, 'before_6_am')} />)}
               </tr>
               <tr>
                 <td>06-08</td>
-                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
-              </tr>
-              <tr>
-                <td>00-06</td>
-                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+                {weekday_array.map((item, index) => 
+                      <td key={index} className={classes.cell} 
+                      onClick={(e) => this.handleClick(e, item, 'between_6_8')} />)}
               </tr>
               <tr>
                 <td>08-10</td>
-                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+                {weekday_array.map((item, index) => 
+                      <td key={index} className={classes.cell} 
+                      onClick={(e) => this.handleClick(e, item, 'between_8_10')} />)}
               </tr>
               <tr>
                 <td>10-12</td>
-                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+                {weekday_array.map((item, index) => 
+                      <td key={index} className={classes.cell} 
+                      onClick={(e) => this.handleClick(e, item, 'between_10_12')} />)}
               </tr>
               <tr>
                 <td>12-14</td>
-                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+                {weekday_array.map((item, index) => 
+                      <td key={index} className={classes.cell} 
+                      onClick={(e) => this.handleClick(e, item, 'between_12_14')} />)}
               </tr>
               <tr>
                 <td>14-16</td>
-                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+                {weekday_array.map((item, index) => 
+                      <td key={index} className={classes.cell} 
+                      onClick={(e) => this.handleClick(e, item, 'between_14_16')} />)}
               </tr>
               <tr>
                 <td>16-18</td>
-                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+                {weekday_array.map((item, index) => 
+                      <td key={index} className={classes.cell} 
+                      onClick={(e) => this.handleClick(e, item, 'between_16_18')} />)}
               </tr>
               <tr>
                 <td>18-20</td>
-                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+                {weekday_array.map((item, index) => 
+                      <td key={index} className={classes.cell} 
+                      onClick={(e) => this.handleClick(e, item, 'between_18_20')} />)}
               </tr>
               <tr>
                 <td>20-22</td>
-                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+                {weekday_array.map((item, index) => 
+                      <td key={index} className={classes.cell} 
+                      onClick={(e) => this.handleClick(e, item, 'between_20_22')} />)}
               </tr>
               <tr>
                 <td>22-00</td>
-                {Array.from('1234567').map((item, index) => <td key={index} className={classes.cell}></td>)}
+                {weekday_array.map((item, index) => 
+                      <td key={index} className={classes.cell} 
+                      onClick={(e) => this.handleClick(e, item, 'between_22_00')} />)}
               </tr>
 
             </tbody>
@@ -157,6 +178,11 @@ class MomentsDialog extends React.Component {
 
         </Box>
 
+        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
+          <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
+            <div style={{flexGrow: 1}}>OK</div>
+          </Button>
+        </Box>
 
 
       </Dialog>
