@@ -49,31 +49,38 @@ class EmailDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      zIndex: 1000
+      zIndex: 1000,
+      email: '',
+      confirm: '',
+      error: false,
+      helperText: ''
     }
   }
 
-  handleClose() {
-    //onClose(selectedValue);
-  }
-
-  handleListItemClick(value) {
-    onClose(value);
-  }
-
-  handleKeyPress(){
-    console.log('The link was closed')  
-    if(event.key === 'Enter'){
-      console.log('enter press here! ')
-
-      // Launch confetti
-      store.dispatch( renderConfetti(true) )
-      setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
-    }  
+  handleChange(e){
+    if( e.target.id == 'email-input')    
+    this.setState({ email: e.target.value})
+    if( e.target.id == 'confirm-input')      
+      this.setState({ confirm: e.target.value})
   };
+
+
+  handleSubmit(e){
+    e.preventDefault();
+    console.log("-- Contacting Backend --")
+
+    // Closing modal
+    const {email, confirm} = this.state
+    if( email === confirm ){
+      this.props.onClose()
+    }else{
+      this.setState({ error: true, helperText: 'Passwords do not match' })
+    }
+  }
 
   render() {
     const { classes, onClose, ...other } = this.props;
+    const { error, helperText } = this.state;
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
@@ -96,8 +103,8 @@ class EmailDialog extends React.Component {
         </DialogTitle>
 
         <Box mt={0} ml={3} mr={3} borderRadius={16}>
-          <TextField
-            id="outlined-email-input"
+          <TextField          
+            id="email-input"
             label="Enter your email"
             className={classes.textField}
             type="text"
@@ -106,10 +113,12 @@ class EmailDialog extends React.Component {
             margin="normal"
             variant="outlined"
             style={{width: "100%"}}
-            onKeyPress={(e) => this.handleKeyPress(e)}
+            onChange={(e) => this.handleChange(e)}
+            value={this.state.email}
           />
-            <TextField
-            id="outlined-email-confirm-input"
+          <TextField
+            error={error}
+            id="confirm-input"
             label="Confirm your email"
             className={classes.textField}
             type="text"
@@ -118,12 +127,14 @@ class EmailDialog extends React.Component {
             margin="normal"
             variant="outlined"
             style={{width: "100%"}}
-            onKeyPress={(e) => this.handleKeyPress(e)}
+            onChange={(e) => this.handleChange(e)}
+            value={this.state.confirm}
+            helperText={helperText}
           />
         </Box>
 
         <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-          <Button variant="contained" className={classes.button}>
+          <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
             <div style={{flexGrow: 1}}>OK</div>
           </Button>
         </Box>

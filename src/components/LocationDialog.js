@@ -39,22 +39,13 @@ class LocationDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      zIndex: 1000
+      zIndex: 1000,
+      location: ''
     }
   }
 
-  handleClose() {
-    //onClose(selectedValue);
-  }
-
-  handleListItemClick(value) {
-    onClose(value);
-  }
-
   handleKeyPress(){
-    console.log('The link was closed')  
     if(event.key === 'Enter'){
-      console.log('enter press here! ')
       this.handleSubmit()
 
       // // Launch confetti
@@ -62,9 +53,12 @@ class LocationDialog extends React.Component {
       // setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
     }  
   };
+  handleChange(e){
+    this.setState({ location: e.target.value})
+  }
 
   handleSubmit(){
-    console.log("Contacting Backend")
+    console.log("Contacting Backend", this.state.location)
     // Closing modal
     this.props.onClose()
   }
@@ -102,7 +96,9 @@ class LocationDialog extends React.Component {
             margin="normal"
             variant="outlined"
             style={{width: "100%"}}
+            onChange={(e) => this.handleChange(e)}
             onKeyPress={(e) => this.handleKeyPress(e)}
+            value={this.state.location}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -116,7 +112,6 @@ class LocationDialog extends React.Component {
                 </InputAdornment>
               ),
             }}
-
           />
         </Box>
       </Dialog>

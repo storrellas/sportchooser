@@ -1,6 +1,8 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
@@ -37,28 +39,30 @@ class FriendDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      zIndex: 1000
+      zIndex: 1000,
+      friend: ''
     }
   }
 
-  handleClose() {
-    //onClose(selectedValue);
-  }
-
-  handleListItemClick(value) {
-    onClose(value);
-  }
-
   handleKeyPress(){
-    console.log('The link was closed')  
     if(event.key === 'Enter'){
-      console.log('enter press here! ')
+      this.handleSubmit()
 
-      // Launch confetti
-      store.dispatch( renderConfetti(true) )
-      setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
+      // // Launch confetti
+      // store.dispatch( renderConfetti(true) )
+      // setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
     }  
   };
+
+  handleChange(e){
+    this.setState({ friend: e.target.value})
+  };
+
+  handleSubmit(e){
+    console.log("Contacting Backend", this.state.friend)
+    // Closing modal
+    this.props.onClose()
+  }
 
   render() {
     const { classes, onClose, ...other } = this.props;
@@ -83,9 +87,9 @@ class FriendDialog extends React.Component {
         </DialogTitle>
 
         <Box mt={2} ml={3} mr={3} borderRadius={16}>
-          <TextField
-            id="outlined-email-input"
-            label="Friend Code"
+        <TextField
+            id="outlined-friend-input"
+            label="Enter your friend code"
             className={classes.textField}
             type="text"
             name="code"
@@ -93,8 +97,22 @@ class FriendDialog extends React.Component {
             margin="normal"
             variant="outlined"
             style={{width: "100%"}}
-
             onKeyPress={(e) => this.handleKeyPress(e)}
+            onChange={(e) => this.handleChange(e)}
+            value={this.state.friend}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    edge="end"
+                    aria-label="Toggle password visibility"
+                    onClick={(e) => this.handleSubmit(e)}
+                  >
+                    <PlayArrowIcon style={{color:'green'}}></PlayArrowIcon>
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </Box>
       </Dialog>
