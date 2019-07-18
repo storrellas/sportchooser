@@ -41,7 +41,8 @@ const styles = theme => ({
     transition: "0.3s",
     borderRadius: 3,
     '&:hover': {
-      backgroundColor: 'orange'
+      backgroundColor: 'orange',
+      border: '1px solid black'
     },
     cursor: 'pointer'
   },
@@ -52,7 +53,8 @@ const styles = theme => ({
     transition: "0.3s",
     borderRadius: 3,
     '&:hover': {
-      backgroundColor: 'grey'
+      backgroundColor: 'grey',
+      border: '1px solid black'
     },
     cursor: 'pointer'
   },
@@ -96,8 +98,8 @@ class MomentsDialog extends React.Component {
     }
   }
 
-  handleClick(e, weekday, moment){
-    console.log("HandleClick", weekday, moment)
+  handleClick(e, weekday, moment, enabled){
+    console.log("HandleClick", weekday, moment, enabled)
   }
 
   handleSubmit(e){
@@ -110,28 +112,27 @@ class MomentsDialog extends React.Component {
                                             <td>{title}</td>
                                             {array.map((item, index) =>
                                               <td key={index} className={item.active?this.props.classes.cellEnable:this.props.classes.cell} 
-                                                onClick={(e) => this.handleClick(e, item.day, slot)} />)}
+                                                onClick={(e) => this.handleClick(e, item.day, slot, (item.active?false:true) )} />)}
                                           </tr>
-  
-  generate_weekday_slot_array(slot_array){
-    const weekday_array = [{day:'monday', active: false}, {day:'tuesday', active: false}, 
-                            {day:'wednesday', active: false}, {day:'thursday', active: false}, 
-                            {day:'friday', active: false}, {day:'saturday', active: false}, {day:'sunday', active: false}]
-    let weekday_slot_array = weekday_array.map(a => Object.assign({}, a));
-    for (const [idx,value] of slot_array.entries()) {
-      weekday_slot_array[idx].active = value      
-    }                            
-    return weekday_slot_array;
-  }
 
   generated_weekday_selected_list(pattern){
+    // Generate plain array in form [true, false, true, false, false ...]
     let weekday_selected_list = Array(7).fill(false)
     for (const moment of this.state.moment_list) {
       if( moment.slot == pattern ){
         weekday_selected_list[this.weekday2idx[moment.weekday]] = true
       }
     }
-    return weekday_selected_list
+
+    // Generate slot array
+    const weekday_array = [{day:'monday', active: false}, {day:'tuesday', active: false}, 
+                            {day:'wednesday', active: false}, {day:'thursday', active: false}, 
+                            {day:'friday', active: false}, {day:'saturday', active: false}, {day:'sunday', active: false}]  
+    let weekday_slot_array = weekday_array.map(a => Object.assign({}, a));
+    for (const [idx,value] of weekday_selected_list.entries()) {
+      weekday_slot_array[idx].active = value      
+    }                            
+    return weekday_slot_array;
   }
 
   render() {
@@ -140,44 +141,34 @@ class MomentsDialog extends React.Component {
 
 
     let weekday_selected_list = this.generated_weekday_selected_list('before_6')
-    let weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
-    const row_before_0_6 = this.generate_row(weekday_slot_array, '00-06', 'before_6')
+    const row_before_0_6 = this.generate_row(weekday_selected_list, '00-06', 'before_6')
 
     weekday_selected_list = this.generated_weekday_selected_list('between_6_8')
-    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
-    const row_between_6_8 = this.generate_row(weekday_slot_array, '06-08', 'between_6_8')
+    const row_between_6_8 = this.generate_row(weekday_selected_list, '06-08', 'between_6_8')
 
     weekday_selected_list = this.generated_weekday_selected_list('between_8_10')
-    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
-    const row_between_8_10 = this.generate_row(weekday_slot_array, '08-10', 'between_8_10')
+    const row_between_8_10 = this.generate_row(weekday_selected_list, '08-10', 'between_8_10')
 
     weekday_selected_list = this.generated_weekday_selected_list('between_10_12')
-    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
-    const row_between_10_12 = this.generate_row(weekday_slot_array, '10-12', 'between_10_12')
+    const row_between_10_12 = this.generate_row(weekday_selected_list, '10-12', 'between_10_12')
 
     weekday_selected_list = this.generated_weekday_selected_list('between_12_14')
-    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
-    const row_between_12_14 = this.generate_row(weekday_slot_array, '12-14', 'between_12_14')
+    const row_between_12_14 = this.generate_row(weekday_selected_list, '12-14', 'between_12_14')
 
     weekday_selected_list = this.generated_weekday_selected_list('between_14_16')
-    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
-    const row_between_14_16 = this.generate_row(weekday_slot_array, '14-16', 'between_14_16')
+    const row_between_14_16 = this.generate_row(weekday_selected_list, '14-16', 'between_14_16')
 
     weekday_selected_list = this.generated_weekday_selected_list('between_16_18')
-    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
-    const row_between_16_18 = this.generate_row(weekday_slot_array, '16-18', 'between_16_18')
+    const row_between_16_18 = this.generate_row(weekday_selected_list, '16-18', 'between_16_18')
 
     weekday_selected_list = this.generated_weekday_selected_list('between_18_20')
-    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
-    const row_between_18_20 = this.generate_row(weekday_slot_array, '18-20', 'between_18_20')
+    const row_between_18_20 = this.generate_row(weekday_selected_list, '18-20', 'between_18_20')
 
     weekday_selected_list = this.generated_weekday_selected_list('between_20_22')
-    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
-    const row_between_20_22 = this.generate_row(weekday_slot_array, '20-22', 'between_20_22')
+    const row_between_20_22 = this.generate_row(weekday_selected_list, '20-22', 'between_20_22')
 
     weekday_selected_list = this.generated_weekday_selected_list('after_22')
-    weekday_slot_array = this.generate_weekday_slot_array(weekday_selected_list)
-    const row_between_22_00 = this.generate_row(weekday_slot_array, '22-00', 'after_22')
+    const row_between_22_00 = this.generate_row(weekday_selected_list, '22-00', 'after_22')
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
