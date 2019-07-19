@@ -22,18 +22,11 @@ const isAnonymous = () => {
   return (CookieMgr.get(CookieMgr.keys.LAN) === undefined && 
           CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS) === undefined &&
           CookieMgr.get(CookieMgr.keys.TOKEN_REFRESH) === undefined)
-  //return false
 }
 
 const mapStateToProps = state => {
   return { userAuthenticated: state.userAuthenticated };
 };
-function mapDispatchToProps(dispatch) {
-  return {
-    userCreated: userCreated => dispatch(userCreated(true)),
-  };
-}
-
 class AuthenticatedRoute extends React.Component {
   constructor(props) {
     super(props);
@@ -50,8 +43,7 @@ class AuthenticatedRoute extends React.Component {
 
   }
 }
-const AuthenticatedRouteRedux = connect(mapStateToProps, mapDispatchToProps)(AuthenticatedRoute);
-
+const AuthenticatedRouteContainer = connect(mapStateToProps, null)(AuthenticatedRoute);
 
 class AnonymousRoute extends React.Component {
   constructor(props) {
@@ -61,17 +53,11 @@ class AnonymousRoute extends React.Component {
     }
   }
 
-  componentDidMount(){
-    console.log("-- AnonymousRoute:componentDidMount -- ",isAnonymous() )
-    if( isAnonymous() ) this.setState({ anonymous: true })
-  }
-
   render() {
     console.log("-- AnonymousRoute:render -- ", isAnonymous(), this.state.anonymous )
     return (this.state.anonymous?<Route {...this.props} />:<Redirect to='/home' />)
   }
 }
-/**/
 
 
 ReactDOM.render((
@@ -79,7 +65,7 @@ ReactDOM.render((
     <Startup>
       <BrowserRouter>
         <div>      
-          <AuthenticatedRouteRedux exact path="/home" component={Home} />
+          <AuthenticatedRouteContainer exact path="/home" component={Home} />
           <AnonymousRoute path="/" exact component={Landing} />
         </div>
       </BrowserRouter>

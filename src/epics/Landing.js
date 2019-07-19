@@ -62,6 +62,12 @@ const styles = theme => ({
 });
 
 
+function mapDispatchToProps(dispatch) {
+  return {
+    userCreated: () => dispatch(userCreated(true)),
+  };
+}
+
 class Landing extends React.Component {
 
   constructor(props) {
@@ -76,12 +82,9 @@ class Landing extends React.Component {
     CookieMgr.set(CookieMgr.keys.TOKEN_ACCESS, lan)
     CookieMgr.set(CookieMgr.keys.TOKEN_REFRESH, lan)
 
-    // // Moved to Home URL
+    // Move to Home URL
     this.props.history.push('/home')
-    // this.forceUpdate()
-    //this.setState({ redirect: true })
-    console.log("Dispatch action")
-    store.dispatch( userCreated(true) )
+    this.props.userCreated(false)
   }
 
 
@@ -152,5 +155,7 @@ class Landing extends React.Component {
     );
   }
 }
-export default withRouter(withStyles(styles)(Landing));
+//export default withRouter(withStyles(styles)(Landing));
+export default connect(null, mapDispatchToProps)(withStyles(styles)(Landing));
+
 
