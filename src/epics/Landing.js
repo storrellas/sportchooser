@@ -7,9 +7,7 @@ import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import { Redirect } from "react-router-dom";
-
-import { withRouter } from "react-router";
+import UUID from 'uuid/v4'
 
 
 // Redux
@@ -20,6 +18,7 @@ import { connect } from "react-redux";
 
 // Project imports
 import CookieMgr from "../utils/CookieMgr"
+import config from '../config/env'
 
 // Images
 import logoImage from "../assets/img/tryasport/img_logo.png"
@@ -72,19 +71,41 @@ class Landing extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      redirect: false
-    };
+    this.state = {};
   }
 
   handleSelectLanguage(e, lan){
-    CookieMgr.set(CookieMgr.keys.LAN, lan)
-    CookieMgr.set(CookieMgr.keys.TOKEN_ACCESS, lan)
-    CookieMgr.set(CookieMgr.keys.TOKEN_REFRESH, lan)
+    // CookieMgr.set(CookieMgr.keys.LAN, lan)
+    // CookieMgr.set(CookieMgr.keys.TOKEN_ACCESS, lan)
+    // CookieMgr.set(CookieMgr.keys.TOKEN_REFRESH, lan)
+
+    const body = {
+      username: UUID(),
+      password: UUID(),
+      language: lan
+    }
+    console.log("-- Creating user --")
+    console.log(body)
+    fetch(config.BASE_API_URL + '/api/user/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'post',
+      body: JSON.stringify(body)
+    }).then(function(response) {
+      return response.json();
+    }).then(function(data) {
+      console.log('Created Gist:', data.json());
+    });
+
+    // const username = UUID()
+    // const password = UUID()
+    // console.log(username, password)
 
     // Move to Home URL
-    this.props.history.push('/home')
-    this.props.userCreated(false)
+    //this.props.history.push('/home')
+    //this.props.userCreated(false)
   }
 
 
@@ -92,6 +113,7 @@ class Landing extends React.Component {
   render() {
     const { classes } = this.props;
     console.log("-- Landing:render --")
+
 
     return (
       <div> 

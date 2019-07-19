@@ -36,8 +36,8 @@ class AuthenticatedRoute extends React.Component {
   }
 
   render() {
-    console.log("-- AuthenticatedRoute:render -- ", isAnonymous() )
-    console.log(this.props)
+    // console.log("-- AuthenticatedRoute:render -- ", isAnonymous() )
+    // console.log(this.props)
     return (this.props.userAuthenticated||this.state.authenticated?
               <Route {...this.props} />:<Redirect to='/' />)
 
@@ -48,9 +48,7 @@ const AuthenticatedRouteContainer = connect(mapStateToProps, null)(Authenticated
 class AnonymousRoute extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      anonymous: isAnonymous()
-    }
+    this.state = { anonymous: isAnonymous() }
   }
 
   render() {
@@ -65,8 +63,8 @@ ReactDOM.render((
     <Startup>
       <BrowserRouter>
         <div>      
-          <AuthenticatedRouteContainer exact path="/home" component={Home} />
           <AnonymousRoute path="/" exact component={Landing} />
+          <AuthenticatedRouteContainer exact path="/home" component={Home} />
         </div>
       </BrowserRouter>
     </Startup>
