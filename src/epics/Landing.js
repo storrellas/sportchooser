@@ -73,31 +73,38 @@ class Landing extends React.Component {
     super(props);
     this.state = {};
   }
-
-  handleSelectLanguage(e, lan){
+  handleSelectLanguageOld(e, lan){
     // CookieMgr.set(CookieMgr.keys.LAN, lan)
     // CookieMgr.set(CookieMgr.keys.TOKEN_ACCESS, lan)
     // CookieMgr.set(CookieMgr.keys.TOKEN_REFRESH, lan)
 
-    const body = {
-      username: UUID(),
-      password: UUID(),
-      language: lan
-    }
-    console.log("-- Creating user --")
-    console.log(body)
-    fetch(config.BASE_API_URL + '/api/user/', {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'post',
-      body: JSON.stringify(body)
-    }).then(function(response) {
-      return response.json();
-    }).then(function(data) {
-      console.log('Created Gist:', data.json());
-    });
+    new Promise( (resolve, reject) => {
+      // Create User
+      const body = {
+        username: UUID(),
+        password: UUID(),
+        language: lan
+      }
+      console.log("-- Creating user --")
+      console.log(body)
+      fetch(config.BASE_API_URL + '/api/user/', {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'post',
+        body: JSON.stringify(body)
+      }).then(function(response) {
+        return response.json();
+      }).then(function(data) {
+        console.log('Created Gist:', data.json());
+      });
+    })
+  /**/
+
+
+  
+    
 
     // const username = UUID()
     // const password = UUID()
@@ -106,6 +113,67 @@ class Landing extends React.Component {
     // Move to Home URL
     //this.props.history.push('/home')
     //this.props.userCreated(false)
+  }
+
+
+  async handleSelectLanguage(e, lan){
+    // CookieMgr.set(CookieMgr.keys.LAN, lan)
+    // CookieMgr.set(CookieMgr.keys.TOKEN_ACCESS, lan)
+    // CookieMgr.set(CookieMgr.keys.TOKEN_REFRESH, lan)
+
+    // Create User
+    console.log("-- Creating User --")
+    const username = UUID()
+    const password = UUID()
+    let body = { username: username, password: password, language: lan}
+    let response = await fetch(config.BASE_API_URL + '/api/user/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'post',
+      body: JSON.stringify(body)
+    })
+    let data = await response.json()
+
+    // Get Token
+    body = { username: username, password: password }
+    response = await fetch(config.BASE_API_URL + '/api/token/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'post',
+      body: JSON.stringify(body)
+    })
+    data = await response.json()
+    // Store tokens
+    CookieMgr.set(CookieMgr.keys.LAN, lan)
+    CookieMgr.set(CookieMgr.keys.TOKEN_ACCESS, data.access)
+    CookieMgr.set(CookieMgr.keys.TOKEN_REFRESH, data.refresh)
+    
+    // WhoAmI
+    body = { username: username, password: password }
+    response = await fetch(config.BASE_API_URL + '/api/user/whoami/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
+      },
+      method: 'get'
+    })
+    data = await response.json()
+    console.log(data)
+
+
+
+    // const username = UUID()
+    // const password = UUID()
+    // console.log(username, password)
+
+    // Move to Home URL
+    // this.props.history.push('/home')
+    // this.props.userCreated(false)
   }
 
 
