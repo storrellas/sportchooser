@@ -1,6 +1,6 @@
 import React from "react";
 //import ConfettiGenerator from "confetti-js";
-import ConfettiGenerator from "../components/Confetti";
+import ConfettiGenerator from "../lib/Confetti";
 
 // React-redux
 import { connect } from "react-redux";

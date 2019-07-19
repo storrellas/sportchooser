@@ -1,4 +1,10 @@
+
+export const LAN = 'lan'
+
 class CookieMgr{
+
+   
+
 
   static set(name,value,days) {
       var expires = "";
@@ -18,7 +24,7 @@ class CookieMgr{
           while (c.charAt(0)==' ') c = c.substring(1,c.length);
           if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
       }
-      return null;
+      return undefined;
   }
   
   static erase(name) {
@@ -26,6 +32,13 @@ class CookieMgr{
       document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
   }
 
+}
+
+// Constant key values for cookies
+CookieMgr.keys = {
+    LAN: 'lan',
+    TOKEN_ACCESS: 'token_access',
+    TOKEN_REFRESH: 'token_refresh'
 }
 
 export default CookieMgr

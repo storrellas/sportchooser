@@ -56,7 +56,7 @@ class FriendDialog extends React.Component {
 
   handleChange(e){
     this.setState({ friend: e.target.value})
-  };
+  }
 
   handleSubmit(e){
     console.log("Contacting Backend", this.state.friend)

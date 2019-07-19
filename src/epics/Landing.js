@@ -14,6 +14,7 @@ import { store, renderConfetti } from "../redux";
 // React-redux
 import { connect } from "react-redux";
 
+// Project imports
 import CookieMgr from "../utils/CookieMgr"
 
 // Images
@@ -61,9 +62,7 @@ class Landing extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      redirect: false
-    };
+    this.state = {};
   }
 
   handleSelectLanguage(e, lan){
