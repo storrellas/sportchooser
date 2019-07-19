@@ -25,7 +25,7 @@ const isAnonymous = () => {
 }
 
 const mapStateToProps = state => {
-  return { userAuthenticated: state.userAuthenticated };
+  return { user: state.user };
 };
 class AuthenticatedRoute extends React.Component {
   constructor(props) {
@@ -37,8 +37,8 @@ class AuthenticatedRoute extends React.Component {
 
   render() {
     // console.log("-- AuthenticatedRoute:render -- ", isAnonymous() )
-    // console.log(this.props)
-    return (this.props.userAuthenticated||this.state.authenticated?
+    // console.log(this.props)    
+    return ( (this.props.user != undefined)||this.state.authenticated?
               <Route {...this.props} />:<Redirect to='/' />)
 
   }
@@ -52,7 +52,7 @@ class AnonymousRoute extends React.Component {
   }
 
   render() {
-    console.log("-- AnonymousRoute:render -- ", isAnonymous(), this.state.anonymous )
+    //console.log("-- AnonymousRoute:render -- ", isAnonymous(), this.state.anonymous )
     return (this.state.anonymous?<Route {...this.props} />:<Redirect to='/home' />)
   }
 }

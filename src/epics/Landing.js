@@ -63,7 +63,7 @@ const styles = theme => ({
 
 function mapDispatchToProps(dispatch) {
   return {
-    userCreated: () => dispatch(userCreated(true)),
+    userCreated: (data) => dispatch(userCreated(data)),
   };
 }
 
@@ -172,8 +172,8 @@ class Landing extends React.Component {
     // console.log(username, password)
 
     // Move to Home URL
-    // this.props.history.push('/home')
-    // this.props.userCreated(false)
+    this.props.history.push('/home')
+    this.props.userCreated(data)
   }
 
 

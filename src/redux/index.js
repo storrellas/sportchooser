@@ -4,15 +4,14 @@ import { createStore } from "redux";
 // Actions
 // ---------------------
 export const RENDER_CONFETTI = "RENDER_CONFETTI";
-export const USER_AUTHENTICATED = "USER_AUTHENTICATED";
-export const USER_PROFILE = "USER_PROFILE";
+export const USER_CREATED = "USER_CREATED";
 
 export function renderConfetti(payload = null) {
   return { type: RENDER_CONFETTI, payload }
 };
 
 export function userCreated(payload = null) {
-  return { type: USER_AUTHENTICATED, payload }
+  return { type: USER_CREATED, payload }
 };
 
 // Reducers
@@ -20,7 +19,7 @@ export function userCreated(payload = null) {
 const initialState = {
   articles: [],
   confetti: false,
-  userAuthenticated: false
+  user: undefined
 };
 
 export function rootReducer(state = initialState, action) {
@@ -30,14 +29,9 @@ export function rootReducer(state = initialState, action) {
       confetti: action.payload
     });
   }
-  if (action.type === USER_AUTHENTICATED) {
+  if (action.type === USER_CREATED) {
     return Object.assign({}, state, {
-      userAuthenticated: action.payload
-    });
-  }
-  if (action.type === USER_PROFILE) {
-    return Object.assign({}, state, {
-      userAuthenticated: action.payload
+      user: action.payload
     });
   }
   return state;
