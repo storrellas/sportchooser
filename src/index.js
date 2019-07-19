@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+
 
 // Project imports
 import Startup from "./epics/Startup.js"
@@ -9,7 +11,7 @@ import Landing from "./epics/Landing.js";
 
 // Redux
 import { Provider } from "react-redux";
-import store from "./redux";
+import { store, renderConfetti, userCreated } from "./redux";
 
 // Project imports
 import CookieMgr from "./utils/CookieMgr"
@@ -23,56 +25,39 @@ const isAnonymous = () => {
   //return false
 }
 
+const mapStateToProps = state => {
+  return { userAuthenticated: state.userAuthenticated };
+};
+function mapDispatchToProps(dispatch) {
+  return {
+    userCreated: userCreated => dispatch(userCreated(true)),
+  };
+}
+
 class AuthenticatedRoute extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      authenticated: true,
-      redirected: false
+      authenticated: (isAnonymous() == false)
     }
-
-
-    console.log("-- AuthenticatedRoute: Constructor --")
-    store.subscribe(() => {
-      console.log(store.getState())
-      const state = store.getState()
-      console.log("-- State --")
-      console.log(state)
-      if( state.userAuthenticated ){
-        console.log("Auth")
-        this.setState({authenticated: true})
-      }else{
-        console.log("NOTAuth")
-      }
-        
-    })
-
-  }
-
-  componentDidMount(){
-    console.log("-- AuthenticatedRoute:componentDidMount -- ",isAnonymous(), this.state)
-    if( isAnonymous() && (this.state.redirected == false) ) 
-      this.setState({ authenticated: false, redirected: true })
-  }
-
-  componentDidUpdate(){
-    console.log("-- AuthenticatedRoute:componentDidUpdate -- ",isAnonymous(), this.state)
-    if( isAnonymous() && (this.state.redirected == false) ) 
-      this.setState({ authenticated: false, redirected: true })
   }
 
   render() {
-    console.log("-- AuthenticatedRoute:render -- ",isAnonymous() )
-    return (this.state.authenticated?<Route {...this.props} />:<Redirect to='/' />)
+    console.log("-- AuthenticatedRoute:render -- ", isAnonymous() )
+    console.log(this.props)
+    return (this.props.userAuthenticated||this.state.authenticated?
+              <Route {...this.props} />:<Redirect to='/' />)
+
   }
 }
+const AuthenticatedRouteRedux = connect(mapStateToProps, mapDispatchToProps)(AuthenticatedRoute);
 
 
 class AnonymousRoute extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      anonymous: false
+      anonymous: isAnonymous()
     }
   }
 
@@ -82,7 +67,7 @@ class AnonymousRoute extends React.Component {
   }
 
   render() {
-    console.log("-- AnonymousRoute:render -- ",isAnonymous() )
+    console.log("-- AnonymousRoute:render -- ", isAnonymous(), this.state.anonymous )
     return (this.state.anonymous?<Route {...this.props} />:<Redirect to='/home' />)
   }
 }
@@ -94,7 +79,7 @@ ReactDOM.render((
     <Startup>
       <BrowserRouter>
         <div>      
-          <AuthenticatedRoute exact path="/home" component={Home} />
+          <AuthenticatedRouteRedux exact path="/home" component={Home} />
           <AnonymousRoute path="/" exact component={Landing} />
         </div>
       </BrowserRouter>

@@ -16,7 +16,7 @@ export function renderConfetti(payload = null) {
   return { type: RENDER_CONFETTI, payload }
 };
 
-export function userAuthenticated(payload = null) {
+export function userCreated(payload = null) {
   return { type: USER_AUTHENTICATED, payload }
 };
 

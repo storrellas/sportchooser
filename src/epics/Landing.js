@@ -13,7 +13,7 @@ import { withRouter } from "react-router";
 
 
 // Redux
-import { store, renderConfetti, userAuthenticated } from "../redux";
+import { store, renderConfetti, userCreated } from "../redux";
 
 // React-redux
 import { connect } from "react-redux";
@@ -81,7 +81,7 @@ class Landing extends React.Component {
     // this.forceUpdate()
     //this.setState({ redirect: true })
     console.log("Dispatch action")
-    store.dispatch( userAuthenticated(true) )
+    store.dispatch( userCreated(true) )
   }
 
 
