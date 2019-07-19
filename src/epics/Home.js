@@ -156,7 +156,9 @@ class IconMenu extends React.Component {
 //   };
 // }
 
-
+const mapStateToProps = state => {
+  return { user: state.user };
+};
 
 class Home extends React.Component {
 
@@ -332,6 +334,7 @@ class Home extends React.Component {
     const { classes } = this.props;
     const { sport_list, selected } = this.state;
     console.log("-- Home:Rendering --", selected)
+    console.log(this.props.user)
     // Determine whether loading or spinner
     let sport_box = <div className={classNames(classes.loadingContainer)}>
                       <CircularProgress/>
@@ -415,6 +418,6 @@ class Home extends React.Component {
 }
 
 
-export default withRouter(withStyles(styles)(Home));
-//export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home));
+//export default withRouter(withStyles(styles)(Home));
+export default connect(mapStateToProps, null)(withStyles(styles)(Home));
 

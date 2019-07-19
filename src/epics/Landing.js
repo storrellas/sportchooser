@@ -73,53 +73,8 @@ class Landing extends React.Component {
     super(props);
     this.state = {};
   }
-  handleSelectLanguageOld(e, lan){
-    // CookieMgr.set(CookieMgr.keys.LAN, lan)
-    // CookieMgr.set(CookieMgr.keys.TOKEN_ACCESS, lan)
-    // CookieMgr.set(CookieMgr.keys.TOKEN_REFRESH, lan)
-
-    new Promise( (resolve, reject) => {
-      // Create User
-      const body = {
-        username: UUID(),
-        password: UUID(),
-        language: lan
-      }
-      console.log("-- Creating user --")
-      console.log(body)
-      fetch(config.BASE_API_URL + '/api/user/', {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: 'post',
-        body: JSON.stringify(body)
-      }).then(function(response) {
-        return response.json();
-      }).then(function(data) {
-        console.log('Created Gist:', data.json());
-      });
-    })
-  /**/
-
-
-  
-    
-
-    // const username = UUID()
-    // const password = UUID()
-    // console.log(username, password)
-
-    // Move to Home URL
-    //this.props.history.push('/home')
-    //this.props.userCreated(false)
-  }
-
 
   async handleSelectLanguage(e, lan){
-    // CookieMgr.set(CookieMgr.keys.LAN, lan)
-    // CookieMgr.set(CookieMgr.keys.TOKEN_ACCESS, lan)
-    // CookieMgr.set(CookieMgr.keys.TOKEN_REFRESH, lan)
 
     // Create User
     console.log("-- Creating User --")
@@ -164,12 +119,6 @@ class Landing extends React.Component {
     })
     data = await response.json()
     console.log(data)
-
-
-
-    // const username = UUID()
-    // const password = UUID()
-    // console.log(username, password)
 
     // Move to Home URL
     this.props.history.push('/home')
