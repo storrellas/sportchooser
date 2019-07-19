@@ -7,9 +7,13 @@ import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { Redirect } from "react-router-dom";
+
+import { withRouter } from "react-router";
+
 
 // Redux
-import { store, renderConfetti } from "../redux";
+import { store, renderConfetti, userAuthenticated } from "../redux";
 
 // React-redux
 import { connect } from "react-redux";
@@ -62,18 +66,29 @@ class Landing extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      redirect: false
+    };
   }
 
   handleSelectLanguage(e, lan){
+    CookieMgr.set(CookieMgr.keys.LAN, lan)
+    CookieMgr.set(CookieMgr.keys.TOKEN_ACCESS, lan)
+    CookieMgr.set(CookieMgr.keys.TOKEN_REFRESH, lan)
+
+    // // Moved to Home URL
     this.props.history.push('/home')
-    CookieMgr.set('lan', lan)
+    // this.forceUpdate()
+    //this.setState({ redirect: true })
+    console.log("Dispatch action")
+    store.dispatch( userAuthenticated(true) )
   }
 
 
 
   render() {
     const { classes } = this.props;
+    console.log("-- Landing:render --")
 
     return (
       <div> 
@@ -137,5 +152,5 @@ class Landing extends React.Component {
     );
   }
 }
-export default withStyles(styles)(Landing);
+export default withRouter(withStyles(styles)(Landing));
 

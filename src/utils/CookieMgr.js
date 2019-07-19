@@ -1,10 +1,6 @@
 
-export const LAN = 'lan'
 
 class CookieMgr{
-
-   
-
 
   static set(name,value,days) {
       var expires = "";

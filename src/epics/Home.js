@@ -7,6 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import { withRouter } from "react-router";
+
 
 // Redux
 import { store, renderConfetti } from "../redux";
@@ -143,10 +145,9 @@ class IconMenu extends React.Component {
 }
 
 
-//import { store, renderConfetti } from "../redux";
-//import store from "../redux";
+// import { store, renderConfetti, userAuthenticated } from "../redux";
 // const mapStateToProps = state => {
-//   return { articles: state.articles };
+//   return { userAuthenticated: state.userAuthenticated };
 // };
 // function mapDispatchToProps(dispatch) {
 //   return {
@@ -158,8 +159,6 @@ class IconMenu extends React.Component {
 
 
 class Home extends React.Component {
-
-
 
   constructor(props) {
     super(props);
@@ -223,8 +222,6 @@ class Home extends React.Component {
       user_prompt_enum.BIRTHYEAR
     ]
     /**/
-
-
   }
 
   componentDidMount(){
@@ -334,10 +331,7 @@ class Home extends React.Component {
   render() {
     const { classes } = this.props;
     const { sport_list, selected } = this.state;
-
-
-    console.log("Rendering: ", selected)
-
+    console.log("-- Home:Rendering --", selected)
     // Determine whether loading or spinner
     let sport_box = <div className={classNames(classes.loadingContainer)}>
                       <CircularProgress/>
@@ -421,6 +415,6 @@ class Home extends React.Component {
 }
 
 
-export default withStyles(styles)(Home);
+export default withRouter(withStyles(styles)(Home));
 //export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home));
 
