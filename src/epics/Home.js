@@ -11,12 +11,15 @@ import { withRouter } from "react-router";
 
 
 // Redux
-import { store, renderConfetti } from "../redux";
+import { store, userProfile } from "../redux";
 
 // React-redux
 import { connect } from "react-redux";
 
+// Project Imports
 import config from '../config/env'
+import CookieMgr from "../utils/CookieMgr"
+
 
 // AwesomeSlider
 import AwesomeSlider from 'react-awesome-slider';
@@ -159,6 +162,11 @@ class IconMenu extends React.Component {
 const mapStateToProps = state => {
   return { user: state.user };
 };
+function mapDispatchToProps(dispatch) {
+  return {
+    userProfile: (data) => dispatch(userProfile(data)),
+  };
+}
 
 class Home extends React.Component {
 
@@ -243,6 +251,38 @@ class Home extends React.Component {
         this.setState({ sport_list: data, selected: 0 })
       }
     })
+
+    if(this.props.user === undefined){
+      console.log("User is undefined")
+
+      fetch(config.BASE_API_URL + '/api/user/whoami/', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
+        },    
+      })
+      .then(response => response.json())
+      .then( (data) =>{
+        console.log(data)
+        this.props.userProfile(data)
+
+      })
+
+        // // WhoAmI
+        // body = { username: username, password: password }
+        // response = await fetch(config.BASE_API_URL + '/api/user/whoami/', {
+        //   headers: {
+        //     'Accept': 'application/json',
+        //     'Content-Type': 'application/json',
+        //     'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
+        //   },
+        //   method: 'get'
+        // })
+        // data = await response.json()
+        // console.log(data)
+    }
   }
 
   componentWillUnmount(){
@@ -359,6 +399,7 @@ class Home extends React.Component {
                 </div>;
     }
 
+    const user_str = JSON.stringify(this.props.user, null, 2)
     return (
       <div> 
         <Container maxWidth="sm" className={classes.root}>
@@ -410,6 +451,9 @@ class Home extends React.Component {
             <LocationDialog open={this.state.user_prompt.display.location} onClose={(e) => this.handleClose()} />
             <MomentsDialog open={this.state.user_prompt.display.moments} onClose={(e) => this.handleClose()} />
 
+            <h1>User</h1>
+            <div>{user_str}</div>
+
         </Container>
 
       </div>
@@ -419,5 +463,5 @@ class Home extends React.Component {
 
 
 //export default withRouter(withStyles(styles)(Home));
-export default connect(mapStateToProps, null)(withStyles(styles)(Home));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home));
 

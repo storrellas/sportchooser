@@ -5,6 +5,7 @@ import { createStore } from "redux";
 // ---------------------
 export const RENDER_CONFETTI = "RENDER_CONFETTI";
 export const USER_CREATED = "USER_CREATED";
+export const USER_PROFILE = "USER_PROFILE";
 
 export function renderConfetti(payload = null) {
   return { type: RENDER_CONFETTI, payload }
@@ -12,6 +13,10 @@ export function renderConfetti(payload = null) {
 
 export function userCreated(payload = null) {
   return { type: USER_CREATED, payload }
+};
+
+export function userProfile(payload = null) {
+  return { type: USER_PROFILE, payload }
 };
 
 // Reducers
@@ -30,6 +35,11 @@ export function rootReducer(state = initialState, action) {
     });
   }
   if (action.type === USER_CREATED) {
+    return Object.assign({}, state, {
+      user: action.payload
+    });
+  }
+  if (action.type === USER_PROFILE) {
     return Object.assign({}, state, {
       user: action.payload
     });
