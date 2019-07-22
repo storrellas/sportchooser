@@ -13,11 +13,12 @@ import Dialog from '@material-ui/core/Dialog';
 import genderImage from "../assets/img/tryasport/img_gender_orange.png"
 import maleImage from "../assets/img/tryasport/img_male.png"
 import femaleImage from "../assets/img/tryasport/img_female.png"
-
-
+import config from '../config/env'
+import CookieMgr from "../utils/CookieMgr"
 
 // Redux
-import { store, renderConfetti } from "../redux";
+import { store, userProfile } from "../redux";
+import { connect } from "react-redux";
 
 const styles = theme => ({
   avatar: {
@@ -49,6 +50,12 @@ const styles = theme => ({
   }
 });
 
+function mapDispatchToProps(dispatch) {
+  return {
+    userProfile: (data) => dispatch(userProfile(data)),
+  };
+}
+
 class GenderDialog extends React.Component {
   constructor(props) {
     super(props);
@@ -57,21 +64,36 @@ class GenderDialog extends React.Component {
     }
   }
 
-  handleClick(e, gender) {
+  async handleClick(e, gender) {
     //onClose(selectedValue);
     console.log('handleClick', gender)
 
+    const url = `${config.BASE_API_URL}/api/user/${this.props.userId}/`
+    const body = { gender: gender }
+    let response = await fetch(url, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
+      },
+      method: 'put',
+      body: JSON.stringify(body)
+    })
+    let data = await response.json()
+
+    // Notify watchers
+    this.props.userProfile(data)
     this.props.onClose()
   }
 
 
 
   render() {
-    const { classes, onClose, ...other } = this.props;
+    const { classes, onClose, open } = this.props;
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
-              aria-labelledby="simple-dialog-title" {...other}>
+              aria-labelledby="simple-dialog-title" open={open}>
         <canvas id="my-canvas" width={200} height={200} style={{ position:'absolute', backgroundColor: 'transparent', zIndex: this.state.zIndex }}></canvas>
 
 
@@ -124,5 +146,6 @@ FriendDialog.propTypes = {
 };
 /**/
 
-export default withStyles(styles)(GenderDialog);
+//export default withStyles(styles)(GenderDialog);
+export default connect(null, mapDispatchToProps)(withStyles(styles)(GenderDialog));
 
