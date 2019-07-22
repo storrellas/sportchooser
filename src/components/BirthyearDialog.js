@@ -94,7 +94,6 @@ class BirthyearDialog extends React.Component {
     this.setState({ birthday_year: e.target.value })
   }
 
-
   render() {
     const { classes, onClose, open } = this.props;
 
