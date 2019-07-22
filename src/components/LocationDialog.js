@@ -71,7 +71,7 @@ class LocationDialog extends React.Component {
     // console.log("Contacting Backend", this.state.location)
 
     const url = `${config.BASE_API_URL}/api/user/${this.props.userId}/`
-    const body = { work_location: this.state.location }
+    const body = { location: this.state.location }
     let response = await fetch(url, {
       headers: {
         'Accept': 'application/json',

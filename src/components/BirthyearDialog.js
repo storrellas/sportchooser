@@ -66,14 +66,14 @@ class BirthyearDialog extends React.Component {
       Array(new Date().getFullYear() - 1900 + 1).fill().map((_, idx) => ({value:(1900 + idx), label:(1900+idx)})  )
     this.state = {
       zIndex: 1000,
-      birthday_year: this.year_choice[0].value
+      birthyear: this.year_choice[0].value
     }
   }
 
 
   async handleSubmit(){
     const url = `${config.BASE_API_URL}/api/user/${this.props.userId}/`
-    const body = { birthday_year: parseInt(this.state.birthday_year) }
+    const body = { birthyear: parseInt(this.state.birthyear) }
     let response = await fetch(url, {
       headers: {
         'Accept': 'application/json',
@@ -91,7 +91,7 @@ class BirthyearDialog extends React.Component {
   }
 
   handleChange(e){
-    this.setState({ birthday_year: e.target.value })
+    this.setState({ birthyear: e.target.value })
   }
 
   render() {
@@ -123,7 +123,7 @@ class BirthyearDialog extends React.Component {
             label="Select"
             className={classes.textField}
             style={{width: "50%"}}
-            value={this.state.birthday_year}
+            value={this.state.birthyear}
             onChange={(e) => this.handleChange(e)}
             SelectProps={{
               MenuProps: {
