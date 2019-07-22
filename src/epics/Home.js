@@ -12,8 +12,6 @@ import { withRouter } from "react-router";
 
 // Redux
 import { store, userProfile } from "../redux";
-
-// React-redux
 import { connect } from "react-redux";
 
 // Project Imports
@@ -190,8 +188,8 @@ class Home extends React.Component {
     //   this.user_prompt_enum.LOCATION,
     // ]
     this.user_prompt_order = [
-      this.user_prompt_enum.FRIENDS,
       this.user_prompt_enum.EMAIL,
+      this.user_prompt_enum.FRIENDS,
       this.user_prompt_enum.LOCATION,
       this.user_prompt_enum.MOMENTS,
       this.user_prompt_enum.GENDER,
@@ -218,6 +216,7 @@ class Home extends React.Component {
       },
       settings_prompt: false,
       sport_list: [],
+      user: this.props.user
     };
     this.mounted = false;
 
@@ -246,14 +245,13 @@ class Home extends React.Component {
     })
     .then(response => response.json())
     .then( (data) =>{
-      console.log(data)
       if(this.mounted == true){
         this.setState({ sport_list: data, selected: 0 })
       }
     })
 
+    // Get props user
     if(this.props.user === undefined){
-      console.log("User is undefined")
 
       fetch(config.BASE_API_URL + '/api/user/whoami/', {
         method: 'GET',
@@ -265,23 +263,8 @@ class Home extends React.Component {
       })
       .then(response => response.json())
       .then( (data) =>{
-        console.log(data)
         this.props.userProfile(data)
-
       })
-
-        // // WhoAmI
-        // body = { username: username, password: password }
-        // response = await fetch(config.BASE_API_URL + '/api/user/whoami/', {
-        //   headers: {
-        //     'Accept': 'application/json',
-        //     'Content-Type': 'application/json',
-        //     'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
-        //   },
-        //   method: 'get'
-        // })
-        // data = await response.json()
-        // console.log(data)
     }
   }
 
@@ -309,7 +292,6 @@ class Home extends React.Component {
 
   handleUndo(e){
     e.preventDefault();
-    console.log('Undo clicked');
 
     // Decide selected action
     let selected = this.state.selected - 1
@@ -344,8 +326,8 @@ class Home extends React.Component {
     }
     
 
-    console.log("user_prompt")
-    console.log(user_prompt)
+    // console.log("user_prompt")
+    // console.log(user_prompt)
     const state = {
       selected: selected, 
       user_prompt: user_prompt
@@ -354,7 +336,7 @@ class Home extends React.Component {
   }
 
   handleClose(){
-    console.log('The link was closed')
+    //console.log('The link was closed')
     let {user_prompt} = this.state;
     user_prompt.open = false;
     user_prompt.counter = 0
@@ -372,9 +354,10 @@ class Home extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { sport_list, selected } = this.state;
+    const { sport_list, selected, user_prompt } = this.state;
     console.log("-- Home:Rendering --", selected)
-    console.log(this.props.user)
+    // console.log(this.props.user)
+
     // Determine whether loading or spinner
     let sport_box = <div className={classNames(classes.loadingContainer)}>
                       <CircularProgress/>
@@ -400,6 +383,7 @@ class Home extends React.Component {
     }
 
     const user_str = JSON.stringify(this.props.user, null, 2)
+    const userId = this.props.user === undefined?0:this.props.user.id;
     return (
       <div> 
         <Container maxWidth="sm" className={classes.root}>
@@ -411,8 +395,6 @@ class Home extends React.Component {
               <div  onClick={(e) => this.handleSettings(e)}>
                 <img src={gearImage} style={{position: 'absolute', right: 10, top: "12%", height: "75%", cursor: 'pointer'}}></img>
               </div>
-
-
           </Box>
 
           <Container maxWidth={false} style={{paddingTop: 20}}>
@@ -444,12 +426,12 @@ class Home extends React.Component {
 
             <SettingsDialog open={this.state.settings_prompt} onClose={(e) => this.handleClose()} />
 
-            <BirthyearDialog open={this.state.user_prompt.display.birthyear} onClose={(e) => this.handleClose()} />
-            <EmailDialog open={this.state.user_prompt.display.email} onClose={(e) => this.handleClose()} />
-            <FriendDialog open={this.state.user_prompt.display.friends} onClose={(e) => this.handleClose()} />
-            <GenderDialog open={this.state.user_prompt.display.gender} onClose={(e) => this.handleClose()} />
-            <LocationDialog open={this.state.user_prompt.display.location} onClose={(e) => this.handleClose()} />
-            <MomentsDialog open={this.state.user_prompt.display.moments} onClose={(e) => this.handleClose()} />
+            <BirthyearDialog userId={userId} open={user_prompt.display.birthyear} onClose={(e) => this.handleClose()} />
+            <EmailDialog userId={userId} open={user_prompt.display.email} onClose={(e) => this.handleClose()} />
+            <FriendDialog userId={userId} open={user_prompt.display.friends} onClose={(e) => this.handleClose()} />
+            <GenderDialog userId={userId} open={user_prompt.display.gender} onClose={(e) => this.handleClose()} />
+            <LocationDialog userId={userId} open={user_prompt.display.location} onClose={(e) => this.handleClose()} />
+            <MomentsDialog userId={userId} open={user_prompt.display.moments} onClose={(e) => this.handleClose()} />
 
             <h1>User</h1>
             <div>{user_str}</div>

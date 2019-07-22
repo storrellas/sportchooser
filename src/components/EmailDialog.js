@@ -11,9 +11,13 @@ import Dialog from '@material-ui/core/Dialog';
 
 // Project import
 import mailboxImage from "../assets/img/tryasport/img_mailbox_orange.png"
+import config from '../config/env'
+import CookieMgr from "../utils/CookieMgr"
+
 
 // Redux
-import { store, renderConfetti } from "../redux";
+import { store, userProfile } from "../redux";
+import { connect } from "react-redux";
 
 const styles = theme => ({
   avatar: {
@@ -45,6 +49,12 @@ const styles = theme => ({
   }
 });
 
+function mapDispatchToProps(dispatch) {
+  return {
+    userProfile: (data) => dispatch(userProfile(data)),
+  };
+}
+
 class EmailDialog extends React.Component {
   constructor(props) {
     super(props);
@@ -65,26 +75,43 @@ class EmailDialog extends React.Component {
   };
 
 
-  handleSubmit(e){
+  async handleSubmit(e){
     e.preventDefault();
-    console.log("-- Contacting Backend --")
+    console.log("-- Contacting Backend --", this.props.userId)
 
     // Closing modal
     const {email, confirm} = this.state
     if( email === confirm ){
+
+      const url = `${config.BASE_API_URL}/api/user/${this.props.userId}/`
+      const body = { email: email }
+      let response = await fetch(url, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
+        },
+        method: 'put',
+        body: JSON.stringify(body)
+      })
+      let data = await response.json()
+
+      // Notify watchers
+      this.props.userProfile(data)
       this.props.onClose()
     }else{
-      this.setState({ error: true, helperText: 'Passwords do not match' })
+      this.setState({ error: true, helperText: 'Emails do not match' })
     }
   }
 
   render() {
-    const { classes, onClose, ...other } = this.props;
+
+    const { classes, onClose, open } = this.props;
     const { error, helperText } = this.state;
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
-              aria-labelledby="simple-dialog-title" {...other}>
+              aria-labelledby="simple-dialog-title" open={open}>
         <canvas id="my-canvas" width={200} height={200} style={{ position:'absolute', backgroundColor: 'transparent', zIndex: this.state.zIndex }}></canvas>
 
 
@@ -156,5 +183,8 @@ FriendDialog.propTypes = {
 };
 /**/
 
-export default withStyles(styles)(EmailDialog);
+//export default withStyles(styles)(EmailDialog);
+export default connect(null, mapDispatchToProps)(withStyles(styles)(EmailDialog));
+
+
 

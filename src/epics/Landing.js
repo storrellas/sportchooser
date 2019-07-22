@@ -77,7 +77,6 @@ class Landing extends React.Component {
   async handleSelectLanguage(e, lan){
 
     // Create User
-    console.log("-- Creating User --")
     const username = UUID()
     const password = UUID()
     let body = { username: username, password: password, language: lan}
@@ -91,35 +90,11 @@ class Landing extends React.Component {
     })
     let data = await response.json()
 
-    // Get Token
-    body = { username: username, password: password }
-    response = await fetch(config.BASE_API_URL + '/api/token/', {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'post',
-      body: JSON.stringify(body)
-    })
-    data = await response.json()
     // Store tokens
     CookieMgr.set(CookieMgr.keys.LAN, lan)
     CookieMgr.set(CookieMgr.keys.TOKEN_ACCESS, data.access)
     CookieMgr.set(CookieMgr.keys.TOKEN_REFRESH, data.refresh)
-    
-    // WhoAmI
-    body = { username: username, password: password }
-    response = await fetch(config.BASE_API_URL + '/api/user/whoami/', {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
-      },
-      method: 'get'
-    })
-    data = await response.json()
-    console.log(data)
-
+  
     // Move to Home URL
     this.props.history.push('/home')
     this.props.userCreated(data)
@@ -129,9 +104,6 @@ class Landing extends React.Component {
 
   render() {
     const { classes } = this.props;
-    console.log("-- Landing:render --")
-
-
     return (
       <div> 
         <Container maxWidth="sm" className={classes.root}>
