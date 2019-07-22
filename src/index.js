@@ -35,9 +35,9 @@ class AuthenticatedRoute extends React.Component {
   }
 
   render() {
-    console.log("-- AuthenticatedRoute:render -- ", isAnonymous() )
-    console.log(this.props)
-    if(this.props.path.includes('/home')){
+    // console.log("-- AuthenticatedRoute:render -- ", isAnonymous() )
+    // console.log(this.props.location)
+    if(window.location.pathname.includes('/home')){
       return ( ((this.props.user != undefined)||this.state.authenticated)?
                 <Route {...this.props} />:<Redirect to='/' />)
     }else{
@@ -54,8 +54,9 @@ class AnonymousRoute extends React.Component {
   }
 
   render() {
-    console.log("-- AnonymousRoute:render -- ", isAnonymous(), this.state.anonymous )
-    if(this.props.path == '/'){
+    // console.log("-- AnonymousRoute:render -- ", isAnonymous(), this.state.anonymous )
+    // console.log( this.props )
+    if(window.location.pathname == '/'){
       return (this.state.anonymous?<Route {...this.props} />:<Redirect to='/home' />)
     }else{
       return ( <Route {...this.props} /> )

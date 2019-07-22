@@ -233,39 +233,62 @@ class Home extends React.Component {
     /**/
   }
 
-  componentDidMount(){
+  whoami(){
     this.mounted = true
+    return new Promise( (resolve, reject) => {
+      this.mounted = true
 
-    fetch(config.BASE_API_URL + '/api/sport/?lan=en', {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }        
-    })
-    .then(response => response.json())
-    .then( (data) =>{
-      if(this.mounted == true){
-        this.setState({ sport_list: data, selected: 0 })
-      }
-    })
-
-    // Get props user
-    if(this.props.user === undefined){
-
-      fetch(config.BASE_API_URL + '/api/user/whoami/', {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
-        },    
+      fetch(config.BASE_API_URL + '/api/sport/?lan=en', {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          }        
       })
       .then(response => response.json())
       .then( (data) =>{
-        this.props.userProfile(data)
+        if(this.mounted == true){
+          resolve(data)
+        }
       })
-    }
+    })
+  }
+
+  componentDidMount(){
+
+    this.whoami()
+    .then( (sport_list) => {
+
+      // Get props user
+      if(this.props.user === undefined){
+
+        // Not launching setstate
+        this.state.sport_list = sport_list;
+        this.state.selected = 0
+        fetch(config.BASE_API_URL + '/api/user/whoami/', {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
+          },    
+        })
+        .then(response => response.json())
+        .then( (data) =>{
+          // Dispatch action => causes rerendering
+          this.props.userProfile(data)
+        })
+
+      }else{
+        // Properties are already there => coming from landing
+        this.setState({ sport_list: sport_list, selected: 0 })
+      }
+
+    })
+    
+
+
+
   }
 
   componentWillUnmount(){
@@ -424,7 +447,7 @@ class Home extends React.Component {
             </Grid>            
 
 
-            <SettingsDialog open={this.state.settings_prompt} onClose={(e) => this.handleClose()} />
+            <SettingsDialog user={user_str} open={this.state.settings_prompt} onClose={(e) => this.handleClose()} />
 
             <BirthyearDialog userId={userId} open={user_prompt.display.birthyear} onClose={(e) => this.handleClose()} />
             <EmailDialog userId={userId} open={user_prompt.display.email} onClose={(e) => this.handleClose()} />
@@ -432,9 +455,6 @@ class Home extends React.Component {
             <GenderDialog userId={userId} open={user_prompt.display.gender} onClose={(e) => this.handleClose()} />
             <LocationDialog userId={userId} open={user_prompt.display.location} onClose={(e) => this.handleClose()} />
             <MomentsDialog userId={userId} open={user_prompt.display.moments} onClose={(e) => this.handleClose()} />
-
-            <h1>User</h1>
-            <div>{user_str}</div>
 
         </Container>
 

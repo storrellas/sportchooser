@@ -96,7 +96,8 @@ class SettingsDialog extends React.Component {
   
 
   render() {
-    const { classes, onClose, ...other } = this.props;
+    const { classes, onClose, user, ...other } = this.props;
+    console.log(user)
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 

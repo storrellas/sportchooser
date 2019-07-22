@@ -161,7 +161,6 @@ class Landing extends React.Component {
     // Move to Home URL
     this.props.history.push('/home')
     this.props.userCreated(data)
-
   }
 
   render() {
