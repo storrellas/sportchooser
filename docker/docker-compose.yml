@@ -29,3 +29,7 @@ services:
         - ./nginx/proxy_params:/etc/nginx/proxy_params
     ports:
         - $NGINX_HTTP_PORT:80
+    logging:
+     driver: "syslog"
+     options:
+       tag: "tryasport"
