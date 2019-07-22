@@ -8,6 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import UUID from 'uuid/v4'
+import queryString from 'query-string'
 
 
 // Redux
@@ -77,9 +78,10 @@ class Landing extends React.Component {
   async handleSelectLanguage(e, lan){
 
     // Create User
-    const username = UUID()
-    const password = UUID()
-    let body = { username: username, password: password, language: lan}
+    // const username = UUID()
+    // const password = UUID()
+    // let body = { username: username, password: password, language: lan}
+    let body = { language: lan }
     let response = await fetch(config.BASE_API_URL + '/api/user/', {
       headers: {
         'Accept': 'application/json',
@@ -91,7 +93,6 @@ class Landing extends React.Component {
     let data = await response.json()
 
     // Store tokens
-    CookieMgr.set(CookieMgr.keys.LAN, lan)
     CookieMgr.set(CookieMgr.keys.TOKEN_ACCESS, data.access)
     CookieMgr.set(CookieMgr.keys.TOKEN_REFRESH, data.refresh)
   
@@ -99,11 +100,76 @@ class Landing extends React.Component {
     this.props.history.push('/home')
     this.props.userCreated(data)
   }
+/*
+  async handleGetToken(username, password){
 
+    console.log("-- Username -- ")
+    let body = { username: username, password: password }
+    console.log( JSON.stringify(body) )
+    let response = await fetch(config.BASE_API_URL + '/api/token/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'post',
+      body: JSON.stringify(body)
+    })
+    let data = await response.json()
+    
+    // Store tokens
+    console.log("Storing data")
+    console.log(data)
+    CookieMgr.set(CookieMgr.keys.TOKEN_ACCESS, data.access)
+    CookieMgr.set(CookieMgr.keys.TOKEN_REFRESH, data.refresh)
+    
+  }
+/**/
 
+  async componentDidMount(){
+
+    // If coming from link
+    const parsed = queryString.parse(this.props.location.search);
+    if( !('key' in parsed && 'value' in parsed) ){
+      return;
+    }
+
+    // Get token
+    let body = { username: parsed['key'], password: parsed['value'] }    
+    let response = await fetch(config.BASE_API_URL + '/api/token/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'post',
+      body: JSON.stringify(body)
+    })
+    let data = await response.json()
+    CookieMgr.set(CookieMgr.keys.TOKEN_ACCESS, data.access)
+    CookieMgr.set(CookieMgr.keys.TOKEN_REFRESH, data.refresh)
+
+    // Get whoami
+    response = await fetch(config.BASE_API_URL + '/api/user/whoami/', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
+      },    
+    })
+    data = await response.json()
+
+    // Move to Home URL
+    this.props.history.push('/home')
+    this.props.userCreated(data)
+
+  }
 
   render() {
     const { classes } = this.props;
+    
+    console.log("-- Landing --")
+    console.log(this.props.location.search)
+
     return (
       <div> 
         <Container maxWidth="sm" className={classes.root}>

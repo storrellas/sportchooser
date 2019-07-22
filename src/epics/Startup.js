@@ -2,6 +2,9 @@ import React from "react";
 //import ConfettiGenerator from "confetti-js";
 import ConfettiGenerator from "../lib/Confetti";
 
+import queryString from 'query-string'
+
+
 // React-redux
 import { connect } from "react-redux";
 

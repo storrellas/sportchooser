@@ -19,8 +19,7 @@ import CookieMgr from "./utils/CookieMgr"
 
 
 const isAnonymous = () => {
-  return (CookieMgr.get(CookieMgr.keys.LAN) === undefined && 
-          CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS) === undefined &&
+  return (CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS) === undefined &&
           CookieMgr.get(CookieMgr.keys.TOKEN_REFRESH) === undefined)
 }
 
@@ -36,11 +35,14 @@ class AuthenticatedRoute extends React.Component {
   }
 
   render() {
-    // console.log("-- AuthenticatedRoute:render -- ", isAnonymous() )
-    // console.log(this.props)    
-    return ( (this.props.user != undefined)||this.state.authenticated?
-              <Route {...this.props} />:<Redirect to='/' />)
-
+    console.log("-- AuthenticatedRoute:render -- ", isAnonymous() )
+    console.log(this.props)
+    if(this.props.path.includes('/home')){
+      return ( ((this.props.user != undefined)||this.state.authenticated)?
+                <Route {...this.props} />:<Redirect to='/' />)
+    }else{
+      return ( <Route {...this.props} />)
+    }
   }
 }
 const AuthenticatedRouteContainer = connect(mapStateToProps, null)(AuthenticatedRoute);
@@ -52,21 +54,23 @@ class AnonymousRoute extends React.Component {
   }
 
   render() {
-    //console.log("-- AnonymousRoute:render -- ", isAnonymous(), this.state.anonymous )
-    return (this.state.anonymous?<Route {...this.props} />:<Redirect to='/home' />)
+    console.log("-- AnonymousRoute:render -- ", isAnonymous(), this.state.anonymous )
+    if(this.props.path == '/'){
+      return (this.state.anonymous?<Route {...this.props} />:<Redirect to='/home' />)
+    }else{
+      return ( <Route {...this.props} /> )
+    }
   }
 }
 
 
 ReactDOM.render((
   <Provider store={store}>
-    <Startup>
       <BrowserRouter>
-        <div>      
+        <Startup> 
           <AnonymousRoute path="/" exact component={Landing} />
           <AuthenticatedRouteContainer exact path="/home" component={Home} />
-        </div>
+        </Startup>
       </BrowserRouter>
-    </Startup>
   </Provider>
 ), document.getElementById('root'))
