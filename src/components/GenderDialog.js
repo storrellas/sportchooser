@@ -65,8 +65,6 @@ class GenderDialog extends React.Component {
   }
 
   async handleClick(e, gender) {
-    //onClose(selectedValue);
-    console.log('handleClick', gender)
 
     const url = `${config.BASE_API_URL}/api/user/${this.props.userId}/`
     const body = { gender: gender }

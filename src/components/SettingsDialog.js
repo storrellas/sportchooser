@@ -97,10 +97,8 @@ class SettingsDialog extends React.Component {
 
   render() {
     const { classes, onClose, user, ...other } = this.props;
-    console.log(user)
-    //const user_json = JSON.parse(user)
-    const user_json = (user === undefined)?"":JSON.parse(user);
-    console.log(  user_json )
+    const userJson = (user === undefined)?"":JSON.parse(user);
+    console.log(userJson)
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
@@ -142,10 +140,11 @@ class SettingsDialog extends React.Component {
           </SettingsItemStyled>
           
           <h3>User Profile</h3>
-          <div>Username:{user_json.username}</div>
-          <div>Email:{user_json.email}</div>
-          <div>Gender:{user_json.gender}</div>
-          <div>Location:{user_json.work_location}</div>
+          <div>Username:{userJson.username}</div>
+          <div>Email:{userJson.email}</div>
+          <div>Gender:{userJson.gender}</div>
+          <div>Location:{userJson.work_location}</div>
+          <div>Birthyear:{userJson.birthday_year}</div>
 
         </Box>
       </Dialog>

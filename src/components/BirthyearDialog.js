@@ -1,18 +1,33 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+
+import InputAdornment from '@material-ui/core/InputAdornment';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
+import MenuItem from '@material-ui/core/MenuItem';
+
 
 
 // Project import
 import cakeImage from "../assets/img/tryasport/img_cake_orange.png"
+import config from '../config/env'
+import CookieMgr from "../utils/CookieMgr"
 
 // Redux
-import { store, renderConfetti } from "../redux";
+import { store, userProfile } from "../redux";
+import { connect } from "react-redux";
+
+function mapDispatchToProps(dispatch) {
+  return {
+    userProfile: (data) => dispatch(userProfile(data)),
+  };
+}
 
 const styles = theme => ({
   avatar: {
@@ -31,41 +46,62 @@ const styles = theme => ({
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
+  button:{
+    width: '75%', 
+    display: 'flex',
+    borderRadius:'100px', 
+    justifyContent: 'center',
+    backgroundColor: '#00CA9D',
+    color: 'white',
+    '&:hover':{
+      backgroundColor: '#005643'
+    }
+  }
 });
 
 class BirthyearDialog extends React.Component {
   constructor(props) {
     super(props);
+    this.year_choice = 
+      Array(new Date().getFullYear() - 1900 + 1).fill().map((_, idx) => ({value:(1900 + idx), label:(1900+idx)})  )
     this.state = {
-      zIndex: 1000
+      zIndex: 1000,
+      birthday_year: this.year_choice[0].value
     }
   }
 
-  handleClose() {
-    //onClose(selectedValue);
+
+  async handleSubmit(){
+    const url = `${config.BASE_API_URL}/api/user/${this.props.userId}/`
+    const body = { birthday_year: parseInt(this.state.birthday_year) }
+    let response = await fetch(url, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
+      },
+      method: 'put',
+      body: JSON.stringify(body)
+    })
+    let data = await response.json()
+
+    // Notify watchers
+    this.props.userProfile(data)
+    this.props.onClose()
   }
 
-  handleListItemClick(value) {
-    onClose(value);
+  handleChange(e){
+    this.setState({ birthday_year: e.target.value })
   }
 
-  handleKeyPress(){
-    console.log('The link was closed')  
-    if(event.key === 'Enter'){
-      console.log('enter press here! ')
-
-      // Launch confetti
-      store.dispatch( renderConfetti(true) )
-      setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
-    }  
-  };
 
   render() {
-    const { classes, onClose, ...other } = this.props;
+    const { classes, onClose, open } = this.props;
+
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
-              aria-labelledby="simple-dialog-title" {...other}>
+              aria-labelledby="simple-dialog-title" open={open}>
         <canvas id="my-canvas" width={200} height={200} style={{ position:'absolute', backgroundColor: 'transparent', zIndex: this.state.zIndex }}></canvas>
 
 
@@ -78,24 +114,42 @@ class BirthyearDialog extends React.Component {
           <CloseIcon />
         </IconButton>
         <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-            Enter your friends codes to find out if your 
-            friends want to try the same new sports
+          What's your birthday year?
         </DialogTitle>
 
-        <Box mt={2} ml={3} mr={3} borderRadius={16}>
+        <Box mt={2} ml={3} mr={3} borderRadius={16}  style={{display:'flex', justifyContent: 'center'}}>
           <TextField
-            id="outlined-email-input"
-            label="Friend Code"
+            id="birthyear"
+            select
+            label="Select"
             className={classes.textField}
-            type="text"
-            name="code"
-            autoComplete="email"
+            style={{width: "50%"}}
+            value={this.state.birthday_year}
+            onChange={(e) => this.handleChange(e)}
+            SelectProps={{
+              MenuProps: {
+                className: classes.menu,
+              },
+            }}
+            helperText="Please select your birthyear"
             margin="normal"
-            variant="outlined"
-            style={{width: "100%"}}
+            inputProps={{
+              style: { textAlign: "right" }
+            }}
+          >
+            {this.year_choice.map(option => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
 
-            onKeyPress={(e) => this.handleKeyPress(e)}
-          />
+        </Box>
+
+        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
+          <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
+            <div style={{flexGrow: 1}}>OK</div>
+          </Button>
         </Box>
       </Dialog>
     );
@@ -110,5 +164,7 @@ FriendDialog.propTypes = {
 };
 /**/
 
-export default withStyles(styles)(BirthyearDialog);
+//export default withStyles(styles)(BirthyearDialog);
+export default connect(null, mapDispatchToProps)(withStyles(styles)(BirthyearDialog));
+
 
