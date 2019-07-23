@@ -13,9 +13,12 @@ import Dialog from '@material-ui/core/Dialog';
 
 // Project import
 import calendarImage from "../assets/img/tryasport/img_calendar_orange.png"
+import config from '../config/env'
+import CookieMgr from "../utils/CookieMgr"
+
 
 // Redux
-import { store, renderConfetti } from "../redux";
+import { store, userProfile } from "../redux";
 
 const styles = theme => ({
   avatar: {
@@ -74,9 +77,12 @@ const styles = theme => ({
 class MomentsDialog extends React.Component {
   constructor(props) {
     super(props);
+
+    const userJson = (props.user === undefined)?undefined:JSON.parse(props.user)
     this.state = {
       zIndex: 1000,
-      sport_moments: []
+      sport_moments: (userJson === undefined)?[]:userJson.sport_moments,
+      reset: false
     }
 
     this.weekday2idx = {
@@ -85,11 +91,8 @@ class MomentsDialog extends React.Component {
     }
   }
 
-  componentDidUpdate(){
-
-  }
-
   handleClick(e, slot, weekday, enabled){
+    console.log("-- HandleClick --")
     let { sport_moments } = this.state;
     if( enabled ){
       sport_moments.push({slot: slot, weekday: weekday})
@@ -101,11 +104,35 @@ class MomentsDialog extends React.Component {
     }
   }
 
-  handleSubmit(e){
-    console.log("Contacting Backend", this.state.sport_moments)
+
+  async handleSubmit(e){
+    e.preventDefault();
+    console.log("-- Contacting Backend --", this.props.userId)
+
     // Closing modal
+    const url = `${config.BASE_API_URL}/api/sportmoment/burst/${this.props.userId}/`
+    const body = this.state.sport_moments
+    let response = await fetch(url, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
+      },
+      method: 'post',
+      body: JSON.stringify(body)
+    })
+    let data = await response.json()
+
+    // Notify watchers
+    //this.props.userProfile(data)
     this.props.onClose()
   }
+
+  // handleSubmit(e){
+  //   console.log("Contacting Backend", this.state.sport_moments)
+  //   // Closing modal
+  //   this.props.onClose()
+  // }
 
   generate_row = (array, title, slot) =>  <tr>
                                             <td>{title}</td>
@@ -135,15 +162,18 @@ class MomentsDialog extends React.Component {
   }
 
   render() {
-    //console.log("-- MomentsDiaglog:Render --")
+    console.log("-- MomentsDiaglog:Render --")
 
     const { classes, onClose, open, user } = this.props;
 
-    // Generate state sport_moments
-    if( user != undefined ){
-      const userJson = (user === undefined)?"":JSON.parse(user);
-      this.state.sport_moments = userJson.sport_moments
-    }
+    // // Generate state sport_moments
+    // if( user != undefined ){
+    //   const userJson = (user === undefined)?"":JSON.parse(user);
+    //   // Load only once
+    //   if( this.state.reset ){
+    //     this.state.sport_moments = userJson.sport_moments
+    //   }
+    // }
 
     // Generate matrix
     const header_array = Array.from(' MTWTFSS')
