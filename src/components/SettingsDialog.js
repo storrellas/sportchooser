@@ -98,7 +98,7 @@ class SettingsDialog extends React.Component {
   render() {
     const { classes, onClose, user, ...other } = this.props;
     const userJson = (user === undefined)?"":JSON.parse(user);
-    console.log(userJson)
+    //console.log(userJson)
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 

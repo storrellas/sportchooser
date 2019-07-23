@@ -233,7 +233,7 @@ class Home extends React.Component {
     /**/
   }
 
-  whoami(){
+  get_sport_list(){
     this.mounted = true
     return new Promise( (resolve, reject) => {
       this.mounted = true
@@ -254,9 +254,26 @@ class Home extends React.Component {
     })
   }
 
+  whoami(){
+    return new Promise( (resolve, reject) => {
+      fetch(config.BASE_API_URL + '/api/user/whoami/', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
+        },    
+      })
+      .then(response => response.json())
+      .then( (data) =>{
+        resolve(data)
+      })
+    })
+  }
+
   componentDidMount(){
 
-    this.whoami()
+    this.get_sport_list()
     .then( (sport_list) => {
 
       // Get props user
@@ -265,18 +282,10 @@ class Home extends React.Component {
         // Not launching setstate
         this.state.sport_list = sport_list;
         this.state.selected = 0
-        fetch(config.BASE_API_URL + '/api/user/whoami/', {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
-          },    
-        })
-        .then(response => response.json())
-        .then( (data) =>{
+        this.whoami().
+        then( (user) => {
           // Dispatch action => causes rerendering
-          this.props.userProfile(data)
+          this.props.userProfile(user)
         })
 
       }else{
@@ -325,7 +334,7 @@ class Home extends React.Component {
     this.setState({ selected: selected })    
   }
 
-  handleSportClick(e){
+  handleSportClick(e, result){
     e.preventDefault();
     //console.log('The link was clicked.');
     let {user_prompt, selected, sport_list} = this.state
@@ -348,6 +357,8 @@ class Home extends React.Component {
       user_prompt.open = false
     }
     
+    // Add favorite
+    this.addFavoriteSport(result)
 
     // console.log("user_prompt")
     // console.log(user_prompt)
@@ -356,6 +367,31 @@ class Home extends React.Component {
       user_prompt: user_prompt
     }
     this.setState(state)    
+  }
+
+  async addFavoriteSport(result){
+    const { sport_list, selected } = this.state;
+    const sport_id = sport_list[selected].id
+    const url = `${config.BASE_API_URL}/api/user/sport/${sport_id}/`
+    const body = { result: result }
+    let response = await fetch(url, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
+      },
+      method: 'post',
+      body: JSON.stringify(body)
+    })
+    let data = await response.json()
+
+    // Update user
+    this.whoami().
+    then( (user) => {
+      // Dispatch action => causes rerendering
+      this.props.userProfile(user)
+    })
+
   }
 
   handleClose(){
@@ -379,7 +415,8 @@ class Home extends React.Component {
     const { classes } = this.props;
     const { sport_list, selected, user_prompt } = this.state;
     console.log("## Home:Rendering ##", selected)
-    // console.log(this.props.user)
+    console.log(this.props.user)
+    console.log(sport_list[selected])
 
     // Determine whether loading or spinner
     let sport_box = <div className={classNames(classes.loadingContainer)}>
@@ -436,13 +473,13 @@ class Home extends React.Component {
                 <IconMenu mt={2} text="Undo" image={undoImage} onClick={(e) => this.handleUndo(e)}></IconMenu>
               </Grid>
               <Grid item xs className={classNames(classes.icon)}>
-                <IconMenu mt={6} text="No Interest" image={noInterestImage} onClick={(e) => this.handleSportClick(e)}></IconMenu>
+                <IconMenu mt={6} text="No Interest" image={noInterestImage} onClick={(e) => this.handleSportClick(e, 'not_interested')}></IconMenu>
               </Grid>
               <Grid item xs className={classNames(classes.icon)}>
-                <IconMenu mt={6} text="Like To Try" image={likeToTryImage} onClick={(e) => this.handleSportClick(e)}></IconMenu>
+                <IconMenu mt={6} text="Like To Try" image={likeToTryImage} onClick={(e) => this.handleSportClick(e, 'like_to_try')}></IconMenu>
               </Grid>
               <Grid item xs className={classNames(classes.icon)}>
-                <IconMenu mt={2} text="Play Already" image={alreadyPlayedImage} onClick={(e) => this.handleSportClick(e)}></IconMenu>
+                <IconMenu mt={2} text="Play Already" image={alreadyPlayedImage} onClick={(e) => this.handleSportClick(e, 'already_played')}></IconMenu>
               </Grid>
             </Grid>            
 
