@@ -188,8 +188,8 @@ class Home extends React.Component {
     //   this.user_prompt_enum.LOCATION,
     // ]
     this.user_prompt_order = [
-      this.user_prompt_enum.MOMENTS,
       this.user_prompt_enum.FRIENDS,
+      this.user_prompt_enum.MOMENTS,
       this.user_prompt_enum.EMAIL,
       this.user_prompt_enum.LOCATION,
       this.user_prompt_enum.BIRTHYEAR,

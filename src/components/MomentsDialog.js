@@ -81,8 +81,7 @@ class MomentsDialog extends React.Component {
     const userJson = (props.user === undefined)?undefined:JSON.parse(props.user)
     this.state = {
       zIndex: 1000,
-      sport_moments: (userJson === undefined)?[]:userJson.sport_moments,
-      reset: false
+      sport_moments: (userJson === undefined)?[]:userJson.sport_moments
     }
 
     this.weekday2idx = {
@@ -92,7 +91,6 @@ class MomentsDialog extends React.Component {
   }
 
   handleClick(e, slot, weekday, enabled){
-    console.log("-- HandleClick --")
     let { sport_moments } = this.state;
     if( enabled ){
       sport_moments.push({slot: slot, weekday: weekday})
@@ -128,11 +126,7 @@ class MomentsDialog extends React.Component {
     this.props.onClose()
   }
 
-  // handleSubmit(e){
-  //   console.log("Contacting Backend", this.state.sport_moments)
-  //   // Closing modal
-  //   this.props.onClose()
-  // }
+
 
   generate_row = (array, title, slot) =>  <tr>
                                             <td>{title}</td>
@@ -162,18 +156,7 @@ class MomentsDialog extends React.Component {
   }
 
   render() {
-    console.log("-- MomentsDiaglog:Render --")
-
     const { classes, onClose, open, user } = this.props;
-
-    // // Generate state sport_moments
-    // if( user != undefined ){
-    //   const userJson = (user === undefined)?"":JSON.parse(user);
-    //   // Load only once
-    //   if( this.state.reset ){
-    //     this.state.sport_moments = userJson.sport_moments
-    //   }
-    // }
 
     // Generate matrix
     const header_array = Array.from(' MTWTFSS')

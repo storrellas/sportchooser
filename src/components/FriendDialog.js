@@ -1,6 +1,8 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import CloseIcon from '@material-ui/icons/Close';
@@ -33,6 +35,17 @@ const styles = theme => ({
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
+  button:{
+    width: '75%', 
+    display: 'flex',
+    borderRadius:'100px', 
+    justifyContent: 'center',
+    backgroundColor: '#00CA9D',
+    color: 'white',
+    '&:hover':{
+      backgroundColor: '#005643'
+    }
+  }
 });
 
 class FriendDialog extends React.Component {
@@ -65,11 +78,11 @@ class FriendDialog extends React.Component {
   }
 
   render() {
-    const { classes, onClose, ...other } = this.props;
+    const { classes, onClose, open } = this.props;
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
-              aria-labelledby="simple-dialog-title" {...other}>
+              aria-labelledby="simple-dialog-title" open={open}>
         <canvas id="my-canvas" width={200} height={200} style={{ position:'absolute', backgroundColor: 'transparent', zIndex: this.state.zIndex }}></canvas>
 
 
@@ -114,6 +127,12 @@ class FriendDialog extends React.Component {
               ),
             }}
           />
+        </Box>
+
+        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
+          <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
+            <div style={{flexGrow: 1}}>OK</div>
+          </Button>
         </Box>
       </Dialog>
     );
