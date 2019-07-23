@@ -76,20 +76,7 @@ class MomentsDialog extends React.Component {
     super(props);
     this.state = {
       zIndex: 1000,
-      moment_list: [
-        {
-          slot: 'between_10_12',
-          weekday: 'tuesday'
-        },
-        {
-          slot: 'before_6',
-          weekday: 'tuesday'
-        },
-        {
-          slot: 'between_14_16',
-          weekday: 'friday'
-        }
-      ]
+      sport_moments: []
     }
 
     this.weekday2idx = {
@@ -98,20 +85,24 @@ class MomentsDialog extends React.Component {
     }
   }
 
+  componentDidUpdate(){
+
+  }
+
   handleClick(e, slot, weekday, enabled){
-    let { moment_list } = this.state;
+    let { sport_moments } = this.state;
     if( enabled ){
-      moment_list.push({slot: slot, weekday: weekday})
-      this.setState({moment_list: moment_list})
+      sport_moments.push({slot: slot, weekday: weekday})
+      this.setState({sport_moments: sport_moments})
     }else{
-      const idx = moment_list.findIndex( item => (item.slot === slot && item.weekday === weekday) )
-      moment_list.splice(idx, 1)
-      this.setState({moment_list: moment_list})
+      const idx = sport_moments.findIndex( item => (item.slot === slot && item.weekday === weekday) )
+      sport_moments.splice(idx, 1)
+      this.setState({sport_moments: sport_moments})
     }
   }
 
   handleSubmit(e){
-    console.log("Contacting Backend", this.state.moment_list)
+    console.log("Contacting Backend", this.state.sport_moments)
     // Closing modal
     this.props.onClose()
   }
@@ -126,7 +117,7 @@ class MomentsDialog extends React.Component {
   generated_weekday_selected_list(pattern){
     // Generate plain array in form [true, false, true, false, false ...]
     let weekday_selected_list = Array(7).fill(false)
-    for (const moment of this.state.moment_list) {
+    for (const moment of this.state.sport_moments) {
       if( moment.slot == pattern ){
         weekday_selected_list[this.weekday2idx[moment.weekday]] = true
       }
@@ -144,9 +135,18 @@ class MomentsDialog extends React.Component {
   }
 
   render() {
-    const { classes, onClose, ...other } = this.props;
-    const header_array = Array.from(' MTWTFSS')
+    //console.log("-- MomentsDiaglog:Render --")
 
+    const { classes, onClose, open, user } = this.props;
+
+    // Generate state sport_moments
+    if( user != undefined ){
+      const userJson = (user === undefined)?"":JSON.parse(user);
+      this.state.sport_moments = userJson.sport_moments
+    }
+
+    // Generate matrix
+    const header_array = Array.from(' MTWTFSS')
 
     let weekday_selected_list = this.generated_weekday_selected_list('before_6')
     const row_before_0_6 = this.generate_row(weekday_selected_list, '00-06', 'before_6')
@@ -180,7 +180,7 @@ class MomentsDialog extends React.Component {
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
-              aria-labelledby="simple-dialog-title" {...other}>
+              aria-labelledby="simple-dialog-title" open={open}>
         <canvas id="my-canvas" width={200} height={200} style={{ position:'absolute', backgroundColor: 'transparent', zIndex: this.state.zIndex }}></canvas>
 
 

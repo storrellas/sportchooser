@@ -188,13 +188,12 @@ class Home extends React.Component {
     //   this.user_prompt_enum.LOCATION,
     // ]
     this.user_prompt_order = [
+      this.user_prompt_enum.MOMENTS,
       this.user_prompt_enum.FRIENDS,
       this.user_prompt_enum.EMAIL,
       this.user_prompt_enum.LOCATION,
       this.user_prompt_enum.BIRTHYEAR,
       this.user_prompt_enum.GENDER,
-      this.user_prompt_enum.MOMENTS,
-
     ]
 
 
@@ -455,7 +454,7 @@ class Home extends React.Component {
             <FriendDialog userId={userId} open={user_prompt.display.friends} onClose={(e) => this.handleClose()} />
             <GenderDialog userId={userId} open={user_prompt.display.gender} onClose={(e) => this.handleClose()} />
             <LocationDialog userId={userId} open={user_prompt.display.location} onClose={(e) => this.handleClose()} />
-            <MomentsDialog userId={userId} open={user_prompt.display.moments} onClose={(e) => this.handleClose()} />
+            <MomentsDialog userId={userId} user={user_str} open={user_prompt.display.moments} onClose={(e) => this.handleClose()} />
 
         </Container>
 
