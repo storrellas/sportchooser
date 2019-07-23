@@ -359,43 +359,54 @@ class Home extends React.Component {
     
     // Add favorite
     this.addFavoriteSport(result)
+    .then((user) => {
 
-    // console.log("user_prompt")
-    // console.log(user_prompt)
-    const state = {
-      selected: selected, 
-      user_prompt: user_prompt
-    }
-    this.setState(state)    
+      // const state = {
+      //   selected: selected, 
+      //   user_prompt: user_prompt
+      // }
+      this.setState({
+        selected: selected, 
+        user_prompt: user_prompt,
+        user: user
+      })    
+
+    })
+
+    // // console.log("user_prompt")
+    // // console.log(user_prompt)
+    // const state = {
+    //   selected: selected, 
+    //   user_prompt: user_prompt
+    // }
+    // this.setState(state)    
   }
 
   async addFavoriteSport(result){
     
-    const { sport_list, selected } = this.state;
-    const sport_id = sport_list[selected].id
-    const url = `${config.BASE_API_URL}/api/user/sport/${sport_id}/`
-    const body = { result: result }
-    fetch(url, {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
-      },
-      method: 'post',
-      body: JSON.stringify(body)
-    })
-    .then( (response) => {
-      return response.json()
-    })
-    .then( (data) => {
-      console.log(" addFavoriteSport -> data ", data)
-      return this.whoami()
-    })
-    .then( (user) => {
-      console.log(" addFavoriteSport -> userProfile ", user)
-      this.props.userProfile(user)
-    })
-    
+    return new Promise( (resolve, reject) => {
+      const { sport_list, selected } = this.state;
+      const sport_id = sport_list[selected].id
+      const url = `${config.BASE_API_URL}/api/user/sport/${sport_id}/`
+      const body = { result: result }
+      fetch(url, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
+        },
+        method: 'post',
+        body: JSON.stringify(body)
+      })
+      .then( (response) => response.json() )
+      .then( (data) => {
+        // Launch whoami
+        return this.whoami()
+      })
+      .then( (user) => {
+        resolve(user)
+      })
+    })    
   }
 
   handleClose(){
