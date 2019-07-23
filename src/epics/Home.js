@@ -370,11 +370,12 @@ class Home extends React.Component {
   }
 
   async addFavoriteSport(result){
+    
     const { sport_list, selected } = this.state;
     const sport_id = sport_list[selected].id
     const url = `${config.BASE_API_URL}/api/user/sport/${sport_id}/`
     const body = { result: result }
-    let response = await fetch(url, {
+    fetch(url, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -383,15 +384,18 @@ class Home extends React.Component {
       method: 'post',
       body: JSON.stringify(body)
     })
-    let data = await response.json()
-
-    // Update user
-    this.whoami().
-    then( (user) => {
-      // Dispatch action => causes rerendering
+    .then( (response) => {
+      return response.json()
+    })
+    .then( (data) => {
+      console.log(" addFavoriteSport -> data ", data)
+      return this.whoami()
+    })
+    .then( (user) => {
+      console.log(" addFavoriteSport -> userProfile ", user)
       this.props.userProfile(user)
     })
-
+    
   }
 
   handleClose(){
