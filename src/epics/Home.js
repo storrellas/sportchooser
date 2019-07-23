@@ -27,6 +27,7 @@ import AwsSliderStyles from 'react-awesome-slider/src/styles';
 import BirthyearDialog from '../components/BirthyearDialog';
 import EmailDialog from '../components/EmailDialog';
 import FriendDialog from '../components/FriendDialog';
+import ShareDialog from '../components/ShareDialog';
 import GenderDialog from '../components/GenderDialog';
 import LocationDialog from '../components/LocationDialog';
 import MomentsDialog from '../components/MomentsDialog';
@@ -189,8 +190,9 @@ class Home extends React.Component {
     // ]
     this.user_prompt_order = [
       this.user_prompt_enum.FRIENDS,
-      this.user_prompt_enum.MOMENTS,
+      this.user_prompt_enum.SHARE,   
       this.user_prompt_enum.EMAIL,
+      this.user_prompt_enum.MOMENTS,
       this.user_prompt_enum.LOCATION,
       this.user_prompt_enum.BIRTHYEAR,
       this.user_prompt_enum.GENDER,
@@ -271,6 +273,24 @@ class Home extends React.Component {
     })
   }
 
+  
+  async fetch_config(){
+    const response = await fetch(config.BASE_API_URL + '/api/config/userprompt/', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
+      },    
+    })
+    const data = await response.json()
+    this.user_prompt_order = []
+    for (const user_prompt of data) {
+      this.user_prompt_order.push(user_prompt.prompt)
+    }
+     
+  }
+
   componentDidMount(){
 
     this.get_sport_list()
@@ -295,7 +315,7 @@ class Home extends React.Component {
 
     })
     
-
+    this.fetch_config()
 
 
   }
@@ -360,11 +380,6 @@ class Home extends React.Component {
     // Add favorite
     this.addFavoriteSport(result)
     .then((user) => {
-
-      // const state = {
-      //   selected: selected, 
-      //   user_prompt: user_prompt
-      // }
       this.setState({
         selected: selected, 
         user_prompt: user_prompt,
@@ -372,14 +387,6 @@ class Home extends React.Component {
       })    
 
     })
-
-    // // console.log("user_prompt")
-    // // console.log(user_prompt)
-    // const state = {
-    //   selected: selected, 
-    //   user_prompt: user_prompt
-    // }
-    // this.setState(state)    
   }
 
   async addFavoriteSport(result){
@@ -503,6 +510,7 @@ class Home extends React.Component {
             <BirthyearDialog userId={userId} open={user_prompt.display.birthyear} onClose={(e) => this.handleClose()} />
             <EmailDialog userId={userId} open={user_prompt.display.email} onClose={(e) => this.handleClose()} />
             <FriendDialog userId={userId} open={user_prompt.display.friends} onClose={(e) => this.handleClose()} />
+            <ShareDialog userId={userId} user={user_str} open={user_prompt.display.share} onClose={(e) => this.handleClose()} />
             <GenderDialog userId={userId} open={user_prompt.display.gender} onClose={(e) => this.handleClose()} />
             <LocationDialog userId={userId} open={user_prompt.display.location} onClose={(e) => this.handleClose()} />
             <MomentsDialog userId={userId} 
