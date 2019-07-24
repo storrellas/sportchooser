@@ -56,7 +56,8 @@ class FriendDialog extends React.Component {
     super(props);
     this.state = {
       zIndex: 1000,
-      friend: ''
+      friend: '',
+      friendJson: undefined
     }
   }
 
@@ -96,11 +97,25 @@ class FriendDialog extends React.Component {
     })
     const data = await response.json()
     console.log(data)
+    this.setState({ friendJson: data })
 
   }
 
+  handleAddFriend(e){
+    console.log("Adding friend")
+    this.props.onClose()
+  }
+
   render() {
-    const { classes, onClose, open } = this.props;
+    const { classes, onClose, sportList, open } = this.props;
+    // console.log("-- FriendDialog --")
+    // console.log(this.state.friendJson)
+    let friendSearch = <div></div>
+    if( this.state.friendJson !== undefined )
+      friendSearch = <FriendCard sportList={sportList} 
+                                 friend={this.state.friendJson} 
+                                 handleAddFriend={(e) => handleAddFriend(e)}/>
+
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
@@ -152,14 +167,15 @@ class FriendDialog extends React.Component {
         </Box>
 
         <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
+          {friendSearch}
+        </Box>
+
+
+        {/* <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
           <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
             <div style={{flexGrow: 1}}>OK</div>
           </Button>
-        </Box>
-
-        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-          <FriendCard />
-        </Box>
+        </Box> */}
 
       </Dialog>
     );

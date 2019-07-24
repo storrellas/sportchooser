@@ -43,32 +43,21 @@ class MediaCard extends React.Component {
     console.log("HandleClick")
   }
 
-  async componentDidMount(){
-    const username = "carla"
-    const response = await fetch( `${config.BASE_API_URL}/api/user/lookup/?username=${username}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
-      }        
-    })
-    const data = await response.json()
-    console.log(data)
-    this.setState({
-      user: data
-    });
-  }
-
   render() {
-    const { classes } = this.props;
+    const { sportList, friend, handleAddFriend, classes } = this.props;
+    console.log("-- FriendCard --")
+    console.log(sportList, friend)
+    const picture = `${config.BASE_API_URL}${friend.picture}`
     return (
       <Card className={classes.card} onClick={(e) => this.handleClick(e)}>
         <CardActionArea>
           <Box style={{ display:'flex', width:"100%", height: "5em"}}>
-            <img height="100%" src="https://3.121.215.237/media/default/girl.jpg" />
+            <img height="100%" src={picture} />
             <Typography gutterBottom variant="h5" component="h2" style={{alignSelf: 'center', marginLeft: 10 }}>
-              Clara Valenti
+              {friend.first_name}
+            </Typography>
+            <Typography gutterBottom variant="h5" component="h2" style={{alignSelf: 'center', marginLeft: 10 }}>
+              {friend.last_name}
             </Typography>
           </Box>
           <CardContent classes={{ root: classes.content }}>

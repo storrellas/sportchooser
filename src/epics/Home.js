@@ -508,7 +508,10 @@ class Home extends React.Component {
             <SettingsDialog user={user_str} open={this.state.settings_prompt} onClose={(e) => this.handleClose()} />
             <BirthyearDialog userId={userId} open={user_prompt.display.birthyear} onClose={(e) => this.handleClose()} />
             <EmailDialog userId={userId} open={user_prompt.display.email} onClose={(e) => this.handleClose()} />
-            <FriendDialog userId={userId} open={user_prompt.display.friends} onClose={(e) => this.handleClose()} />
+            <FriendDialog userId={userId} 
+                          sportList={sport_list}
+                          open={user_prompt.display.friends} 
+                          onClose={(e) => this.handleClose()} />
             <ShareDialog userId={userId} user={user_str} open={user_prompt.display.share} onClose={(e) => this.handleClose()} />
             <GenderDialog userId={userId} open={user_prompt.display.gender} onClose={(e) => this.handleClose()} />
             <LocationDialog userId={userId} open={user_prompt.display.location} onClose={(e) => this.handleClose()} />
