@@ -45,9 +45,33 @@ class MediaCard extends React.Component {
 
   render() {
     const { sportList, friend, handleAddFriend, classes } = this.props;
-    console.log("-- FriendCard --")
-    console.log(sportList, friend)
     const picture = `${config.BASE_API_URL}${friend.picture}`
+
+    // console.log("-- FriendCard --")
+    // console.log(sportList, friend)
+    
+    // NOTE: This should be done on the backend
+    let sport_list_by_id = {}
+    for (const sport of sportList) {
+      sport_list_by_id[sport.id] = sport.images[0].icon
+    }
+
+    // Generate arrays 
+    // NOTE: Max two items and this should be reviewed
+    const like_to_try_pattern = 'like_to_try'
+    const already_played_pattern = 'already_played'
+    const like_to_try = []
+    const already_played = []
+    for (const favorite_sport of friend.favorite_sports) {
+      if(favorite_sport.result == like_to_try_pattern && like_to_try.length < 2 ){
+        like_to_try.push( sport_list_by_id[favorite_sport.sport] )
+      }
+      if(favorite_sport.result == already_played_pattern && already_played.length < 2 ){
+        already_played.push( sport_list_by_id[favorite_sport.sport] )
+      }
+    }
+
+
     return (
       <Card className={classes.card} onClick={(e) => this.handleClick(e)}>
         <CardActionArea>
@@ -65,28 +89,26 @@ class MediaCard extends React.Component {
             <Box pt={2} pl={1} pr={1} mt={0} mb={2} style={{ width:"100%"}}>
               <Grid container spacing={3}>
                   <Grid item xs={6}>
-                    <div style={{ height: "20%" }}>Wants to Try</div>
+                    <div style={{ height: "20%" }}>Like to Try</div>
 
                     <Grid container style={{ height: "80%"}}>
-                      <Grid item xs={6}>
-                        <img width="100%" src="http://3.121.215.237/media/fixture/icon_judo.png" />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <img width="100%" src="http://3.121.215.237/media/fixture/icon_rugby.png" />
-                      </Grid>
+                      {like_to_try.map( (sport,index) => 
+                        <Grid key={index} item xs={6}>
+                          <img width="100%" src={sport} />
+                        </Grid>
+                      )}
                     </Grid>
 
                   </Grid>
                   <Grid item xs={6} style={{ borderLeft : "1px solid grey"}}>
-                    <div>AlreadyPlayed</div>
+                    <div>Already Played</div>
 
                     <Grid container style={{ height: "80%"}}>
-                      <Grid item xs={6}>
-                        <img width="100%" src="http://3.121.215.237/media/fixture/icon_running.png" />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <img width="100%" src="http://3.121.215.237/media/fixture/icon_swimming.png" />
-                      </Grid>
+                      {already_played.map( (sport,index) => 
+                          <Grid key={index} item xs={6}>
+                            <img width="100%" src={sport} />
+                          </Grid>
+                        )}
                     </Grid>
 
                   </Grid>
