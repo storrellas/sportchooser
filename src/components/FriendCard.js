@@ -19,12 +19,15 @@ import CookieMgr from "../utils/CookieMgr"
 const styles = theme => ({
   card: {
     maxWidth: 345,
+    width: "100%",
+    padding: 10
   },
   media: {
     height: 140,
   },
   content: {
-    padding: 0
+    padding: 0,
+    width: "100%"
   }
 });
 
@@ -61,50 +64,31 @@ class MediaCard extends React.Component {
     return (
       <Card className={classes.card} onClick={(e) => this.handleClick(e)}>
         <CardActionArea>
-          {/* <CardMedia
-            className={classes.media}
-            image="https://3.121.215.237/media/default/girl.jpg"
-            title="Contemplative asdfadfReptile"
-          /> */}
-          <Box style={{ display:'flex', width:"100%", height: "5em", backgroundColor: 'blue'}}>
+          <Box style={{ display:'flex', width:"100%", height: "5em"}}>
             <img height="100%" src="https://3.121.215.237/media/default/girl.jpg" />
-            <Typography gutterBottom variant="h5" component="h2" style={{alignSelf: 'center'}}>
+            <Typography gutterBottom variant="h5" component="h2" style={{alignSelf: 'center', marginLeft: 10 }}>
               Clara Valenti
             </Typography>
           </Box>
-          <CardContent classes={{ root: classes.content }}>
-          <Box pt={2} pl={1} pr={1} m={0} style={{ display: 'flex', width:"100%", height: "5em", backgroundColor: 'red'}}>
-            <div style={{ height: "100%", borderRight: "1px solid black", paddingRight: 10}}>
-              <div>Wants to Try</div>
-              <div style={{ display: 'flex', height: "80%"}}>
-                <img height="100%" src="http://3.121.215.237/media/fixture/icon_judo.png" />
-                <img height="100%" src="http://3.121.215.237/media/fixture/icon_rugby.png" />
+          <CardContent classes={{ root: classes.content }} style={{ width: "100%"}}>
+            <Box pt={2} pl={1} pr={1} m={0} style={{ display: 'flex', width:"100%", height: "5em" }}>
+              <div style={{ height: "100%", borderRight: "1px solid black", paddingRight: 10}}>
+                <div>Wants to Try</div>
+                <div style={{ display: 'flex', height: "80%"}}>
+                  <img height="100%" src="http://3.121.215.237/media/fixture/icon_judo.png" />
+                  <img height="100%" src="http://3.121.215.237/media/fixture/icon_rugby.png" />
+                </div>
               </div>
-            </div>
-            <div style={{ height: "100%", borderRight: "1px solid black", paddingRight: 10, paddingLeft: 10}}>
-              <div>AlreadyPlayed</div>
-              <div style={{ display: 'flex', height: "80%"}}>
-                <img height="100%" src="http://3.121.215.237/media/fixture/icon_running.png" />
-                <img height="100%" src="http://3.121.215.237/media/fixture/icon_swimming.png" />
+              <div style={{ height: "100%", borderRight: "1px solid black", paddingRight: 10, paddingLeft: 10}}>
+                <div>AlreadyPlayed</div>
+                <div style={{ display: 'flex', height: "80%"}}>
+                  <img height="100%" src="http://3.121.215.237/media/fixture/icon_running.png" />
+                  <img height="100%" src="http://3.121.215.237/media/fixture/icon_swimming.png" />
+                </div>
               </div>
-            </div>
-          </Box>
-
-  
-            <Typography gutterBottom variant="h5" component="h2">
-              Lizard
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-              across all continents except Antarctica
-            </Typography>
+            </Box>
           </CardContent>
         </CardActionArea>
-        {/* <CardActions style={{display:'flex', justifyContent: 'flex-end'}}>
-          <Button size="small" color="primary">
-            Add To Friends
-          </Button>
-        </CardActions> */}
       </Card>
     );
   }
