@@ -428,8 +428,15 @@ class Home extends React.Component {
         user_prompt.display[key] = false
       }
     }
-
-    this.setState({ user_prompt : user_prompt, settings_prompt: false })
+    // Get whoami
+    this.whoami()
+    .then( (user) => {
+        this.setState({ 
+          user_prompt : user_prompt, 
+          settings_prompt: false,
+          user: user 
+        })
+    })
   };
 
   render() {

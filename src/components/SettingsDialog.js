@@ -146,6 +146,8 @@ class SettingsDialog extends React.Component {
           <div>Location:{userJson.work_location}</div>
           <div>Birthyear:{userJson.birthday_year}</div>
 
+          <div>{user}</div>
+
         </Box>
       </Dialog>
     );

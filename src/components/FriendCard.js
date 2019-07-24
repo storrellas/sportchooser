@@ -39,9 +39,6 @@ class MediaCard extends React.Component {
       user: undefined
     };
   }
-  handleClick(e){
-    console.log("HandleClick")
-  }
 
   render() {
     const { sportList, friend, handleAddFriend, classes } = this.props;
@@ -73,7 +70,7 @@ class MediaCard extends React.Component {
 
 
     return (
-      <Card className={classes.card} onClick={(e) => this.handleClick(e)}>
+      <Card className={classes.card} onClick={this.props.handleAddFriend}>
         <CardActionArea>
           <Box style={{ display:'flex', width:"100%", height: "5em"}}>
             <img height="100%" src={picture} />

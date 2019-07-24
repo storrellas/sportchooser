@@ -77,7 +77,6 @@ class EmailDialog extends React.Component {
 
   async handleSubmit(e){
     e.preventDefault();
-    console.log("-- Contacting Backend --", this.props.userId)
 
     // Closing modal
     const {email, confirm} = this.state

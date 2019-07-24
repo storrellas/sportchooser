@@ -96,13 +96,27 @@ class FriendDialog extends React.Component {
       }        
     })
     const data = await response.json()
-    console.log(data)
     this.setState({ friendJson: data })
 
   }
 
-  handleAddFriend(e){
-    console.log("Adding friend")
+  async handleAddFriend(e){
+    console.log("Adding friend", this)
+
+    
+    const body = { user: this.props.userId, friend: this.state.friendJson.id }
+    const response = await fetch( `${config.BASE_API_URL}/api/friend/`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
+      },
+      body: JSON.stringify(body)
+    })
+    const data = await response.json()
+
+    // Close dialog
     this.props.onClose()
   }
 
@@ -114,7 +128,7 @@ class FriendDialog extends React.Component {
     if( this.state.friendJson !== undefined )
       friendSearch = <FriendCard sportList={sportList} 
                                  friend={this.state.friendJson} 
-                                 handleAddFriend={(e) => handleAddFriend(e)}/>
+                                 handleAddFriend={(e) => this.handleAddFriend(e)}/>
 
     return (
       <Dialog maxWidth="xs" fullWidth 
