@@ -71,27 +71,11 @@ class MediaCard extends React.Component {
               Clara Valenti
             </Typography>
           </Box>
-          <CardContent classes={{ root: classes.content }} style={{ width: "100%"}}>
-            {/* <Box pt={2} pl={1} pr={1} m={0} style={{ display: 'flex', width:"100%", height: "5em" }}>
-              <div style={{ height: "100%", borderRight: "1px solid black", paddingRight: 10}}>
-                <div>Wants to Try</div>
-                <div style={{ display: 'flex', height: "80%"}}>
-                  <img height="100%" src="http://3.121.215.237/media/fixture/icon_judo.png" />
-                  <img height="100%" src="http://3.121.215.237/media/fixture/icon_rugby.png" />
-                </div>
-              </div>
-              <div style={{ height: "100%", borderRight: "1px solid black", paddingRight: 10, paddingLeft: 10}}>
-                <div>AlreadyPlayed</div>
-                <div style={{ display: 'flex', height: "80%"}}>
-                  <img height="100%" src="http://3.121.215.237/media/fixture/icon_running.png" />
-                  <img height="100%" src="http://3.121.215.237/media/fixture/icon_swimming.png" />
-                </div>
-              </div>
-            </Box> */}
+          <CardContent classes={{ root: classes.content }}>
 
-            <Box pt={2} pl={1} pr={1} m={0} style={{ display: 'flex', width:"100%"}}>
-              <Grid container spacing={3} style={{ backgroundColor: 'blue'}}>
-                  <Grid item xs={6} style={{ backgroundColor: 'green'}}>
+            <Box pt={2} pl={1} pr={1} mt={0} mb={2} style={{ width:"100%"}}>
+              <Grid container spacing={3}>
+                  <Grid item xs={6}>
                     <div style={{ height: "20%" }}>Wants to Try</div>
 
                     <Grid container style={{ height: "80%"}}>
@@ -104,7 +88,7 @@ class MediaCard extends React.Component {
                     </Grid>
 
                   </Grid>
-                  <Grid item xs={6} style={{ backgroundColor: 'yellow'}}>
+                  <Grid item xs={6} style={{ borderLeft : "1px solid grey"}}>
                     <div>AlreadyPlayed</div>
 
                     <Grid container style={{ height: "80%"}}>
