@@ -18,7 +18,6 @@ import { connect } from "react-redux";
 import config from '../config/env'
 import CookieMgr from "../utils/CookieMgr"
 
-
 // AwesomeSlider
 import AwesomeSlider from 'react-awesome-slider';
 import AwsSliderStyles from 'react-awesome-slider/src/styles';
@@ -207,7 +206,7 @@ class Home extends React.Component {
         open: false,
         current: null,
         display:{
-          friends: false,
+          friends: true,
           share: false,
           location: false,
           email: false,

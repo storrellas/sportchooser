@@ -14,6 +14,9 @@ import Dialog from '@material-ui/core/Dialog';
 
 // Project import
 import friendsImage from "../assets/img/friends.png"
+import config from '../config/env'
+import CookieMgr from "../utils/CookieMgr"
+import FriendCard from "./FriendCard"
 
 // Redux
 import { store, renderConfetti } from "../redux";
@@ -59,7 +62,7 @@ class FriendDialog extends React.Component {
 
   handleKeyPress(){
     if(event.key === 'Enter'){
-      this.handleSubmit()
+      this.handleSearch()
 
       // // Launch confetti
       // store.dispatch( renderConfetti(true) )
@@ -75,6 +78,25 @@ class FriendDialog extends React.Component {
     console.log("Contacting Backend", this.state.friend)
     // Closing modal
     this.props.onClose()
+  }
+
+  async handleSearch(e){
+    console.log("Contacting Backend for search", this.state.friend)
+    // Closing modal
+    //this.props.onClose()
+
+    const username = this.state.friend
+    const response = await fetch( `${config.BASE_API_URL}/api/user/lookup/?username=${username}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
+      }        
+    })
+    const data = await response.json()
+    console.log(data)
+
   }
 
   render() {
@@ -119,7 +141,7 @@ class FriendDialog extends React.Component {
                   <IconButton
                     edge="end"
                     aria-label="Toggle password visibility"
-                    onClick={(e) => this.handleSubmit(e)}
+                    onClick={(e) => this.handleSearch(e)}
                   >
                     <PlayArrowIcon style={{color:'green'}}></PlayArrowIcon>
                   </IconButton>
@@ -134,6 +156,11 @@ class FriendDialog extends React.Component {
             <div style={{flexGrow: 1}}>OK</div>
           </Button>
         </Box>
+
+        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
+          <FriendCard />
+        </Box>
+
       </Dialog>
     );
   }
