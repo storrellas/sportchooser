@@ -20,6 +20,7 @@ import { connect } from "react-redux";
 // Project imports
 import CookieMgr from "../utils/CookieMgr"
 import config from '../config/env'
+import ForgotDialog from '../components/ForgotDialog'
 
 // Images
 import logoImage from "../assets/img/tryasport/img_logo.png"
@@ -72,7 +73,9 @@ class Landing extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      open: false
+    };
   }
 
   async handleSelectLanguage(e, lan){
@@ -136,6 +139,17 @@ class Landing extends React.Component {
     this.props.userCreated(data)
   }
 
+
+  handleClose(){
+    console.log('The link was closed')
+    this.setState({ open: false, })
+  };
+
+  handleClick(e){
+    console.log('The link was closed')
+    this.setState({ open: true, })
+  }
+
   render() {
     const { classes } = this.props;
     
@@ -185,7 +199,7 @@ class Landing extends React.Component {
             </Box>
 
             <Box mt={2} ml={3} mr={3}>
-              <Button variant="contained" color="secondary" className={classes.button}>       
+              <Button variant="contained" color="secondary" className={classes.button} onClick={(e) => this.handleClick(e)}>       
                 <b>Enter Email</b>
               </Button>
             </Box>
@@ -195,6 +209,9 @@ class Landing extends React.Component {
               <div>Don't worry</div>
               <div>Enter your email or use the link we sent to continue from last time</div>
             </Box>
+
+            <ForgotDialog open={this.state.open} onClose={(e) => this.handleClose()} />
+
 
           </Container>
 
