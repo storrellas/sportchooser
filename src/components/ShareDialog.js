@@ -102,20 +102,22 @@ class ShareDialog extends React.Component {
   handleSubmit(e){
     console.log("Contacting Backend", this.state.friend)
 
-    if (navigator.share) {
-      navigator.share({
-        title: 'Try A Sport',
-        url: config.BASE_API_UR
-      }).then(() => {
-        console.log('Thanks for sharing!');
-      })
-      .catch(console.error);
-    } else {
-      console.log("Web Share not supported")
-      this.setState({webSharing: false})
-    }
-    // Closing modal
-    //this.props.onClose()
+    // if (navigator.share) {
+    //   navigator.share({
+    //     title: 'Try A Sport',
+    //     url: config.BASE_API_UR
+    //   }).then(() => {
+    //     console.log('Thanks for sharing!');
+    //   })
+    //   .catch(console.error);
+    // } else {
+    //   console.log("Web Share not supported")
+    //   this.setState({webSharing: false})
+    // }
+    // // Closing modal
+    // //this.props.onClose()
+
+    this.setState({webSharing: false})
   }
 
   render() {
@@ -123,12 +125,12 @@ class ShareDialog extends React.Component {
     const userJson = (user === undefined)?"":JSON.parse(user);
     const username = (userJson==="")?"":userJson.username;
 
-    // const error = <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-    //                 <Button variant="contained" className={classes.error} onClick={(e) => this.setState({webSharing: true})}>
-    //                   <div style={{flexGrow: 1}}>WebSharing not allowed</div>
-    //                 </Button>
-    //               </Box>
-    // const errorRender = (this.state.webSharing==true)?"":error;
+    const error = <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
+                    <Button variant="contained" className={classes.error} onClick={(e) => this.setState({webSharing: true})}>
+                      <div style={{flexGrow: 1}}>WebSharing not allowed</div>
+                    </Button>
+                  </Box>
+    const errorRender = (this.state.webSharing==true)?"":error;
 
     return (
       <Dialog maxWidth="xs" fullWidth 
@@ -192,8 +194,8 @@ class ShareDialog extends React.Component {
             <div style={{flexGrow: 1, textAlign: 'center'}}>{username}</div>
           </Box>
         </Box>
-{/* 
-        {errorRender} */}
+ 
+         {errorRender}
 
       </Dialog>
     );
