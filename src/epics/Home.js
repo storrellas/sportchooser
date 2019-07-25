@@ -38,6 +38,11 @@ import undoImage from "../assets/img/undo.png"
 import noInterestImage from "../assets/img/no_interest.png"
 import likeToTryImage from "../assets/img/like_to_try.png"
 import alreadyPlayedImage from "../assets/img/already_played.png"
+// import undoImage from "../assets/img/icn_undo.png"
+// import noInterestImage from "../assets/img/icn_close.png"
+// import likeToTryImage from "../assets/img/icn_heart.png"
+// import alreadyPlayedImage from "../assets/img/icn_arm.png"
+
 import wikipediaImage from "../assets/img/wikipedia.png"
 import gearImage from "../assets/img/tryasport/icn_gear.png"
 
@@ -376,8 +381,8 @@ class Home extends React.Component {
       user_prompt.open = false
     }
     
-    // Add favorite
-    this.addFavoriteSport(result)
+    // Add Sport
+    this.addSport(result)
     .then((user) => {
       this.setState({
         selected: selected, 
@@ -388,7 +393,7 @@ class Home extends React.Component {
     })
   }
 
-  async addFavoriteSport(result){
+  async addSport(result){
     
     return new Promise( (resolve, reject) => {
       const { sport_list, selected } = this.state;

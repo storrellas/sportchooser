@@ -54,9 +54,9 @@ const styles = theme => ({
   button:{
     borderRadius: 25,
     width: "50%",
-    backgroundColor: '#117A65',
+    backgroundColor: '#00CA9D',
     '&:hover':{
-      backgroundColor: '#055D5B'
+      backgroundColor: '#005643'
     }
   }
 });
@@ -78,9 +78,6 @@ class Landing extends React.Component {
   async handleSelectLanguage(e, lan){
 
     // Create User
-    // const username = UUID()
-    // const password = UUID()
-    // let body = { username: username, password: password, language: lan}
     let body = { language: lan }
     let response = await fetch(config.BASE_API_URL + '/api/user/', {
       headers: {
@@ -100,30 +97,6 @@ class Landing extends React.Component {
     this.props.history.push('/home')
     this.props.userCreated(data)
   }
-/*
-  async handleGetToken(username, password){
-
-    console.log("-- Username -- ")
-    let body = { username: username, password: password }
-    console.log( JSON.stringify(body) )
-    let response = await fetch(config.BASE_API_URL + '/api/token/', {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'post',
-      body: JSON.stringify(body)
-    })
-    let data = await response.json()
-    
-    // Store tokens
-    console.log("Storing data")
-    console.log(data)
-    CookieMgr.set(CookieMgr.keys.TOKEN_ACCESS, data.access)
-    CookieMgr.set(CookieMgr.keys.TOKEN_REFRESH, data.refresh)
-    
-  }
-/**/
 
   async componentDidMount(){
 
