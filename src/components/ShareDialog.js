@@ -104,8 +104,8 @@ class ShareDialog extends React.Component {
 
     if (navigator.share) {
       navigator.share({
-        title: 'WebShare API Demo',
-        url: 'https://codepen.io/ayoisaiah/pen/YbNazJ'
+        title: 'TryASport',
+        url: 'http://3.121.215.237'
       }).then(() => {
         console.log('Thanks for sharing!');
       })
