@@ -20,6 +20,7 @@ import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 // Project import
 import shareImage from "../assets/img/share.png"
+import config from '../config/env'
 
 // Redux
 import { store, renderConfetti } from "../redux";
