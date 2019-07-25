@@ -20,6 +20,8 @@ import FriendCard from "./FriendCard"
 
 // Redux
 import { store, renderConfetti } from "../redux";
+import { connect } from "react-redux";
+
 
 const styles = theme => ({
   avatar: {
@@ -30,7 +32,9 @@ const styles = theme => ({
     minHeight: '80vh',
     maxHeight: '80vh',
     position: 'relative',
-    overflowY: 'initial'
+    overflowY: 'initial',
+    backgroundImage: "linear-gradient(203deg, #BEBEBE 0%, #FFFFFF 100%)",
+    border: "5px solid #F76D1D"
   },
   closeButton: {
     position: 'absolute',
@@ -51,6 +55,12 @@ const styles = theme => ({
   }
 });
 
+function mapDispatchToProps(dispatch) {
+  return {
+    renderConfetti: enabled => dispatch(renderConfetti(enabled))
+  };
+}
+
 class NewFriendDialog extends React.Component {
   constructor(props) {
     super(props);
@@ -65,6 +75,11 @@ class NewFriendDialog extends React.Component {
         sports: []
       }
     }
+  }
+
+  componentDidMount(){
+    this.props.renderConfetti(true)
+    setTimeout(() => { this.props.renderConfetti(false) }, 3000);
   }
 
   handleKeyPress(){
@@ -115,12 +130,9 @@ class NewFriendDialog extends React.Component {
       //this.setState({ friendJson: this.state.defaultFriendJson })
       this.props.onCloseAddFriend()
     }
-    /**/
   }
 
   async handleAddFriend(e){
-    console.log("Adding friend", this)
-
     
     const body = { user: this.props.userId, friend: this.state.friendJson.id }
     const response = await fetch( `${config.BASE_API_URL}/api/friend/`, {
@@ -154,11 +166,6 @@ class NewFriendDialog extends React.Component {
               aria-labelledby="simple-dialog-title" open={open}>
         <canvas id="my-canvas" width={200} height={200} style={{ position:'absolute', backgroundColor: 'transparent', zIndex: this.state.zIndex }}></canvas>
 
-
-        <img height="15%" src={friendsImage} 
-            style={{borderRadius: '10px', position: 'absolute', 
-                    top: -30, margin: 'auto', left: 0, right: 0}}>
-        </img>
         <IconButton aria-label="Close" className={classes.closeButton} 
             onClick={onClose}>
           <CloseIcon />
@@ -168,45 +175,13 @@ class NewFriendDialog extends React.Component {
         </DialogTitle>
 
         <Box mt={2} ml={3} mr={3} borderRadius={16}>
-        <TextField
-            id="outlined-friend-input"
-            label="Enter your friend code"
-            className={classes.textField}
-            type="text"
-            name="code"
-            autoComplete="email"
-            margin="normal"
-            variant="outlined"
-            style={{width: "100%"}}
-            onKeyPress={(e) => this.handleKeyPress(e)}
-            onChange={(e) => this.handleChange(e)}
-            value={this.state.friend}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    edge="end"
-                    aria-label="Toggle password visibility"
-                    onClick={(e) => this.handleSearch(e)}
-                  >
-                    <PlayArrowIcon style={{color:'green'}}></PlayArrowIcon>
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+
+          <Box mt={2} ml={3} mr={3} borderRadius={16}>
+            Picture - Marti Valencia
+          </Box>
+
         </Box>
 
-        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-          {friendSearch}
-        </Box>
-
-
-        {/* <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-          <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
-            <div style={{flexGrow: 1}}>OK</div>
-          </Button>
-        </Box> */}
 
       </Dialog>
     );
@@ -221,5 +196,6 @@ FriendDialog.propTypes = {
 };
 /**/
 
-export default withStyles(styles)(NewFriendDialog);
+//export default withStyles(styles)(NewFriendDialog);
+export default connect(null, mapDispatchToProps)(withStyles(styles)(NewFriendDialog));
 

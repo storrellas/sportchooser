@@ -212,7 +212,7 @@ class Home extends React.Component {
         open: false,
         current: null,
         display:{
-          friends: true,
+          friends: false,
           share: false,
           location: false,
           email: false,
@@ -225,7 +225,7 @@ class Home extends React.Component {
       sport_list: [],
       sport_dict: {},
       user: this.props.user,
-      open_new_friend: false,
+      open_new_friend: true,
     };
     this.mounted = false;
 
