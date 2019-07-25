@@ -183,8 +183,8 @@ class Landing extends React.Component {
               <div>Choose your language to start:</div>
             </Box>
 
-            <Box mt={3} ml={3} mr={3} pl={15} pr={15} borderRadius={16}>
-              <Grid container spacing={3}>
+            <Box mt={3} ml={3} mr={3} borderRadius={16} style={{display: 'flex', justifyContent: 'center'}}>
+              <Grid container spacing={3} style={{width: "75%"}}>
                 <Grid item xs={6} onClick={(e) => this.handleSelectLanguage(e, 'uk')}>
                   <img src={ukImage} className={classes.flag}></img> 
                 </Grid>
