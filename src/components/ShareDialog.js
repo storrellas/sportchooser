@@ -102,20 +102,20 @@ class ShareDialog extends React.Component {
   handleSubmit(e){
     console.log("Contacting Backend", this.state.friend)
 
-    // if (navigator.share) {
-    //   navigator.share({
-    //     title: 'Try A Sport',
-    //     url: config.BASE_API_UR
-    //   }).then(() => {
-    //     console.log('Thanks for sharing!');
-    //   })
-    //   .catch(console.error);
-    // } else {
-    //   console.log("Web Share not supported")
-    //   this.setState({webSharing: false})
-    // }
-    // // Closing modal
-    // //this.props.onClose()
+    if (navigator.share) {
+      navigator.share({
+        title: 'Try A Sport',
+        url: "http://www.elpais.es"
+      }).then(() => {
+        console.log('Thanks for sharing!');
+      })
+      .catch(console.error);
+    } else {
+      console.log("Web Share not supported")
+      this.setState({webSharing: false})
+    }
+    // Closing modal
+    //this.props.onClose()
 
     this.setState({webSharing: false})
   }
