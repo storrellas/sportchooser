@@ -82,8 +82,20 @@ class ShareDialog extends React.Component {
 
   handleSubmit(e){
     console.log("Contacting Backend", this.state.friend)
+
+    if (navigator.share) {
+      navigator.share({
+        title: 'WebShare API Demo',
+        url: 'https://codepen.io/ayoisaiah/pen/YbNazJ'
+      }).then(() => {
+        console.log('Thanks for sharing!');
+      })
+      .catch(console.error);
+    } else {
+      console.log("Web Share not supported")
+    }
     // Closing modal
-    this.props.onClose()
+    //this.props.onClose()
   }
 
   render() {
