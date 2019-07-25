@@ -104,8 +104,8 @@ class ShareDialog extends React.Component {
 
     if (navigator.share) {
       navigator.share({
-        title: 'Try A Sport',
-        url: "http://www.elpais.es"
+        title: 'WebShare API Demo',
+        url: 'https://codepen.io/ayoisaiah/pen/YbNazJ'
       }).then(() => {
         console.log('Thanks for sharing!');
       })
@@ -117,7 +117,7 @@ class ShareDialog extends React.Component {
     // Closing modal
     //this.props.onClose()
 
-    this.setState({webSharing: false})
+    //this.setState({webSharing: false})
   }
 
   render() {
@@ -183,6 +183,8 @@ class ShareDialog extends React.Component {
           />
         </Box>
 
+        {errorRender}
+
         <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
           <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
             <div style={{flexGrow: 1}}>Share</div>
@@ -195,7 +197,7 @@ class ShareDialog extends React.Component {
           </Box>
         </Box>
  
-         {errorRender}
+
 
       </Dialog>
     );
