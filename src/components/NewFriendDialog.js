@@ -161,11 +161,18 @@ class NewFriendDialog extends React.Component {
   }
 
   render() {
-    const { classes, onClose, sportDict, open } = this.props;
+    const { classes, onClose, friend, open } = this.props;
     // console.log("-- NewFriendDialog --")
 
+    let first_name = ""
+    let last_name = ""
+    let picture = ""
+    if( friend !== undefined){
+      first_name = friend.first_name
+      last_name = friend.last_name
+      picture = `${config.BASE_API_URL}${friend.picture}`
+    }    
 
-    const picture = `${config.BASE_API_URL}/media/default/girl.jpg`
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
@@ -179,25 +186,18 @@ class NewFriendDialog extends React.Component {
           <b>New Friend</b>
         </DialogTitle>
 
-        <Box style={{ display:'flex', width:"100%", height: "5em"}}>
+        <Box style={{ display:'flex', justifyContent: 'center', width:"100%", height: "5em"}}>
+          <Box mt={2} p={1} style={{display:'flex', justifyContent: 'center', backgroundColor: 'orange', borderRadius: '10px', border: '2px solid #4D6ED3', width: '50%'}}>
+
             <img height="100%" src={picture} />
             <Typography gutterBottom variant="h5" component="h2" style={{alignSelf: 'center', marginLeft: 10 }}>
-              Carla
+              {first_name}
             </Typography>
             <Typography gutterBottom variant="h5" component="h2" style={{alignSelf: 'center', marginLeft: 10 }}>
-              Mitja
+              {last_name}
             </Typography>
           </Box>
-
-        <Box mt={2} ml={3} mr={3} borderRadius={16}>
-
-          <Box mt={2} ml={3} mr={3} borderRadius={16}>
-            Picture - Marti Valencia
-          </Box>
-
         </Box>
-
-
       </Dialog>
     );
   }

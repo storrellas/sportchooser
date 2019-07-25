@@ -226,6 +226,7 @@ class Home extends React.Component {
       sport_dict: {},
       user: this.props.user,
       open_new_friend: false,
+      friend: undefined
     };
     this.mounted = false;
 
@@ -501,7 +502,8 @@ class Home extends React.Component {
             user_prompt : user_prompt, 
             settings_prompt: false,
             user: user,
-            open_new_friend: true
+            open_new_friend: true,
+            friend: friend
           })
       })
     }else{
@@ -517,7 +519,7 @@ class Home extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { sport_list, sport_dict, selected, user_prompt, open_new_friend } = this.state;
+    const { sport_list, sport_dict, selected, user_prompt, open_new_friend, friend } = this.state;
     console.log("## Home:Rendering ##", selected)
     console.log(this.props.user)
     console.log(sport_list[selected])
@@ -596,7 +598,7 @@ class Home extends React.Component {
                           open={user_prompt.display.friends} 
                           onClose={(e) => this.handleClose()} 
                           onCloseAddFriend={(friend) => this.handleCloseAddFriend(friend)} />                          
-            <NewFriendDialog open={open_new_friend} onClose={(e) => this.handleClose()} />
+            <NewFriendDialog open={open_new_friend} friend={friend} onClose={(e) => this.handleClose()} />
             <ShareDialog userId={userId} user={user_str} open={user_prompt.display.share} onClose={(e) => this.handleClose()} />
             <GenderDialog userId={userId} open={user_prompt.display.gender} onClose={(e) => this.handleClose()} />
             <LocationDialog userId={userId} open={user_prompt.display.location} onClose={(e) => this.handleClose()} />
