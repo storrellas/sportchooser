@@ -12,6 +12,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 
 
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ErrorIcon from '@material-ui/icons/Error';
+import InfoIcon from '@material-ui/icons/Info';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+
 // Project import
 import shareImage from "../assets/img/share.png"
 
@@ -54,6 +60,18 @@ const styles = theme => ({
     border: '2px solid #00CA9D', 
     borderStyle: 'dashed', 
     fontSize: '24px'
+  },
+  error:{
+    width: '75%', 
+    display: 'flex',
+    justifyContent: 'center',
+    backgroundColor: '#FF6D6D',
+    border: '2px solid #FF2424', 
+    borderStyle: 'dashed', 
+    color: 'white',
+    '&:hover':{
+      backgroundColor: '#FF6D6D',
+    }
   }
 });
 
@@ -62,7 +80,8 @@ class ShareDialog extends React.Component {
     super(props);
     this.state = {
       zIndex: 1000,
-      friend: ''
+      friend: '',
+      webSharing: true
     }
   }
 
@@ -85,14 +104,15 @@ class ShareDialog extends React.Component {
 
     if (navigator.share) {
       navigator.share({
-        title: 'WebShare API Demo',
-        url: 'https://codepen.io/ayoisaiah/pen/YbNazJ'
+        title: 'Try A Sport',
+        url: config.BASE_API_UR
       }).then(() => {
         console.log('Thanks for sharing!');
       })
       .catch(console.error);
     } else {
       console.log("Web Share not supported")
+      this.setState({webSharing: false})
     }
     // Closing modal
     //this.props.onClose()
@@ -102,6 +122,14 @@ class ShareDialog extends React.Component {
     const { classes, onClose, open, user } = this.props;
     const userJson = (user === undefined)?"":JSON.parse(user);
     const username = (userJson==="")?"":userJson.username;
+
+    const error = <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
+                    <Button variant="contained" className={classes.error} onClick={(e) => this.setState({webSharing: true})}>
+                      <div style={{flexGrow: 1}}>WebSharing not allowed</div>
+                    </Button>
+                  </Box>
+    const errorRender = (this.state.webSharing==true)?"":error;
+
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
@@ -164,6 +192,9 @@ class ShareDialog extends React.Component {
             <div style={{flexGrow: 1, textAlign: 'center'}}>{username}</div>
           </Box>
         </Box>
+
+        {errorRender}
+
       </Dialog>
     );
   }
