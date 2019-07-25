@@ -94,8 +94,6 @@ class LocationDialog extends React.Component {
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
               aria-labelledby="simple-dialog-title" open={open}>
-        <canvas id="my-canvas" width={200} height={200} style={{ position:'absolute', backgroundColor: 'transparent', zIndex: this.state.zIndex }}></canvas>
-
 
         <img height="15%" src={locationImage} 
             style={{borderRadius: '10px', position: 'absolute', 

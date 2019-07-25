@@ -92,8 +92,6 @@ class GenderDialog extends React.Component {
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
               aria-labelledby="simple-dialog-title" open={open}>
-        <canvas id="my-canvas" width={200} height={200} style={{ position:'absolute', backgroundColor: 'transparent', zIndex: this.state.zIndex }}></canvas>
-
 
         <img height="15%" src={genderImage} 
             style={{borderRadius: '10px', position: 'absolute', 
@@ -108,7 +106,7 @@ class GenderDialog extends React.Component {
         </DialogTitle>
 
         <Box mt={2} mr={10} ml={10} style={{display:'flex', justifyContent: 'center'}}>
-          <Button variant="contained" style={{width: "30%"}} onClick={(e) => this.handleClick(e, 'female')}>
+          <Button variant="contained" style={{width: "30%"}} onClick={(e) => this.handleClick(e, 'male')}>
             <img src={maleImage} style={{width:"100%"}} />
           </Button>
           

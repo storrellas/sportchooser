@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
+import Typography from '@material-ui/core/Typography';
 
 
 // Project import
@@ -78,8 +79,17 @@ class NewFriendDialog extends React.Component {
   }
 
   componentDidMount(){
-    this.props.renderConfetti(true)
-    setTimeout(() => { this.props.renderConfetti(false) }, 3000);
+    if(this.props.open){
+      this.props.renderConfetti(true)
+      setTimeout(() => { this.props.renderConfetti(false) }, 3000);
+    }
+  }
+
+  componentDidUpdate(){
+    if(this.props.open){
+      this.props.renderConfetti(true)
+      setTimeout(() => { this.props.renderConfetti(false) }, 3000);
+    }
   }
 
   handleKeyPress(){
@@ -152,19 +162,14 @@ class NewFriendDialog extends React.Component {
 
   render() {
     const { classes, onClose, sportDict, open } = this.props;
-    // console.log("-- FriendDialog --")
-    // console.log(this.state.friendJson)
-    let friendSearch = <div></div>
-    if( this.state.friendJson !== undefined )
-      friendSearch = <FriendCard sportDict={sportDict}
-                                 friend={this.state.friendJson} 
-                                 handleAddFriend={(e) => this.handleAddFriend(e)}/>
+    // console.log("-- NewFriendDialog --")
 
+
+    const picture = `${config.BASE_API_URL}/media/default/girl.jpg`
     return (
       <Dialog maxWidth="xs" fullWidth 
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
               aria-labelledby="simple-dialog-title" open={open}>
-        <canvas id="my-canvas" width={200} height={200} style={{ position:'absolute', backgroundColor: 'transparent', zIndex: this.state.zIndex }}></canvas>
 
         <IconButton aria-label="Close" className={classes.closeButton} 
             onClick={onClose}>
@@ -173,6 +178,16 @@ class NewFriendDialog extends React.Component {
         <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
           <b>New Friend</b>
         </DialogTitle>
+
+        <Box style={{ display:'flex', width:"100%", height: "5em"}}>
+            <img height="100%" src={picture} />
+            <Typography gutterBottom variant="h5" component="h2" style={{alignSelf: 'center', marginLeft: 10 }}>
+              Carla
+            </Typography>
+            <Typography gutterBottom variant="h5" component="h2" style={{alignSelf: 'center', marginLeft: 10 }}>
+              Mitja
+            </Typography>
+          </Box>
 
         <Box mt={2} ml={3} mr={3} borderRadius={16}>
 
