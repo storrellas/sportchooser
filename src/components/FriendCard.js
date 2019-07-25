@@ -41,17 +41,13 @@ class MediaCard extends React.Component {
   }
 
   render() {
-    const { sportList, friend, handleAddFriend, classes } = this.props;
+    const { sportDict, friend, handleAddFriend, classes } = this.props;
     const picture = `${config.BASE_API_URL}${friend.picture}`
 
     // console.log("-- FriendCard --")
     // console.log(sportList, friend)
     
-    // NOTE: This should be done on the backend
-    let sport_list_by_id = {}
-    for (const sport of sportList) {
-      sport_list_by_id[sport.id] = sport.images[0].icon
-    }
+
 
     // Generate arrays 
     // NOTE: Max two items and this should be reviewed
@@ -61,10 +57,10 @@ class MediaCard extends React.Component {
     const already_played = []
     for (const sport of friend.sports) {
       if(sport.result == like_to_try_pattern && like_to_try.length < 2 ){
-        like_to_try.push( sport_list_by_id[sport.sport] )
+        like_to_try.push( sportDict[sport.sport] )
       }
       if(sport.result == already_played_pattern && already_played.length < 2 ){
-        already_played.push( sport_list_by_id[sport.sport] )
+        already_played.push( sportDict[sport.sport] )
       }
     }
 

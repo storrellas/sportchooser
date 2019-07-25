@@ -121,12 +121,12 @@ class FriendDialog extends React.Component {
   }
 
   render() {
-    const { classes, onClose, sportList, open } = this.props;
+    const { classes, onClose, sportDict, open } = this.props;
     // console.log("-- FriendDialog --")
     // console.log(this.state.friendJson)
     let friendSearch = <div></div>
     if( this.state.friendJson !== undefined )
-      friendSearch = <FriendCard sportList={sportList} 
+      friendSearch = <FriendCard sportDict={sportDict}
                                  friend={this.state.friendJson} 
                                  handleAddFriend={(e) => this.handleAddFriend(e)}/>
 

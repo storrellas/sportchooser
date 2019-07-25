@@ -222,6 +222,7 @@ class Home extends React.Component {
       },
       settings_prompt: false,
       sport_list: [],
+      sport_dict: {},
       user: this.props.user
     };
     this.mounted = false;
@@ -255,6 +256,12 @@ class Home extends React.Component {
       .then( (data) =>{
         if(this.mounted == true){
           resolve(data)
+
+          this.state.sport_dict = {}
+          for (const sport of data) {
+            this.state.sport_dict[sport.id] = sport.images[0].icon
+          }
+      
         }
       })
     })
@@ -446,7 +453,7 @@ class Home extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { sport_list, selected, user_prompt } = this.state;
+    const { sport_list, sport_dict, selected, user_prompt } = this.state;
     console.log("## Home:Rendering ##", selected)
     console.log(this.props.user)
     console.log(sport_list[selected])
@@ -521,7 +528,7 @@ class Home extends React.Component {
             <BirthyearDialog userId={userId} open={user_prompt.display.birthyear} onClose={(e) => this.handleClose()} />
             <EmailDialog userId={userId} open={user_prompt.display.email} onClose={(e) => this.handleClose()} />
             <FriendDialog userId={userId} 
-                          sportList={sport_list}
+                          sportDict={sport_dict}
                           open={user_prompt.display.friends} 
                           onClose={(e) => this.handleClose()} />
             <ShareDialog userId={userId} user={user_str} open={user_prompt.display.share} onClose={(e) => this.handleClose()} />
