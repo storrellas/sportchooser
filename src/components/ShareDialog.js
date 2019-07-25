@@ -105,7 +105,7 @@ class ShareDialog extends React.Component {
     if (navigator.share) {
       navigator.share({
         title: 'TryASport',
-        url: 'http://3.121.215.237'
+        url: config.BASE_API_URL
       }).then(() => {
         console.log('Thanks for sharing!');
       })
