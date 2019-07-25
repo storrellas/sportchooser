@@ -25,6 +25,7 @@ import AwsSliderStyles from 'react-awesome-slider/src/styles';
 // Components
 import BirthyearDialog from '../components/BirthyearDialog';
 import EmailDialog from '../components/EmailDialog';
+import NewFriendDialog from '../components/NewFriendDialog';
 import FriendDialog from '../components/FriendDialog';
 import ShareDialog from '../components/ShareDialog';
 import GenderDialog from '../components/GenderDialog';
@@ -223,7 +224,8 @@ class Home extends React.Component {
       settings_prompt: false,
       sport_list: [],
       sport_dict: {},
-      user: this.props.user
+      user: this.props.user,
+      open_new_friend: false,
     };
     this.mounted = false;
 
@@ -446,10 +448,29 @@ class Home extends React.Component {
         this.setState({ 
           user_prompt : user_prompt, 
           settings_prompt: false,
-          user: user 
+          user: user,
+          open_new_friend: false
         })
     })
   };
+
+  addFriend(friend){
+    return new Promise( async(resolve, reject)=>{
+      const body = { user: this.props.user.id, friend: friend.id }
+      const response = await fetch( `${config.BASE_API_URL}/api/friend/`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
+        },
+        body: JSON.stringify(body)
+      })
+      const data = await response.json()
+      return resolve(data)
+    })
+    
+  }
 
   handleCloseAddFriend(friend){
     console.log('Closing friend', friend)
@@ -466,13 +487,19 @@ class Home extends React.Component {
         user_prompt.display[key] = false
       }
     }
-    // Get whoami
-    this.whoami()
+
+    // Add Friend
+    this.addFriend(friend)
+    .then( (data) =>{
+      // Update whoami
+      return this.whoami()
+    })
     .then( (user) => {
         this.setState({ 
           user_prompt : user_prompt, 
           settings_prompt: false,
-          user: user 
+          user: user,
+          open_new_friend: true
         })
     })
 
@@ -480,7 +507,7 @@ class Home extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { sport_list, sport_dict, selected, user_prompt } = this.state;
+    const { sport_list, sport_dict, selected, user_prompt, open_new_friend } = this.state;
     console.log("## Home:Rendering ##", selected)
     console.log(this.props.user)
     console.log(sport_list[selected])
@@ -558,7 +585,8 @@ class Home extends React.Component {
                           sportDict={sport_dict}
                           open={user_prompt.display.friends} 
                           onClose={(e) => this.handleClose()} 
-                          onCloseAddFriend={(friend) => this.handleCloseAddFriend(friend)} />
+                          onCloseAddFriend={(friend) => this.handleCloseAddFriend(friend)} />                          
+            <NewFriendDialog open={open_new_friend} onClose={(e) => this.handleClose()} />
             <ShareDialog userId={userId} user={user_str} open={user_prompt.display.share} onClose={(e) => this.handleClose()} />
             <GenderDialog userId={userId} open={user_prompt.display.gender} onClose={(e) => this.handleClose()} />
             <LocationDialog userId={userId} open={user_prompt.display.location} onClose={(e) => this.handleClose()} />
