@@ -488,20 +488,30 @@ class Home extends React.Component {
       }
     }
 
-    // Add Friend
-    this.addFriend(friend)
-    .then( (data) =>{
-      // Update whoami
-      return this.whoami()
-    })
-    .then( (user) => {
-        this.setState({ 
-          user_prompt : user_prompt, 
-          settings_prompt: false,
-          user: user,
-          open_new_friend: true
-        })
-    })
+    // If friend is found
+    if( friend !== undefined ){
+      // Add Friend
+      this.addFriend(friend)
+      .then( (data) =>{
+        // Update whoami
+        return this.whoami()
+      })
+      .then( (user) => {
+          this.setState({ 
+            user_prompt : user_prompt, 
+            settings_prompt: false,
+            user: user,
+            open_new_friend: true
+          })
+      })
+    }else{
+      this.setState({ 
+        user_prompt : user_prompt, 
+        settings_prompt: false,
+        open_new_friend: false
+      })
+    }
+
 
   };
 
