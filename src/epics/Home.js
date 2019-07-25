@@ -211,8 +211,8 @@ class Home extends React.Component {
         open: false,
         current: null,
         display:{
-          friends: false,
-          share: true,
+          friends: true,
+          share: false,
           location: false,
           email: false,
           moments: false,
@@ -451,6 +451,33 @@ class Home extends React.Component {
     })
   };
 
+  handleCloseAddFriend(friend){
+    console.log('Closing friend', friend)
+    
+    //console.log('The link was closed')
+    let {user_prompt} = this.state;
+    user_prompt.open = false;
+    user_prompt.counter = 0
+
+    // Reset all modals
+    for (var key in user_prompt.display) {
+      // check if the property/key is defined in the object itself, not in parent
+      if (user_prompt.display.hasOwnProperty(key)) {           
+        user_prompt.display[key] = false
+      }
+    }
+    // Get whoami
+    this.whoami()
+    .then( (user) => {
+        this.setState({ 
+          user_prompt : user_prompt, 
+          settings_prompt: false,
+          user: user 
+        })
+    })
+
+  };
+
   render() {
     const { classes } = this.props;
     const { sport_list, sport_dict, selected, user_prompt } = this.state;
@@ -530,7 +557,8 @@ class Home extends React.Component {
             <FriendDialog userId={userId} 
                           sportDict={sport_dict}
                           open={user_prompt.display.friends} 
-                          onClose={(e) => this.handleClose()} />
+                          onClose={(e) => this.handleClose()} 
+                          onCloseAddFriend={(friend) => this.handleCloseAddFriend(friend)} />
             <ShareDialog userId={userId} user={user_str} open={user_prompt.display.share} onClose={(e) => this.handleClose()} />
             <GenderDialog userId={userId} open={user_prompt.display.gender} onClose={(e) => this.handleClose()} />
             <LocationDialog userId={userId} open={user_prompt.display.location} onClose={(e) => this.handleClose()} />

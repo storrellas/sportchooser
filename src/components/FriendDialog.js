@@ -88,6 +88,7 @@ class FriendDialog extends React.Component {
   }
 
   async handleSearch(e){
+    
     console.log("Contacting Backend for search", this.state.friend)
     // Closing modal
     //this.props.onClose()
@@ -106,13 +107,15 @@ class FriendDialog extends React.Component {
       if (!response.ok) throw Error(response.statusText);    
       const data = await response.json()
 
-      console.log("SetState", data)
-      this.setState({ friendJson: data })
+      // NOTE: This causes to display friend list
+      //this.setState({ friendJson: data })      
+      this.props.onCloseAddFriend(data)
     }catch(e){
-      console.log("Second")
-      console.log("SetStateDefault", e)
-      this.setState({ friendJson: this.state.defaultFriendJson })
+      // NOTE: This causes to display friend list
+      //this.setState({ friendJson: this.state.defaultFriendJson })
+      this.props.onCloseAddFriend()
     }
+    /**/
   }
 
   async handleAddFriend(e){
