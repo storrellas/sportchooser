@@ -212,9 +212,9 @@ class Home extends React.Component {
         current: null,
         display:{
           friends: false,
-          share: false,
+          share: true,
           location: false,
-          email: true,
+          email: false,
           moments: false,
           gender: false,
           birthyear: false

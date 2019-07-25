@@ -45,6 +45,15 @@ const styles = theme => ({
     '&:hover':{
       backgroundColor: '#005643'
     }
+  },
+  code:{
+    width: '75%', 
+    color: '#00CA9D',  
+    backgroundColor: '#D3FFF5', 
+    padding: '0.5em', 
+    border: '2px solid #00CA9D', 
+    borderStyle: 'dashed', 
+    fontSize: '24px'
   }
 });
 
@@ -134,8 +143,14 @@ class ShareDialog extends React.Component {
 
         <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
           <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
-            <div style={{flexGrow: 1}}>{username}</div>
+            <div style={{flexGrow: 1}}>Share</div>
           </Button>
+        </Box>
+
+        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
+          <Box mt={2} className={classes.code}>
+            <div style={{flexGrow: 1, textAlign: 'center'}}>{username}</div>
+          </Box>
         </Box>
       </Dialog>
     );
