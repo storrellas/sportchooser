@@ -44,8 +44,8 @@ class MediaCard extends React.Component {
     const { sportDict, friend, handleAddFriend, classes } = this.props;
     const picture = `${config.BASE_API_URL}${friend.picture}`
 
-    // console.log("-- FriendCard --")
-    // console.log(sportList, friend)
+    console.log("-- FriendCard --")
+    console.log(friend)
     
 
 

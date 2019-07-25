@@ -57,7 +57,13 @@ class FriendDialog extends React.Component {
     this.state = {
       zIndex: 1000,
       friend: '',
-      friendJson: undefined
+      friendJson: undefined,
+      defaultFriendJson: {
+        first_name : 'Not Found',
+        last_name : '',
+        picture: "/media/default/placeholder_user.jpg",
+        sports: []
+      }
     }
   }
 
@@ -86,18 +92,27 @@ class FriendDialog extends React.Component {
     // Closing modal
     //this.props.onClose()
 
-    const username = this.state.friend
-    const response = await fetch( `${config.BASE_API_URL}/api/user/lookup/?username=${username}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
-      }        
-    })
-    const data = await response.json()
-    this.setState({ friendJson: data })
+    try{
 
+      const username = this.state.friend
+      const response = await fetch( `${config.BASE_API_URL}/api/user/lookup/?username=${username}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
+        }        
+      })
+      if (!response.ok) throw Error(response.statusText);    
+      const data = await response.json()
+
+      console.log("SetState", data)
+      this.setState({ friendJson: data })
+    }catch(e){
+      console.log("Second")
+      console.log("SetStateDefault", e)
+      this.setState({ friendJson: this.state.defaultFriendJson })
+    }
   }
 
   async handleAddFriend(e){
