@@ -41,10 +41,5 @@ module.exports = {
     poll: 1000,
     ignored: /node_modules/,
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
-  optimization: {
-    splitChunks: {
-      chunks: 'all'
-    }
-  }
+  plugins: [new webpack.HotModuleReplacementPlugin()]
 };
