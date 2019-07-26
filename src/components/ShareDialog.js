@@ -104,7 +104,7 @@ class ShareDialog extends React.Component {
     console.log("Contacting Backend", this.state.friend)
 
     if (navigator.share) {
-      const userJson = (this.props.user === undefined)?"":JSON.parse(user);
+      const userJson = (this.props.user === undefined)?"":JSON.parse(this.props.user);
       const title = `Do you like to find new sports to play?` + 
                     `Find me on TryASport by introducing this code${userJson.username}`
       navigator.share({
