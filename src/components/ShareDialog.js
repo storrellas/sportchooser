@@ -105,11 +105,11 @@ class ShareDialog extends React.Component {
 
     if (navigator.share) {
       const userJson = (this.props.user === undefined)?"":JSON.parse(this.props.user);
-      const title = `Do you like to find new sports to play?` + 
-                    `Find me on TryASport by introducing this code${userJson.username}`
+      const text = `Do you like to find new sports to play?\n` + 
+                    `Find me on TryASport by introducing this code: ${userJson.username}\n`
       navigator.share({
-        title: title,
-        text: title,
+        title: "TryASport",
+        text: text,
         url: config.BASE_API_URL
       }).then(() => {
         console.log('Thanks for sharing!');
