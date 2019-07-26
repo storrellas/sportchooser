@@ -151,7 +151,7 @@ class ShareDialog extends React.Component {
         <Box mt={2} ml={3} mr={3} borderRadius={16}>
         <TextField
             id="outlined-friend-input"
-            label="Enter your friend code"
+            label="Enter your name here"
             className={classes.textField}
             type="text"
             name="code"
