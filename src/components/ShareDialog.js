@@ -10,20 +10,12 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-
-
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import ErrorIcon from '@material-ui/icons/Error';
-import InfoIcon from '@material-ui/icons/Info';
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
+import DialogContent from '@material-ui/core/DialogContent';
 
 // Project import
 import shareImage from "../assets/img/share.png"
 import config from '../config/env'
 
-// Redux
-import { store, renderConfetti } from "../redux";
 
 const styles = theme => ({
   dialogPaper: {
@@ -85,10 +77,6 @@ class ShareDialog extends React.Component {
   handleKeyPress(){
     if(event.key === 'Enter'){
       this.handleSubmit()
-
-      // // Launch confetti
-      // store.dispatch( renderConfetti(true) )
-      // setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
     }  
   };
 
@@ -97,11 +85,11 @@ class ShareDialog extends React.Component {
   }
 
   handleSubmit(e){
-    console.log("Contacting Backend", this.state.friend)
+    //console.log("Contacting Backend", this.state.friend)
 
     if (navigator.share) {
       const userJson = (this.props.user === undefined)?"":JSON.parse(this.props.user);
-      const text = `Hey,\n Its ${this.state.name}\n,` + 
+      const text = `Hey,\n Its ${this.state.name},\n` + 
                     `Do you like to find new sports to play?\n` + 
                     `Find me on TryASport by introducing this code: ${userJson.username}\n`
       navigator.share({
@@ -134,65 +122,67 @@ class ShareDialog extends React.Component {
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
               aria-labelledby="simple-dialog-title" open={open}>
 
-        <img height="15%" src={shareImage} 
+        <img src={shareImage} 
             style={{borderRadius: '10px', position: 'absolute', 
-                    top: -30, margin: 'auto', left: 0, right: 0}}>
+                    top: -30, margin: 'auto', left: 0, right: 0, heigth: "15%"}}>
         </img>
-        <IconButton aria-label="Close" className={classes.closeButton} 
-            onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-        <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-            <b>Share!</b>
-            <div>Share your code with friends, so they can see 
-              if you want to try the same new sports</div>
-        </DialogTitle>
 
-        <Box mt={2} ml={3} mr={3} borderRadius={16}>
-        <TextField
-            id="outlined-friend-input"
-            label="Enter your name here"
-            className={classes.textField}
-            type="text"
-            name="code"
-            autoComplete="email"
-            margin="normal"
-            variant="outlined"
-            style={{width: "100%"}}
-            onKeyPress={(e) => this.handleKeyPress(e)}
-            onChange={(e) => this.handleChange(e)}
-            value={this.state.name}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    edge="end"
-                    aria-label="Toggle password visibility"
-                    onClick={(e) => this.handleSubmit(e)}
-                  >
-                    <PlayArrowIcon style={{color:'green'}}></PlayArrowIcon>
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Box>
+        <DialogContent style={{ overflowY: 'auto'}}>
+          <IconButton aria-label="Close" className={classes.closeButton} 
+              onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+          <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
+              <b>Share!</b>
+              <div>Share your code with friends, so they can see 
+                if you want to try the same new sports</div>
+          </DialogTitle>
 
-        {errorRender}
-
-        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-          <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
-            <div style={{flexGrow: 1}}>Share</div>
-          </Button>
-        </Box>
-
-        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-          <Box mt={2} className={classes.code}>
-            <div style={{flexGrow: 1, textAlign: 'center'}}>{username}</div>
+          <Box mt={2} ml={3} mr={3} borderRadius={16}>
+          <TextField
+              id="outlined-friend-input"
+              label="Enter your name here"
+              className={classes.textField}
+              type="text"
+              name="code"
+              autoComplete="email"
+              margin="normal"
+              variant="outlined"
+              style={{width: "100%"}}
+              onKeyPress={(e) => this.handleKeyPress(e)}
+              onChange={(e) => this.handleChange(e)}
+              value={this.state.name}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      edge="end"
+                      aria-label="Toggle password visibility"
+                      onClick={(e) => this.handleSubmit(e)}
+                    >
+                      <PlayArrowIcon style={{color:'green'}}></PlayArrowIcon>
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
           </Box>
-        </Box>
- 
 
+          {errorRender}
+
+          <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
+            <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
+              <div style={{flexGrow: 1}}>Share</div>
+            </Button>
+          </Box>
+
+          <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
+            <Box mt={2} className={classes.code}>
+              <div style={{flexGrow: 1, textAlign: 'center'}}>{username}</div>
+            </Box>
+          </Box>
+ 
+        </DialogContent>
 
       </Dialog>
     );
