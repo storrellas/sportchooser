@@ -19,18 +19,6 @@ import config from '../config/env'
 
 
 const styles = theme => ({
-  dialogPaper: {
-    minHeight: '80vh',
-    maxHeight: '80vh',
-    position: 'relative',
-    overflowY: 'initial'
-  },
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
   button:{
     width: '75%', 
     display: 'flex',

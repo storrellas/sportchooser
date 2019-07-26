@@ -12,23 +12,7 @@ import mailboxImage from "../assets/img/tryasport/img_mailbox_orange.png"
 import config from '../config/env'
 import CookieMgr from "../utils/CookieMgr"
 
-
-// Redux
-import { connect } from "react-redux";
-
 const styles = theme => ({
-  dialogPaper: {
-    minHeight: '80vh',
-    maxHeight: '80vh',
-    position: 'relative',
-    overflowY: 'initial'
-  },
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
   button:{
     width: '75%', 
     display: 'flex',
