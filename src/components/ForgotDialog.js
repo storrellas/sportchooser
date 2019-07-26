@@ -20,10 +20,6 @@ import { store, userProfile } from "../redux";
 import { connect } from "react-redux";
 
 const styles = theme => ({
-  avatar: {
-    backgroundColor: 'red',
-    color: 'blue',
-  },
   dialogPaper: {
     minHeight: '80vh',
     maxHeight: '80vh',
@@ -73,31 +69,6 @@ class ForgotDialog extends React.Component {
 
   async handleSubmit(e){
     e.preventDefault();
-
-    console.log("handle submit", this.state.email)
-    // // Closing modal
-    // const {email, confirm} = this.state
-    // if( email === confirm ){
-
-    //   const url = `${config.BASE_API_URL}/api/user/${this.props.userId}/`
-    //   const body = { email: email }
-    //   let response = await fetch(url, {
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json',
-    //       'Authorization': ('Bearer ' + CookieMgr.get(CookieMgr.keys.TOKEN_ACCESS))
-    //     },
-    //     method: 'put',
-    //     body: JSON.stringify(body)
-    //   })
-    //   let data = await response.json()
-
-    //   // Notify watchers
-    //   this.props.userProfile(data)
-    //   this.props.onClose()
-    // }else{
-    //   this.setState({ error: true, helperText: 'Emails do not match' })
-    // }
 
     const url = `${config.BASE_API_URL}/api/user/forgot/`
     const body = { email: this.state.email }

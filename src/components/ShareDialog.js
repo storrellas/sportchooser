@@ -26,10 +26,6 @@ import config from '../config/env'
 import { store, renderConfetti } from "../redux";
 
 const styles = theme => ({
-  avatar: {
-    backgroundColor: 'red',
-    color: 'blue',
-  },
   dialogPaper: {
     minHeight: '80vh',
     maxHeight: '80vh',
