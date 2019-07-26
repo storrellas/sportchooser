@@ -345,7 +345,7 @@ class Home extends React.Component {
   handleSportClick(e, result){
     e.preventDefault();
     let {user_prompt, selected, sport_list} = this.state
-    console.log('The link was clicked', user_prompt.space);
+    //console.log('The link was clicked', user_prompt.space);
 
     user_prompt.counter = user_prompt.counter + 1
     if( user_prompt.counter >= user_prompt.space){
