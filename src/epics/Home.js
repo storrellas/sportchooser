@@ -212,8 +212,8 @@ class Home extends React.Component {
         open: false,
         current: null,
         display:{
-          friends: false,
-          share: true,
+          friends: true,
+          share: false,
           location: false,
           email: false,
           moments: false,
