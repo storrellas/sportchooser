@@ -10,6 +10,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
 // Project import
+import TryASportDialog from "./TryASportDialog"
 import forgotImage from "../assets/img/tryasport/img_key_orange.png"
 import config from '../config/env'
 import CookieMgr from "../utils/CookieMgr"
@@ -91,19 +92,8 @@ class ForgotDialog extends React.Component {
     const { classes, onClose, open } = this.props;
     const { error, helperText } = this.state;
     return (
-      <Dialog maxWidth="xs" fullWidth 
-              classes={{ paper: classes.dialogPaper }} onClose={onClose} 
-              aria-labelledby="simple-dialog-title" open={open}>
+      <TryASportDialog image={forgotImage} open={open} onClose={onClose}>
 
-        <img height="15%" src={forgotImage} 
-            style={{borderRadius: '10px', position: 'absolute', 
-                    top: -30, margin: 'auto', left: 0, right: 0}}>
-        </img>
-        <DialogContent style={{ overflowY: 'auto'}}>
-          <IconButton aria-label="Close" className={classes.closeButton} 
-              onClick={onClose}>
-            <CloseIcon />
-          </IconButton>
           <DialogTitle id="email-dialog-title" style={{textAlign: "center", marginTop: 80}}>
             <p>Did you see the language selection again? Don't worry!</p>
             <div>If you entered your email last time you can continue finding sports</div>
@@ -135,9 +125,7 @@ class ForgotDialog extends React.Component {
           <DialogTitle id="bottom-dialog-title" style={{textAlign: "center"}}>
             <p>and use the link in your inbox to continue from last time.</p>
           </DialogTitle>
-        </ DialogContent>
-
-      </Dialog>
+      </TryASportDialog>
     );
   }
 }

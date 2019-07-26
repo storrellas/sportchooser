@@ -3,9 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 
-import Grid from '@material-ui/core/Grid';
+
 import CloseIcon from '@material-ui/icons/Close';
-import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
@@ -13,6 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 
 
 // Project import
+import TryASportDialog from "./TryASportDialog"
 import calendarImage from "../assets/img/tryasport/img_calendar_orange.png"
 import config from '../config/env'
 import CookieMgr from "../utils/CookieMgr"
@@ -188,20 +188,8 @@ class MomentsDialog extends React.Component {
     weekday_selected_list = this.generated_weekday_selected_list('after_22')
     const row_between_22_00 = this.generate_row(weekday_selected_list, '22-00', 'after_22')
     return (
-      <Dialog maxWidth="xs" fullWidth 
-              classes={{ paper: classes.dialogPaper }} onClose={onClose} 
-              aria-labelledby="simple-dialog-title" open={open}>
+      <TryASportDialog image={calendarImage} open={open} onClose={onClose}>
 
-        <img height="15%" src={calendarImage} 
-            style={{borderRadius: '10px', position: 'absolute', 
-                    top: -30, margin: 'auto', left: 0, right: 0}}>
-        </img>
-        <DialogContent style={{ overflowY: 'auto'}}>
-
-          <IconButton aria-label="Close" className={classes.closeButton} 
-              onClick={onClose}>
-            <CloseIcon />
-          </IconButton>
           <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
             <div>By adding your regular moments to do sports to your profile,
             we can inform your options to try out your selected sports at a time that
@@ -239,10 +227,7 @@ class MomentsDialog extends React.Component {
               <div style={{flexGrow: 1}}>OK</div>
             </Button>
           </Box>
-        </ DialogContent>
-
-
-      </Dialog>
+      </ TryASportDialog>
     );
   }
 }

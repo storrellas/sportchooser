@@ -13,6 +13,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
 // Project import
+import TryASportDialog from "./TryASportDialog"
 import shareImage from "../assets/img/share.png"
 import config from '../config/env'
 
@@ -118,20 +119,8 @@ class ShareDialog extends React.Component {
     const errorRender = (this.state.webSharing==true)?"":error;
 
     return (
-      <Dialog maxWidth="xs" fullWidth 
-              classes={{ paper: classes.dialogPaper }} onClose={onClose} 
-              aria-labelledby="simple-dialog-title" open={open}>
+      <TryASportDialog image={shareImage} open={open} onClose={onClose}>
 
-        <img src={shareImage} 
-            style={{borderRadius: '10px', position: 'absolute', 
-                    top: -30, margin: 'auto', left: 0, right: 0, heigth: "15%"}}>
-        </img>
-
-        <DialogContent style={{ overflowY: 'auto'}}>
-          <IconButton aria-label="Close" className={classes.closeButton} 
-              onClick={onClose}>
-            <CloseIcon />
-          </IconButton>
           <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
               <b>Share!</b>
               <div>Share your code with friends, so they can see 
@@ -182,9 +171,7 @@ class ShareDialog extends React.Component {
             </Box>
           </Box>
  
-        </DialogContent>
-
-      </Dialog>
+      </TryASportDialog>
     );
   }
 }

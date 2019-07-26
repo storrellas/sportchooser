@@ -16,6 +16,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
 // Project import
+import TryASportDialog from "./TryASportDialog"
 import settingsImage from "../assets/img/tryasport/img_settings.png"
 
 // Redux
@@ -92,24 +93,12 @@ class SettingsDialog extends React.Component {
   
 
   render() {
-    const { classes, onClose, user, ...other } = this.props;
+    const { classes, onClose, user, open } = this.props;
     const userJson = (user === undefined)?"":JSON.parse(user);
     //console.log(userJson)
     return (
-      <Dialog maxWidth="xs" fullWidth 
-              classes={{ paper: classes.dialogPaper }} onClose={onClose} 
-              aria-labelledby="simple-dialog-title" {...other}>
+      <TryASportDialog image={settingsImage} open={open} onClose={onClose}>
 
-        <img height="15%" src={settingsImage} 
-            style={{borderRadius: '10px', position: 'absolute', 
-                    top: -30, margin: 'auto', left: 0, right: 0}}>
-        </img>
-        <DialogContent style={{ overflowY: 'auto'}}>
-
-          <IconButton aria-label="Close" className={classes.closeButton} 
-              onClick={onClose}>
-            <CloseIcon />
-          </IconButton>
           <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
             Menu
           </DialogTitle>
@@ -145,9 +134,7 @@ class SettingsDialog extends React.Component {
             <div>{user}</div>
 
           </Box>
-        </ DialogContent>
-
-      </Dialog>
+      </ TryASportDialog>
     );
   }
 }

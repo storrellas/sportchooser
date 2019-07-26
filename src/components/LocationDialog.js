@@ -12,6 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 
 
 // Project import
+import TryASportDialog from "./TryASportDialog"
 import locationImage from "../assets/img/tryasport/img_map_orange.png"
 import config from '../config/env'
 import CookieMgr from "../utils/CookieMgr"
@@ -88,20 +89,8 @@ class LocationDialog extends React.Component {
   render() {
     const { classes, onClose, open } = this.props;
     return (
-      <Dialog maxWidth="xs" fullWidth 
-              classes={{ paper: classes.dialogPaper }} onClose={onClose} 
-              aria-labelledby="simple-dialog-title" open={open}>
+      <TryASportDialog image={locationImage} open={open} onClose={onClose}>
 
-        <img height="15%" src={locationImage} 
-            style={{borderRadius: '10px', position: 'absolute', 
-                    top: -30, margin: 'auto', left: 0, right: 0}}>
-        </img>
-        <DialogContent style={{ overflowY: 'auto'}}>
-
-          <IconButton aria-label="Close" className={classes.closeButton} 
-              onClick={onClose}>
-            <CloseIcon />
-          </IconButton>
           <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
             Add a location so we can inform you when we find activities of the sports
             you like to try near you
@@ -136,9 +125,7 @@ class LocationDialog extends React.Component {
               }}
             />
           </Box>
-        </ DialogContent>
-
-      </Dialog>
+      </ TryASportDialog>
     );
   }
 }

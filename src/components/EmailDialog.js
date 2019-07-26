@@ -1,23 +1,19 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
 
 
 // Project import
+import TryASportDialog from "./TryASportDialog"
 import mailboxImage from "../assets/img/tryasport/img_mailbox_orange.png"
 import config from '../config/env'
 import CookieMgr from "../utils/CookieMgr"
 
 
 // Redux
-import { userProfile } from "../redux";
 import { connect } from "react-redux";
 
 const styles = theme => ({
@@ -45,12 +41,6 @@ const styles = theme => ({
     }
   }
 });
-
-function mapDispatchToProps(dispatch) {
-  return {
-    userProfile: (data) => dispatch(userProfile(data)),
-  };
-}
 
 class EmailDialog extends React.Component {
   constructor(props) {
@@ -105,20 +95,8 @@ class EmailDialog extends React.Component {
     const { classes, onClose, open } = this.props;
     const { error, helperText } = this.state;
     return (
-      <Dialog maxWidth="xs" fullWidth 
-              classes={{ paper: classes.dialogPaper }} onClose={onClose} 
-              aria-labelledby="simple-dialog-title" open={open}>
+      <TryASportDialog image={mailboxImage} open={open} onClose={onClose}>
 
-        <img height="15%" src={mailboxImage} 
-            style={{borderRadius: '10px', position: 'absolute', 
-                    top: -30, margin: 'auto', left: 0, right: 0}}>
-        </img>
-        <DialogContent style={{ overflowY: 'auto'}}>
-
-          <IconButton aria-label="Close" className={classes.closeButton} 
-              onClick={onClose}>
-            <CloseIcon />
-          </IconButton>
           <DialogTitle id="email-dialog-title" style={{textAlign: "center", marginTop: 80}}>
             <p>By adding your mail to your profile, we can inform you 
             of options to try out your selected sports.</p>
@@ -164,10 +142,8 @@ class EmailDialog extends React.Component {
 
           <DialogTitle id="bottom-dialog-title" style={{textAlign: "center"}}>
             <p>and use the link in your inbox to continue from last time.</p>
-          </DialogTitle>
-        </ DialogContent>
-        
-      </Dialog>
+          </DialogTitle>       
+      </TryASportDialog>
     );
   }
 }
@@ -180,8 +156,8 @@ FriendDialog.propTypes = {
 };
 /**/
 
-//export default withStyles(styles)(EmailDialog);
-export default connect(null, mapDispatchToProps)(withStyles(styles)(EmailDialog));
+export default withStyles(styles)(EmailDialog);
+//export default connect(null, mapDispatchToProps)(withStyles(styles)(EmailDialog));
 
 
 

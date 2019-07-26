@@ -1,26 +1,21 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
 
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
+
 
 
 // Project import
+import TryASportDialog from "./TryASportDialog"
 import friendsImage from "../assets/img/friends.png"
 import config from '../config/env'
 import CookieMgr from "../utils/CookieMgr"
 import FriendCard from "./FriendCard"
-
-// Redux
-import { store, renderConfetti } from "../redux";
 
 const styles = theme => ({
   dialogPaper: {
@@ -100,10 +95,7 @@ class FriendDialog extends React.Component {
     }
   }
 
-  async handleAddFriend(e){
-    console.log("Adding friend", this)
-
-    
+  async handleAddFriend(e){   
     const body = { user: this.props.userId, friend: this.state.friendJson.id }
     const response = await fetch( `${config.BASE_API_URL}/api/friend/`, {
       method: 'POST',
@@ -131,22 +123,8 @@ class FriendDialog extends React.Component {
                                  handleAddFriend={(e) => this.handleAddFriend(e)}/>
 
     return (
-      <Dialog maxWidth="xs" fullWidth 
-              classes={{ paper: classes.dialogPaper }} onClose={onClose} 
-              aria-labelledby="simple-dialog-title" open={open}>
-        <canvas id="my-canvas" width={200} height={200} style={{ position:'absolute', backgroundColor: 'transparent', zIndex: this.state.zIndex }}></canvas>
+      <TryASportDialog image={friendsImage} open={open} onClose={onClose}>
 
-
-        <img height="15%" src={friendsImage} 
-            style={{borderRadius: '10px', position: 'absolute', 
-                    top: -30, margin: 'auto', left: 0, right: 0}}>
-        </img>
-        <DialogContent style={{ overflowY: 'auto'}}>
-
-          <IconButton aria-label="Close" className={classes.closeButton} 
-              onClick={onClose}>
-            <CloseIcon />
-          </IconButton>
           <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
               Enter your friends codes to find out if your 
               friends want to try the same new sports
@@ -185,10 +163,7 @@ class FriendDialog extends React.Component {
           <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
             {friendSearch}
           </Box>
-        </ DialogContent>
-
-
-      </Dialog>
+      </TryASportDialog>
     );
   }
 }
