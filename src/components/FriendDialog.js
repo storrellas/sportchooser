@@ -18,17 +18,6 @@ import CookieMgr from "../utils/CookieMgr"
 import FriendCard from "./FriendCard"
 
 const styles = theme => ({
-  button:{
-    width: '75%', 
-    display: 'flex',
-    borderRadius:'100px', 
-    justifyContent: 'center',
-    backgroundColor: '#00CA9D',
-    color: 'white',
-    '&:hover':{
-      backgroundColor: '#005643'
-    }
-  }
 });
 
 class FriendDialog extends React.Component {

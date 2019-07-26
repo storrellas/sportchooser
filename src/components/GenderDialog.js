@@ -14,17 +14,6 @@ import config from '../config/env'
 import CookieMgr from "../utils/CookieMgr"
 
 const styles = theme => ({
-  button:{
-    width: '75%', 
-    display: 'flex',
-    borderRadius:'100px', 
-    justifyContent: 'center',
-    backgroundColor: '#00CA9D',
-    color: 'white',
-    '&:hover':{
-      backgroundColor: '#005643'
-    }
-  }
 });
 
 class GenderDialog extends React.Component {

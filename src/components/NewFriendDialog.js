@@ -31,17 +31,6 @@ const styles = theme => ({
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
-  button:{
-    width: '75%', 
-    display: 'flex',
-    borderRadius:'100px', 
-    justifyContent: 'center',
-    backgroundColor: '#00CA9D',
-    color: 'white',
-    '&:hover':{
-      backgroundColor: '#005643'
-    }
-  }
 });
 
 function mapDispatchToProps(dispatch) {

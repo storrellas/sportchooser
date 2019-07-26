@@ -43,17 +43,6 @@ const styles = theme => ({
     },
     cursor: 'pointer'
   },
-  button:{
-    width: '75%', 
-    display: 'flex',
-    borderRadius:'100px', 
-    justifyContent: 'center',
-    backgroundColor: '#00CA9D',
-    color: 'white',
-    '&:hover':{
-      backgroundColor: '#005643'
-    }
-  }
 });
 
 class MomentsDialog extends React.Component {

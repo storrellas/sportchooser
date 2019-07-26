@@ -18,15 +18,6 @@ import settingsImage from "../assets/img/tryasport/img_settings.png"
 import { store, renderConfetti } from "../redux";
 
 const styles = theme => ({
-  button:{
-    width: '100%', 
-    display: 'flex',
-    justifyContent: 'flex-start',
-    backgroundColor: 'orange',
-    '&:hover':{
-      backgroundColor: '#E67E22'
-    }
-  }
 });
 
 class SettingsItem extends React.Component {
@@ -87,10 +78,6 @@ class SettingsDialog extends React.Component {
           </DialogTitle>
 
           <Box mt={2} ml={3} mr={3} borderRadius={16}>
-            {/* <Button variant="contained" color="secondary" className={classes.button}>
-              <DeleteIcon />
-              <div style={{flexGrow: 1}}>Delete</div>              
-            </Button> */}
             <SettingsItemStyled text="Login">
               <VpnKeyIcon style={{backgroundColor: '#117A65'}}/>
             </SettingsItemStyled>
