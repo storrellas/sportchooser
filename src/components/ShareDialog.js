@@ -112,17 +112,12 @@ class ShareDialog extends React.Component {
         text: text,
         url: config.BASE_API_URL
       }).then(() => {
-        console.log('Thanks for sharing!');
+        // Do nothing
       })
       .catch(console.error);
     } else {
-      console.log("Web Share not supported")
       this.setState({webSharing: false})
     }
-    // Closing modal
-    //this.props.onClose()
-
-    //this.setState({webSharing: false})
   }
 
   render() {
