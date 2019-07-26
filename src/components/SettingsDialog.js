@@ -1,22 +1,17 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
-
 import RowingIcon from '@material-ui/icons/Rowing';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import WCIcon from '@material-ui/icons/Wc';
 import ShareIcon from '@material-ui/icons/Share';
 import PersonIcon from '@material-ui/icons/Person';
-
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
+
 
 // Project import
-import TryASportDialog from "./TryASportDialog"
+import TryASportDialog from "./common/TryASportDialog"
 import settingsImage from "../assets/img/tryasport/img_settings.png"
 
 // Redux

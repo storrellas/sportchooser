@@ -7,7 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import MenuItem from '@material-ui/core/MenuItem';
 
 // Project import
-import TryASportDialog from "./TryASportDialog"
+import TryASportDialog from "./common/TryASportDialog"
 import cakeImage from "../assets/img/tryasport/img_cake_orange.png"
 import config from '../config/env'
 import CookieMgr from "../utils/CookieMgr"

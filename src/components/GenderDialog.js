@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 // Project import
-import TryASportDialog from "./TryASportDialog"
+import TryASportDialog from "./common/TryASportDialog"
 import genderImage from "../assets/img/tryasport/img_gender_orange.png"
 import maleImage from "../assets/img/tryasport/img_male.png"
 import femaleImage from "../assets/img/tryasport/img_female.png"

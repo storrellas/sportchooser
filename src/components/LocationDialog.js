@@ -12,7 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 
 
 // Project import
-import TryASportDialog from "./TryASportDialog"
+import TryASportDialog from "./common/TryASportDialog"
 import locationImage from "../assets/img/tryasport/img_map_orange.png"
 import config from '../config/env'
 import CookieMgr from "../utils/CookieMgr"

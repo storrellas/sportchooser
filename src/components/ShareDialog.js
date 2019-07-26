@@ -13,7 +13,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
 // Project import
-import TryASportDialog from "./TryASportDialog"
+import TryASportDialog from "./common/TryASportDialog"
 import shareImage from "../assets/img/share.png"
 import config from '../config/env'
 
