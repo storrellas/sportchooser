@@ -109,6 +109,7 @@ class ShareDialog extends React.Component {
                     `Find me on TryASport by introducing this code${userJson.username}`
       navigator.share({
         title: title,
+        text: title,
         url: config.BASE_API_URL
       }).then(() => {
         console.log('Thanks for sharing!');
