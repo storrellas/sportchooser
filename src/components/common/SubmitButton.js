@@ -4,6 +4,17 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 
 const styles = theme => ({
+  button:{
+    width: '75%', 
+    display: 'flex',
+    borderRadius:'100px', 
+    justifyContent: 'center',
+    backgroundColor: '#00CA9D',
+    color: 'white',
+    '&:hover':{
+      backgroundColor: '#005643'
+    }
+  },
 });
 
 class SubmitButton extends React.Component {

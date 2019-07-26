@@ -194,15 +194,14 @@ class Home extends React.Component {
     //   this.user_prompt_enum.LOCATION,
     // ]
     this.user_prompt_order = [
-      this.user_prompt_enum.FRIENDS,
-      this.user_prompt_enum.SHARE,   
-      this.user_prompt_enum.EMAIL,
-      this.user_prompt_enum.MOMENTS,
-      this.user_prompt_enum.LOCATION,
-      this.user_prompt_enum.BIRTHYEAR,
-      this.user_prompt_enum.GENDER,
+      { prompt:this.user_prompt_enum.FRIENDS, space: 3 },
+      { prompt:this.user_prompt_enum.SHARE, space: 3 },
+      { prompt:this.user_prompt_enum.EMAIL, space: 3 },
+      { prompt:this.user_prompt_enum.MOMENTS, space: 3 },
+      { prompt:this.user_prompt_enum.LOCATION, space: 3 },
+      { prompt:this.user_prompt_enum.BIRTHYEAR, space: 3 },
+      { prompt:this.user_prompt_enum.GENDER, space: 3 },
     ]
-
 
     this.state = {
       selected: 1,
@@ -216,7 +215,7 @@ class Home extends React.Component {
           share: false,
           location: false,
           email: false,
-          moments: true,
+          moments: false,
           gender: false,
           birthyear: false,
         }
@@ -230,17 +229,7 @@ class Home extends React.Component {
     };
     this.mounted = false;
 
-    /*
-    this.user_prompt_order = [
-      user_prompt_enum.FRIENDS,
-      user_prompt_enum.SHARE,
-      user_prompt_enum.EMAIL,
-      user_prompt_enum.LOCATION,
-      user_prompt_enum.MOMENTS,
-      user_prompt_enum.GENDER,
-      user_prompt_enum.BIRTHYEAR
-    ]
-    /**/
+
   }
 
   get_sport_list(){
@@ -298,10 +287,8 @@ class Home extends React.Component {
       },    
     })
     const data = await response.json()
-    this.user_prompt_order = []
-    for (const user_prompt of data) {
-      this.user_prompt_order.push(user_prompt.prompt)
-    }
+    this.user_prompt_order = data
+    this.state.user_prompt.space = this.user_prompt_order[0].space
      
   }
 
@@ -357,8 +344,9 @@ class Home extends React.Component {
 
   handleSportClick(e, result){
     e.preventDefault();
-    //console.log('The link was clicked.');
     let {user_prompt, selected, sport_list} = this.state
+    console.log('The link was clicked', user_prompt.space);
+
     user_prompt.counter = user_prompt.counter + 1
     if( user_prompt.counter >= user_prompt.space){
       // Determine next modal show
@@ -368,9 +356,13 @@ class Home extends React.Component {
         user_prompt.current = user_prompt.current + 1
         if(user_prompt.current >= this.user_prompt_order.length) user_prompt.current = 0        
       } 
-      const user_prompt_next = this.user_prompt_order[user_prompt.current]
+      const user_prompt_next = this.user_prompt_order[user_prompt.current].prompt
       user_prompt.display[user_prompt_next] = true
       user_prompt.open = true
+
+      // Set next space
+      const user_prompt_next_space_idx = (user_prompt.current+1)%this.user_prompt_order.length
+      this.state.user_prompt.space = this.user_prompt_order[user_prompt_next_space_idx].space
     }else{
       selected = selected + 1
       if( selected >= sport_list.length )
