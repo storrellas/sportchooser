@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-
+import DialogContent from '@material-ui/core/DialogContent';
 
 // Project import
 import forgotImage from "../assets/img/tryasport/img_key_orange.png"
@@ -99,41 +99,43 @@ class ForgotDialog extends React.Component {
             style={{borderRadius: '10px', position: 'absolute', 
                     top: -30, margin: 'auto', left: 0, right: 0}}>
         </img>
-        <IconButton aria-label="Close" className={classes.closeButton} 
-            onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-        <DialogTitle id="email-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-          <p>Did you see the language selection again? Don't worry!</p>
-          <div>If you entered your email last time you can continue finding sports</div>
-          <div>Enter your email:</div>
-        </DialogTitle>
+        <DialogContent style={{ overflowY: 'auto'}}>
+          <IconButton aria-label="Close" className={classes.closeButton} 
+              onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+          <DialogTitle id="email-dialog-title" style={{textAlign: "center", marginTop: 80}}>
+            <p>Did you see the language selection again? Don't worry!</p>
+            <div>If you entered your email last time you can continue finding sports</div>
+            <div>Enter your email:</div>
+          </DialogTitle>
 
-        <Box mt={0} ml={3} mr={3} borderRadius={16}>
-          <TextField          
-            id="email-input"
-            label="Enter your email"
-            className={classes.textField}
-            type="text"
-            name="mail"
-            autoComplete="email"
-            margin="normal"
-            variant="outlined"
-            style={{width: "100%"}}
-            onChange={(e) => this.handleChange(e)}
-            value={this.state.email}
-          />
-        </Box>
+          <Box mt={0} ml={3} mr={3} borderRadius={16}>
+            <TextField          
+              id="email-input"
+              label="Enter your email"
+              className={classes.textField}
+              type="text"
+              name="mail"
+              autoComplete="email"
+              margin="normal"
+              variant="outlined"
+              style={{width: "100%"}}
+              onChange={(e) => this.handleChange(e)}
+              value={this.state.email}
+            />
+          </Box>
 
-        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-          <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
-            <div style={{flexGrow: 1}}>OK</div>
-          </Button>
-        </Box>
+          <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
+            <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
+              <div style={{flexGrow: 1}}>OK</div>
+            </Button>
+          </Box>
 
-        <DialogTitle id="bottom-dialog-title" style={{textAlign: "center"}}>
-          <p>and use the link in your inbox to continue from last time.</p>
-        </DialogTitle>
+          <DialogTitle id="bottom-dialog-title" style={{textAlign: "center"}}>
+            <p>and use the link in your inbox to continue from last time.</p>
+          </DialogTitle>
+        </ DialogContent>
 
       </Dialog>
     );

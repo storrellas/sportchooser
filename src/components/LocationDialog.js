@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 
 
 // Project import
@@ -16,7 +17,7 @@ import config from '../config/env'
 import CookieMgr from "../utils/CookieMgr"
 
 // Redux
-import { store, userProfile } from "../redux";
+import { userProfile } from "../redux";
 import { connect } from "react-redux";
 
 
@@ -95,44 +96,48 @@ class LocationDialog extends React.Component {
             style={{borderRadius: '10px', position: 'absolute', 
                     top: -30, margin: 'auto', left: 0, right: 0}}>
         </img>
-        <IconButton aria-label="Close" className={classes.closeButton} 
-            onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-        <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-          Add a location so we can inform you when we find activities of the sports
-          you like to try near you
-        </DialogTitle>
+        <DialogContent style={{ overflowY: 'auto'}}>
 
-        <Box mt={2} ml={3} mr={3} borderRadius={16}>
-          <TextField
-            id="outlined-location-input"
-            label="Enter your location"
-            className={classes.textField}
-            type="text"
-            name="code"
-            autoComplete="email"
-            margin="normal"
-            variant="outlined"
-            style={{width: "100%"}}
-            onChange={(e) => this.handleChange(e)}
-            onKeyPress={(e) => this.handleKeyPress(e)}
-            value={this.state.location}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    edge="end"
-                    aria-label="Toggle password visibility"
-                    onClick={(e) => this.handleSubmit(e)}
-                  >
-                    <PlayArrowIcon style={{color:'green'}}></PlayArrowIcon>
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Box>
+          <IconButton aria-label="Close" className={classes.closeButton} 
+              onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+          <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
+            Add a location so we can inform you when we find activities of the sports
+            you like to try near you
+          </DialogTitle>
+
+          <Box mt={2} ml={3} mr={3} borderRadius={16}>
+            <TextField
+              id="outlined-location-input"
+              label="Enter your location"
+              className={classes.textField}
+              type="text"
+              name="code"
+              autoComplete="email"
+              margin="normal"
+              variant="outlined"
+              style={{width: "100%"}}
+              onChange={(e) => this.handleChange(e)}
+              onKeyPress={(e) => this.handleKeyPress(e)}
+              value={this.state.location}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      edge="end"
+                      aria-label="Toggle password visibility"
+                      onClick={(e) => this.handleSubmit(e)}
+                    >
+                      <PlayArrowIcon style={{color:'green'}}></PlayArrowIcon>
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Box>
+        </ DialogContent>
+
       </Dialog>
     );
   }

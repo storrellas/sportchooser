@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 
 
 // Project import
@@ -16,7 +17,7 @@ import CookieMgr from "../utils/CookieMgr"
 
 
 // Redux
-import { store, userProfile } from "../redux";
+import { userProfile } from "../redux";
 import { connect } from "react-redux";
 
 const styles = theme => ({
@@ -112,57 +113,60 @@ class EmailDialog extends React.Component {
             style={{borderRadius: '10px', position: 'absolute', 
                     top: -30, margin: 'auto', left: 0, right: 0}}>
         </img>
-        <IconButton aria-label="Close" className={classes.closeButton} 
-            onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-        <DialogTitle id="email-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-          <p>By adding your mail to your profile, we can inform you 
-          of options to try out your selected sports.</p>
-          <p>Enter your email:</p>
-        </DialogTitle>
+        <DialogContent style={{ overflowY: 'auto'}}>
 
-        <Box mt={0} ml={3} mr={3} borderRadius={16}>
-          <TextField          
-            id="email-input"
-            label="Enter your email"
-            className={classes.textField}
-            type="text"
-            name="mail"
-            autoComplete="email"
-            margin="normal"
-            variant="outlined"
-            style={{width: "100%"}}
-            onChange={(e) => this.handleChange(e)}
-            value={this.state.email}
-          />
-          <TextField
-            error={error}
-            id="confirm-input"
-            label="Confirm your email"
-            className={classes.textField}
-            type="text"
-            name="confirm"
-            autoComplete="email"
-            margin="normal"
-            variant="outlined"
-            style={{width: "100%"}}
-            onChange={(e) => this.handleChange(e)}
-            value={this.state.confirm}
-            helperText={helperText}
-          />
-        </Box>
+          <IconButton aria-label="Close" className={classes.closeButton} 
+              onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+          <DialogTitle id="email-dialog-title" style={{textAlign: "center", marginTop: 80}}>
+            <p>By adding your mail to your profile, we can inform you 
+            of options to try out your selected sports.</p>
+            <p>Enter your email:</p>
+          </DialogTitle>
 
-        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-          <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
-            <div style={{flexGrow: 1}}>OK</div>
-          </Button>
-        </Box>
+          <Box mt={0} ml={3} mr={3} borderRadius={16}>
+            <TextField          
+              id="email-input"
+              label="Enter your email"
+              className={classes.textField}
+              type="text"
+              name="mail"
+              autoComplete="email"
+              margin="normal"
+              variant="outlined"
+              style={{width: "100%"}}
+              onChange={(e) => this.handleChange(e)}
+              value={this.state.email}
+            />
+            <TextField
+              error={error}
+              id="confirm-input"
+              label="Confirm your email"
+              className={classes.textField}
+              type="text"
+              name="confirm"
+              autoComplete="email"
+              margin="normal"
+              variant="outlined"
+              style={{width: "100%"}}
+              onChange={(e) => this.handleChange(e)}
+              value={this.state.confirm}
+              helperText={helperText}
+            />
+          </Box>
 
-        <DialogTitle id="bottom-dialog-title" style={{textAlign: "center"}}>
-          <p>and use the link in your inbox to continue from last time.</p>
-        </DialogTitle>
+          <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
+            <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
+              <div style={{flexGrow: 1}}>OK</div>
+            </Button>
+          </Box>
 
+          <DialogTitle id="bottom-dialog-title" style={{textAlign: "center"}}>
+            <p>and use the link in your inbox to continue from last time.</p>
+          </DialogTitle>
+        </ DialogContent>
+        
       </Dialog>
     );
   }

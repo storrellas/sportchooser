@@ -13,7 +13,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-
+import DialogContent from '@material-ui/core/DialogContent';
 
 // Project import
 import settingsImage from "../assets/img/tryasport/img_settings.png"
@@ -104,45 +104,49 @@ class SettingsDialog extends React.Component {
             style={{borderRadius: '10px', position: 'absolute', 
                     top: -30, margin: 'auto', left: 0, right: 0}}>
         </img>
-        <IconButton aria-label="Close" className={classes.closeButton} 
-            onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-        <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-          Menu
-        </DialogTitle>
+        <DialogContent style={{ overflowY: 'auto'}}>
 
-        <Box mt={2} ml={3} mr={3} borderRadius={16}>
-          {/* <Button variant="contained" color="secondary" className={classes.button}>
-            <DeleteIcon />
-            <div style={{flexGrow: 1}}>Delete</div>              
-          </Button> */}
-          <SettingsItemStyled text="Login">
-            <VpnKeyIcon style={{backgroundColor: '#117A65'}}/>
-          </SettingsItemStyled>
-          <SettingsItemStyled text="Sports">
-            <RowingIcon style={{backgroundColor: '#117A65'}}/>
-          </SettingsItemStyled>
-          <SettingsItemStyled text="Friends">
-            <WCIcon  style={{backgroundColor: '#117A65'}}/>
-          </SettingsItemStyled>
-          <SettingsItemStyled text="Share">
-            <ShareIcon  style={{backgroundColor: '#117A65'}}/>
-          </SettingsItemStyled>
-          <SettingsItemStyled text="Profile">
-            <PersonIcon  style={{backgroundColor: '#117A65'}}/>
-          </SettingsItemStyled>
-          
-          <h3>User Profile</h3>
-          <div>Username:{userJson.username}</div>
-          <div>Email:{userJson.email}</div>
-          <div>Gender:{userJson.gender}</div>
-          <div>Location:{userJson.work_location}</div>
-          <div>Birthyear:{userJson.birthday_year}</div>
+          <IconButton aria-label="Close" className={classes.closeButton} 
+              onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+          <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
+            Menu
+          </DialogTitle>
 
-          <div>{user}</div>
+          <Box mt={2} ml={3} mr={3} borderRadius={16}>
+            {/* <Button variant="contained" color="secondary" className={classes.button}>
+              <DeleteIcon />
+              <div style={{flexGrow: 1}}>Delete</div>              
+            </Button> */}
+            <SettingsItemStyled text="Login">
+              <VpnKeyIcon style={{backgroundColor: '#117A65'}}/>
+            </SettingsItemStyled>
+            <SettingsItemStyled text="Sports">
+              <RowingIcon style={{backgroundColor: '#117A65'}}/>
+            </SettingsItemStyled>
+            <SettingsItemStyled text="Friends">
+              <WCIcon  style={{backgroundColor: '#117A65'}}/>
+            </SettingsItemStyled>
+            <SettingsItemStyled text="Share">
+              <ShareIcon  style={{backgroundColor: '#117A65'}}/>
+            </SettingsItemStyled>
+            <SettingsItemStyled text="Profile">
+              <PersonIcon  style={{backgroundColor: '#117A65'}}/>
+            </SettingsItemStyled>
+            
+            <h3>User Profile</h3>
+            <div>Username:{userJson.username}</div>
+            <div>Email:{userJson.email}</div>
+            <div>Gender:{userJson.gender}</div>
+            <div>Location:{userJson.work_location}</div>
+            <div>Birthyear:{userJson.birthday_year}</div>
 
-        </Box>
+            <div>{user}</div>
+
+          </Box>
+        </ DialogContent>
+
       </Dialog>
     );
   }

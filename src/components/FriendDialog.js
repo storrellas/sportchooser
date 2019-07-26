@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 
 
 // Project import
@@ -66,10 +67,6 @@ class FriendDialog extends React.Component {
   handleKeyPress(){
     if(event.key === 'Enter'){
       this.handleSearch()
-
-      // // Launch confetti
-      // store.dispatch( renderConfetti(true) )
-      // setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
     }  
   };
 
@@ -77,18 +74,8 @@ class FriendDialog extends React.Component {
     this.setState({ friend: e.target.value})
   }
 
-  handleSubmit(e){
-    console.log("Contacting Backend", this.state.friend)
-    // Closing modal
-    this.props.onClose()
-  }
-
   async handleSearch(e){
     
-    console.log("Contacting Backend for search", this.state.friend)
-    // Closing modal
-    //this.props.onClose()
-
     try{
 
       const username = this.state.friend
@@ -111,7 +98,6 @@ class FriendDialog extends React.Component {
       //this.setState({ friendJson: this.state.defaultFriendJson })
       this.props.onCloseAddFriend()
     }
-    /**/
   }
 
   async handleAddFriend(e){
@@ -155,55 +141,52 @@ class FriendDialog extends React.Component {
             style={{borderRadius: '10px', position: 'absolute', 
                     top: -30, margin: 'auto', left: 0, right: 0}}>
         </img>
-        <IconButton aria-label="Close" className={classes.closeButton} 
-            onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-        <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-            Enter your friends codes to find out if your 
-            friends want to try the same new sports
-        </DialogTitle>
+        <DialogContent style={{ overflowY: 'auto'}}>
 
-        <Box mt={2} ml={3} mr={3} borderRadius={16}>
-        <TextField
-            id="outlined-friend-input"
-            label="Enter your friend code"
-            className={classes.textField}
-            type="text"
-            name="code"
-            autoComplete="email"
-            margin="normal"
-            variant="outlined"
-            style={{width: "100%"}}
-            onKeyPress={(e) => this.handleKeyPress(e)}
-            onChange={(e) => this.handleChange(e)}
-            value={this.state.friend}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    edge="end"
-                    aria-label="Toggle password visibility"
-                    onClick={(e) => this.handleSearch(e)}
-                  >
-                    <PlayArrowIcon style={{color:'green'}}></PlayArrowIcon>
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Box>
+          <IconButton aria-label="Close" className={classes.closeButton} 
+              onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+          <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
+              Enter your friends codes to find out if your 
+              friends want to try the same new sports
+          </DialogTitle>
 
-        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-          {friendSearch}
-        </Box>
+          <Box mt={2} ml={3} mr={3} borderRadius={16}>
+          <TextField
+              id="outlined-friend-input"
+              label="Enter your friend code"
+              className={classes.textField}
+              type="text"
+              name="code"
+              autoComplete="email"
+              margin="normal"
+              variant="outlined"
+              style={{width: "100%"}}
+              onKeyPress={(e) => this.handleKeyPress(e)}
+              onChange={(e) => this.handleChange(e)}
+              value={this.state.friend}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      edge="end"
+                      aria-label="Toggle password visibility"
+                      onClick={(e) => this.handleSearch(e)}
+                    >
+                      <PlayArrowIcon style={{color:'green'}}></PlayArrowIcon>
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Box>
 
+          <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
+            {friendSearch}
+          </Box>
+        </ DialogContent>
 
-        {/* <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-          <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
-            <div style={{flexGrow: 1}}>OK</div>
-          </Button>
-        </Box> */}
 
       </Dialog>
     );

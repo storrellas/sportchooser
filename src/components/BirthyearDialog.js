@@ -1,33 +1,19 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-
-import InputAdornment from '@material-ui/core/InputAdornment';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
 import MenuItem from '@material-ui/core/MenuItem';
 
-
-
 // Project import
+import TryASportDialog from "./TryASportDialog"
 import cakeImage from "../assets/img/tryasport/img_cake_orange.png"
 import config from '../config/env'
 import CookieMgr from "../utils/CookieMgr"
 
 // Redux
-import { store, userProfile } from "../redux";
 import { connect } from "react-redux";
-
-function mapDispatchToProps(dispatch) {
-  return {
-    userProfile: (data) => dispatch(userProfile(data)),
-  };
-}
 
 const styles = theme => ({
   dialogPaper: {
@@ -82,7 +68,6 @@ class BirthyearDialog extends React.Component {
     let data = await response.json()
 
     // Notify watchers
-    this.props.userProfile(data)
     this.props.onClose()
   }
 
@@ -94,18 +79,8 @@ class BirthyearDialog extends React.Component {
     const { classes, onClose, open } = this.props;
 
     return (
-      <Dialog maxWidth="xs" fullWidth 
-              classes={{ paper: classes.dialogPaper }} onClose={onClose} 
-              aria-labelledby="simple-dialog-title" open={open}>
+      <TryASportDialog image={cakeImage} open={open} onClose={onClose}>
 
-        <img height="15%" src={cakeImage} 
-            style={{borderRadius: '10px', position: 'absolute', 
-                    top: -30, margin: 'auto', left: 0, right: 0}}>
-        </img>
-        <IconButton aria-label="Close" className={classes.closeButton} 
-            onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
         <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
           What's your birthday year?
         </DialogTitle>
@@ -144,7 +119,7 @@ class BirthyearDialog extends React.Component {
             <div style={{flexGrow: 1}}>OK</div>
           </Button>
         </Box>
-      </Dialog>
+      </TryASportDialog>
     );
   }
 }
@@ -157,7 +132,7 @@ FriendDialog.propTypes = {
 };
 /**/
 
-//export default withStyles(styles)(BirthyearDialog);
-export default connect(null, mapDispatchToProps)(withStyles(styles)(BirthyearDialog));
+export default withStyles(styles)(BirthyearDialog);
+//export default connect(null, mapDispatchToProps)(withStyles(styles)(BirthyearDialog));
 
 

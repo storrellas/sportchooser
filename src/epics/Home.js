@@ -213,12 +213,12 @@ class Home extends React.Component {
         current: null,
         display:{
           friends: false,
-          share: true,
+          share: false,
           location: false,
           email: false,
           moments: false,
           gender: false,
-          birthyear: false
+          birthyear: true,
         }
       },
       settings_prompt: false,
@@ -338,21 +338,8 @@ class Home extends React.Component {
     this.mounted = false;
   }
 
-  handleEnableConfetti(e){
-    // const confettiSettings = { target: 'my-canvas' };
-    // const confetti = new ConfettiGenerator(confettiSettings);
-    // confetti.render();
-    console.log("Dispatch renderConfetti -->")
-    //this.props.renderConfetti( true );
-    //setTimeout(() => { this.props.renderConfetti( false ); }, 3000);
-
-    // store.dispatch( renderConfetti(true) )
-    // setTimeout(() => { store.dispatch( renderConfetti(false) ) }, 3000);
-
-  }
-
   handleSettings(e){
-    console.log("Opening Settings")
+    //console.log("Opening Settings")
     this.setState({ settings_prompt: true })
   }
 

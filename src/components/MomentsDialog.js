@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 
 
 // Project import
@@ -195,47 +196,50 @@ class MomentsDialog extends React.Component {
             style={{borderRadius: '10px', position: 'absolute', 
                     top: -30, margin: 'auto', left: 0, right: 0}}>
         </img>
-        <IconButton aria-label="Close" className={classes.closeButton} 
-            onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-        <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-          <div>By adding your regular moments to do sports to your profile,
-          we can inform your options to try out your selected sports at a time that
-          is most likely to fit your schedule</div>
-          <i>Click on a time to select/cancel</i>
-        </DialogTitle>
+        <DialogContent style={{ overflowY: 'auto'}}>
 
-        <Box mt={2} ml={3} mr={3} borderRadius={16}>
+          <IconButton aria-label="Close" className={classes.closeButton} 
+              onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+          <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
+            <div>By adding your regular moments to do sports to your profile,
+            we can inform your options to try out your selected sports at a time that
+            is most likely to fit your schedule</div>
+            <i>Click on a time to select/cancel</i>
+          </DialogTitle>
 
-          <table style={{width:"100%"}}>
-            <thead>
-              <tr>
-                {header_array.map((item,index) => 
-                  <th key={index}>{item}</th>)}
-              </tr>
-            </thead>
-            <tbody>
-            {row_before_0_6}
-            {row_between_6_8}
-            {row_between_8_10}
-            {row_between_10_12}
-            {row_between_12_14}
-            {row_between_14_16}
-            {row_between_16_18}
-            {row_between_18_20}
-            {row_between_20_22}
-            {row_between_22_00}
-            </tbody>
-          </table>
+          <Box mt={2} ml={3} mr={3} borderRadius={16}>
 
-        </Box>
+            <table style={{width:"100%"}}>
+              <thead>
+                <tr>
+                  {header_array.map((item,index) => 
+                    <th key={index}>{item}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+              {row_before_0_6}
+              {row_between_6_8}
+              {row_between_8_10}
+              {row_between_10_12}
+              {row_between_12_14}
+              {row_between_14_16}
+              {row_between_16_18}
+              {row_between_18_20}
+              {row_between_20_22}
+              {row_between_22_00}
+              </tbody>
+            </table>
 
-        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-          <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
-            <div style={{flexGrow: 1}}>OK</div>
-          </Button>
-        </Box>
+          </Box>
+
+          <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
+            <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
+              <div style={{flexGrow: 1}}>OK</div>
+            </Button>
+          </Box>
+        </ DialogContent>
 
 
       </Dialog>
