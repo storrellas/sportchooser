@@ -216,7 +216,7 @@ class Home extends React.Component {
           share: false,
           location: false,
           email: false,
-          moments: false,
+          moments: true,
           gender: false,
           birthyear: false,
         }

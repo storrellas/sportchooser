@@ -12,6 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 
 
 // Project import
+import SubmitButton from "./common/SubmitButton"
 import TryASportDialog from "./common/TryASportDialog"
 import calendarImage from "../assets/img/tryasport/img_calendar_orange.png"
 import config from '../config/env'
@@ -103,7 +104,6 @@ class MomentsDialog extends React.Component {
     let data = await response.json()
 
     // Notify watchers
-    //this.props.userProfile(data)
     this.props.onClose()
   }
 
@@ -206,11 +206,9 @@ class MomentsDialog extends React.Component {
 
           </Box>
 
-          <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-            <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
-              <div style={{flexGrow: 1}}>OK</div>
-            </Button>
-          </Box>
+
+          <SubmitButton onSubmit={(e) => this.handleSubmit(e)}/>
+
       </ TryASportDialog>
     );
   }

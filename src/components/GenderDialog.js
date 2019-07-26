@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 // Project import
+import SubmitButton from "./common/SubmitButton"
 import TryASportDialog from "./common/TryASportDialog"
 import genderImage from "../assets/img/tryasport/img_gender_orange.png"
 import maleImage from "../assets/img/tryasport/img_male.png"
@@ -73,11 +74,7 @@ class GenderDialog extends React.Component {
             </Button>
           </Box>
 
-          <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-            <Button variant="contained" className={classes.button}>
-              <div style={{flexGrow: 1}}>OK</div>
-            </Button>
-          </Box>
+          <SubmitButton onSubmit={() => console.log("NotImplementedYet")}/>
 
           <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
             <Button variant="contained" onClick={(e) => this.handleClick(e, 'prefer_not_to_say')}>

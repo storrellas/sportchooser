@@ -8,6 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 // Project import
 import TryASportDialog from "./common/TryASportDialog"
+import SubmitButton from "./common/SubmitButton"
 import cakeImage from "../assets/img/tryasport/img_cake_orange.png"
 import config from '../config/env'
 import CookieMgr from "../utils/CookieMgr"
@@ -102,11 +103,7 @@ class BirthyearDialog extends React.Component {
 
         </Box>
 
-        <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-          <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
-            <div style={{flexGrow: 1}}>OK</div>
-          </Button>
-        </Box>
+        <SubmitButton onSubmit={(e) => this.handleSubmit(e)}/>
       </TryASportDialog>
     );
   }

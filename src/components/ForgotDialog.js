@@ -10,6 +10,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
 // Project import
+import SubmitButton from "./common/SubmitButton"
 import TryASportDialog from "./common/TryASportDialog"
 import forgotImage from "../assets/img/tryasport/img_key_orange.png"
 import config from '../config/env'
@@ -104,11 +105,7 @@ class ForgotDialog extends React.Component {
             />
           </Box>
 
-          <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-            <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
-              <div style={{flexGrow: 1}}>OK</div>
-            </Button>
-          </Box>
+          <SubmitButton onSubmit={(e) => this.handleSubmit(e)}/>
 
           <DialogTitle id="bottom-dialog-title" style={{textAlign: "center"}}>
             <p>and use the link in your inbox to continue from last time.</p>

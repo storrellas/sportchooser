@@ -1,6 +1,5 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -8,6 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 // Project import
 import TryASportDialog from "./common/TryASportDialog"
+import SubmitButton from "./common/SubmitButton"
 import mailboxImage from "../assets/img/tryasport/img_mailbox_orange.png"
 import config from '../config/env'
 import CookieMgr from "../utils/CookieMgr"
@@ -67,7 +67,6 @@ class EmailDialog extends React.Component {
       let data = await response.json()
 
       // Notify watchers
-      this.props.userProfile(data)
       this.props.onClose()
     }else{
       this.setState({ error: true, helperText: 'Emails do not match' })
@@ -118,11 +117,7 @@ class EmailDialog extends React.Component {
             />
           </Box>
 
-          <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
-            <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
-              <div style={{flexGrow: 1}}>OK</div>
-            </Button>
-          </Box>
+          <SubmitButton onSubmit={(e) => this.handleSubmit(e)}/>
 
           <DialogTitle id="bottom-dialog-title" style={{textAlign: "center"}}>
             <p>and use the link in your inbox to continue from last time.</p>
