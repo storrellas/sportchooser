@@ -104,6 +104,8 @@ class ShareDialog extends React.Component {
     console.log("Contacting Backend", this.state.friend)
 
     if (navigator.share) {
+      const title = `Do you like to find new sports to play?` + 
+                    `Find me on TryASport by introducing this code${userJson.username}`
       navigator.share({
         title: 'TryASport',
         url: config.BASE_API_URL
