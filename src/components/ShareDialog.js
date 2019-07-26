@@ -77,7 +77,7 @@ class ShareDialog extends React.Component {
     super(props);
     this.state = {
       zIndex: 1000,
-      friend: '',
+      name: '',
       webSharing: true
     }
   }
@@ -93,7 +93,7 @@ class ShareDialog extends React.Component {
   };
 
   handleChange(e){
-    this.setState({ friend: e.target.value})
+    this.setState({ name: e.target.value})
   }
 
   handleSubmit(e){
@@ -101,7 +101,8 @@ class ShareDialog extends React.Component {
 
     if (navigator.share) {
       const userJson = (this.props.user === undefined)?"":JSON.parse(this.props.user);
-      const text = `Do you like to find new sports to play?\n` + 
+      const text = `Hey,\n Its ${this.state.name}\n,` + 
+                    `Do you like to find new sports to play?\n` + 
                     `Find me on TryASport by introducing this code: ${userJson.username}\n`
       navigator.share({
         title: "TryASport",
@@ -160,7 +161,7 @@ class ShareDialog extends React.Component {
             style={{width: "100%"}}
             onKeyPress={(e) => this.handleKeyPress(e)}
             onChange={(e) => this.handleChange(e)}
-            value={this.state.friend}
+            value={this.state.name}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
