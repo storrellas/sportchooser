@@ -21,6 +21,7 @@ import { connect } from "react-redux";
 
 // Project imports
 import CookieMgr from "../utils/CookieMgr"
+import StorageMgr from "../utils/StorageMgr"
 import config from '../config/env'
 import ForgotDialog from '../components/ForgotDialog'
 
@@ -198,20 +199,10 @@ class Landing extends React.Component {
     const { classes } = this.props;
     
     console.log("-- Landing --")
-    console.log(this.props.location.search)
 
-    // return (
-    //   <Container maxWidth="sm" className={classes.root} style={{ display: 'flex', backgroundColor:'#E5E7E9' }}>
-
-    //     <LinearProgress color="primary"
-    //       classes={{ root: classes.progressRoot, barColorPrimary: classes.progressBarColor,
-    //                  colorPrimary: classes.progressColor }} style={{ width: "100%", alignSelf: 'center', marginLeft: 16, marginRight: 16}} />
-    //   </Container>
-    // );
-
-    return (
-      <Progress />
-    );
+    // Return progress if dont have translations
+    if( StorageMgr.get(StorageMgr.keys.TRANSLATIONS) === undefined)
+      return (<Progress />);
 
     return (
       <div> 

@@ -1,9 +1,9 @@
 import React from "react";
-//import ConfettiGenerator from "confetti-js";
+
+// Project imports
+import StorageMgr from "../utils/StorageMgr"
 import ConfettiGenerator from "../lib/Confetti";
-
-import queryString from 'query-string'
-
+import config from '../config/env'
 
 // React-redux
 import { connect } from "react-redux";
@@ -25,7 +25,23 @@ class Startup extends React.Component {
     this.confettiSettings = { target: 'my-canvas' }
   }
 
-  componentDidMount(){}
+  async fetch_translations(lan){
+    const response = await fetch(config.BASE_API_URL + `/api/config/translations/?lan=${lan}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },    
+    })
+    const data = await response.json()
+    //console.log("translations" + JSON.stringify(data))
+    // setter
+    StorageMgr.set(StorageMgr.keys.TRANSLATIONS, JSON.stringify(data));
+  }
+
+  componentDidMount(){
+    this.fetch_translations('en')
+  }
 
   componentDidUpdate(){   
     if(this.props.confetti){
