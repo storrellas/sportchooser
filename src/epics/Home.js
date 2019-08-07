@@ -65,7 +65,7 @@ const styles = theme => ({
   },
   mainTitle:{
     position: 'relative',
-    backgroundColor: 'orange',
+    backgroundImage: "linear-gradient(90deg, #F76D1D 0%, #FFCC27 100%)",
     textAlign: 'center',
     fontSize: 16,
     color: 'white'
