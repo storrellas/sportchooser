@@ -12,7 +12,7 @@ import queryString from 'query-string'
 
 
 // Redux
-import { store, renderConfetti, userCreated } from "../redux";
+import { userCreated } from "../redux";
 
 // React-redux
 import { connect } from "react-redux";
@@ -24,6 +24,7 @@ import ForgotDialog from '../components/ForgotDialog'
 
 // Images
 import backgroundTopImage from "../assets/img/img_BackGroundWaves_top.png"
+import backgroundImage from "../assets/img/img_bg.png"
 import logoImage from "../assets/img/tryasport/img_logo.png"
 import ukImage from "../assets/img/uk.png"
 import nlImage from "../assets/img/nl.png"
@@ -33,7 +34,10 @@ const styles = theme => ({
   root: {
     backgroundColor:'white', 
     height: '100vh', 
-    padding: 0
+    padding: 0,
+    fontFamily: "Montserrat",
+    fontSize: 16,
+    position: 'relative'
   },
   loadingContainer:{
     height: '100%', 
@@ -46,8 +50,36 @@ const styles = theme => ({
     position: 'relative',
     backgroundImage: "linear-gradient(90deg, #F76D1D 0%, #FFCC27 100%)",
     textAlign: 'center',
-    fontSize: 16,
-    color: 'white'
+    fontSize: 18,
+    color: '#FFFFFF'
+  },
+  mainBackground: {
+    width: "100%", 
+    height: "100%", 
+    position: 'absolute', 
+    bottom: 0, 
+    left: 0
+  },
+  mainTitleBackground: {
+    width: "100%", 
+    height: "100%", 
+    position: 'absolute', 
+    top: 0, 
+    left: 0
+  },
+  mainTitleContainer:{
+    zIndex: 10, 
+    position: 'relative',
+    height: "35vh",
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column'
+  },
+  content:{
+    paddingTop: 20, 
+    textAlign: 'center', 
+    color: '#3F3F3F',
+    position: 'relative'
   },
   flag:{
     width: "40%", 
@@ -159,23 +191,24 @@ class Landing extends React.Component {
     return (
       <div> 
         <Container maxWidth="sm" className={classes.root}>
+          <img src={backgroundImage} className={classes.mainBackground} />
           <CssBaseline />
-          <Box m={0} p ={0} className={classes.mainTitle} style={{ position:'relative'}}>
-              <img src={backgroundTopImage} style={{ width: "100%", height: "100%", position: 'absolute', top:0, left:0 }}/>
-              <div style={{ zIndex: 10, position: 'relative' }}>
-                <b>Sport - Planner</b>
+          <Box m={0} p ={0} className={classes.mainTitle}>
+              <img src={backgroundTopImage} className={classes.mainTitleBackground} />
+              <div className={classes.mainTitleContainer}>
+                <b style={{paddingBottom: '1em'}}>Sport - Planner</b>
                 <div>
-                <img src={logoImage} style={{ width: "25%"}}></img> 
+                  <img src={logoImage} style={{ width: "30%"}}></img> 
                 </div>
                 
-                <div style={{fontSize: 14}}>Find New Sport</div>
+                <b>Find New Sports</b>
               </div>
           </Box>
 
-          <Container maxWidth={false} style={{paddingTop: 20, textAlign: 'center', color: 'grey'}}>
+          <Container maxWidth={false}  className={classes.content}>
 
             <Box mt={2} ml={3} mr={3} borderRadius={16}>
-              <b>First time here?</b>
+              <b style={{ fontSize: 18 }}>First time here?</b>
             </Box>
 
             <Box mt={2} ml={3} mr={3} borderRadius={16}>
