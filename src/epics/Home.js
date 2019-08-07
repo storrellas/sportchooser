@@ -7,11 +7,10 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { withRouter } from "react-router";
 
 
 // Redux
-import { store, userProfile } from "../redux";
+import { userProfile } from "../redux";
 import { connect } from "react-redux";
 
 // Project Imports
@@ -35,6 +34,7 @@ import SettingsDialog from '../components/SettingsDialog';
 
 
 // Images
+import backgroundImage from "../assets/img/img_BackGroundWaves3.png"
 import undoImage from "../assets/img/undo.png"
 import noInterestImage from "../assets/img/no_interest.png"
 import likeToTryImage from "../assets/img/like_to_try.png"
