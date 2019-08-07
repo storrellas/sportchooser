@@ -35,7 +35,7 @@ const styles = theme => ({
     backgroundColor:'white', 
     height: '100vh', 
     padding: 0,
-    fontFamily: "Montserrat",
+    fontFamily: 'Montserrat',
     fontSize: 16,
     position: 'relative'
   },

@@ -15,13 +15,12 @@ const styles = theme => ({
     minHeight: '80vh',
     maxHeight: '80vh',
     position: 'relative',
-    overflowY: 'initial'
+    overflowY: 'initial',
+    fontSize: 18,
+    fontFamily: 'Montserrat'
   },
   closeButton: {
-    position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
+    color: "#4B4B4B",
   },
 });
 
@@ -40,15 +39,19 @@ class TryASportDialog extends React.Component {
               classes={{ paper: classes.dialogPaper }} onClose={onClose} 
               aria-labelledby="simple-dialog-title" open={open}>
 
-        <img height="15%" src={this.props.image} 
-            style={{borderRadius: '10px', position: 'absolute', 
-                    top: -30, margin: 'auto', left: 0, right: 0}}>
-        </img>
-        <DialogContent style={{ overflowY: 'auto'}}>
-          <IconButton aria-label="Close" 
-                      className={classes.closeButton} onClick={onClose}>
-              <CloseIcon />
-          </IconButton>
+        <div style={{ width: "100%", borderRadius: '10px', position: 'absolute', 
+                    top: "-10%", display: 'flex', justifyContent: 'center'}}>
+          <img width="50%" src={this.props.image} />
+        </div>
+
+        <div style={{ textAlign: 'right', height: '10vh'}}>
+            <IconButton aria-label="Close" 
+                        className={classes.closeButton} onClick={onClose}>
+                <CloseIcon />
+            </IconButton>
+        </div>
+
+        <DialogContent style={{ padding: "0 10 0 10", overflowY: 'auto'}}>
           {this.props.children}
         </DialogContent>
       </Dialog>

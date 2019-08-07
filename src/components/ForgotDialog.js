@@ -1,13 +1,8 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
 
 // Project import
 import SubmitButton from "./common/SubmitButton"
@@ -18,10 +13,14 @@ import CookieMgr from "../utils/CookieMgr"
 
 
 // Redux
-import { store, userProfile } from "../redux";
+import { userProfile } from "../redux";
 import { connect } from "react-redux";
 
 const styles = theme => ({
+  root:{
+    fontFamily: 'Montserrat',
+    fontSize: 16,
+  }
 });
 
 function mapDispatchToProps(dispatch) {
@@ -70,15 +69,15 @@ class ForgotDialog extends React.Component {
     const { classes, onClose, open } = this.props;
     const { error, helperText } = this.state;
     return (
-      <TryASportDialog image={forgotImage} open={open} onClose={onClose}>
+      <TryASportDialog className={classes.root} image={forgotImage} open={open} onClose={onClose}>
 
-          <DialogTitle id="email-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-            <p>Did you see the language selection again? Don't worry!</p>
+          <div style={{textAlign: "center"}}>
+            <b>Did you see the language selection again? Don't worry!</b>
             <div>If you entered your email last time you can continue finding sports</div>
             <div>Enter your email:</div>
-          </DialogTitle>
+          </div>
 
-          <Box mt={0} ml={3} mr={3} borderRadius={16}>
+          <Box borderRadius={16}>
             <TextField          
               id="email-input"
               label="Enter your email"
@@ -96,9 +95,9 @@ class ForgotDialog extends React.Component {
 
           <SubmitButton onSubmit={(e) => this.handleSubmit(e)}/>
 
-          <DialogTitle id="bottom-dialog-title" style={{textAlign: "center"}}>
+          <div style={{textAlign: "center"}}>
             <p>and use the link in your inbox to continue from last time.</p>
-          </DialogTitle>
+          </div>
       </TryASportDialog>
     );
   }
