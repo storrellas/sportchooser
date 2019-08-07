@@ -23,6 +23,7 @@ import config from '../config/env'
 import ForgotDialog from '../components/ForgotDialog'
 
 // Images
+import backgroundTopImage from "../assets/img/img_BackGroundWaves_top.png"
 import logoImage from "../assets/img/tryasport/img_logo.png"
 import ukImage from "../assets/img/uk.png"
 import nlImage from "../assets/img/nl.png"
@@ -155,18 +156,20 @@ class Landing extends React.Component {
     
     console.log("-- Landing --")
     console.log(this.props.location.search)
-
     return (
       <div> 
         <Container maxWidth="sm" className={classes.root}>
           <CssBaseline />
-          <Box m={0} p ={0} className={classes.mainTitle}>
-              <b>Sport - Planner</b>
-              <div>
-              <img src={logoImage} style={{ width: "25%"}}></img> 
+          <Box m={0} p ={0} className={classes.mainTitle} style={{ position:'relative'}}>
+              <img src={backgroundTopImage} style={{ width: "100%", height: "100%", position: 'absolute', top:0, left:0 }}/>
+              <div style={{ zIndex: 10, position: 'relative' }}>
+                <b>Sport - Planner</b>
+                <div>
+                <img src={logoImage} style={{ width: "25%"}}></img> 
+                </div>
+                
+                <div style={{fontSize: 14}}>Find New Sport</div>
               </div>
-              
-              <div style={{fontSize: 14}}>Find New Sport</div>
           </Box>
 
           <Container maxWidth={false} style={{paddingTop: 20, textAlign: 'center', color: 'grey'}}>
