@@ -7,11 +7,17 @@ import config from '../config/env'
 
 // React-redux
 import { connect } from "react-redux";
+import { translations } from "../redux";
+
 
 const mapStateToProps = state => {
   return { confetti: state.confetti };
 };
-
+function mapDispatchToProps(dispatch) {
+  return {
+    translations: (data) => dispatch(translations(data)),
+  };
+}
 
 class Startup extends React.Component {
   constructor(props) {
@@ -35,8 +41,11 @@ class Startup extends React.Component {
     })
     const data = await response.json()
     //console.log("translations" + JSON.stringify(data))
-    // setter
+    // Store translations
     StorageMgr.set(StorageMgr.keys.TRANSLATIONS, JSON.stringify(data));
+
+    // Dispatch
+    this.props.translations(JSON.stringify(data))
   }
 
   componentDidMount(){
@@ -66,4 +75,4 @@ class Startup extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, null)(Startup);
+export default connect(mapStateToProps, mapDispatchToProps)(Startup);

@@ -6,6 +6,7 @@ import { createStore } from "redux";
 export const RENDER_CONFETTI = "RENDER_CONFETTI";
 export const USER_CREATED = "USER_CREATED";
 export const USER_PROFILE = "USER_PROFILE";
+export const TRANSLATIONS = "TRANSLATIONS";
 
 export function renderConfetti(payload = null) {
   return { type: RENDER_CONFETTI, payload }
@@ -19,12 +20,17 @@ export function userProfile(payload = null) {
   return { type: USER_PROFILE, payload }
 };
 
+export function translations(payload = null) {
+  return { type: TRANSLATIONS, payload }
+};
+
 // Reducers
 // ---------------------
 const initialState = {
   articles: [],
   confetti: false,
-  user: undefined
+  user: undefined,
+  translations: undefined
 };
 
 export function rootReducer(state = initialState, action) {
@@ -42,6 +48,11 @@ export function rootReducer(state = initialState, action) {
   if (action.type === USER_PROFILE) {
     return Object.assign({}, state, {
       user: action.payload
+    });
+  }
+  if (action.type === TRANSLATIONS) {
+    return Object.assign({}, state, {
+      translations: action.payload
     });
   }
   return state;

@@ -7,7 +7,6 @@ import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Progress from './Progress';
 
 // Other imports
 import queryString from 'query-string'
@@ -24,6 +23,7 @@ import CookieMgr from "../utils/CookieMgr"
 import StorageMgr from "../utils/StorageMgr"
 import config from '../config/env'
 import ForgotDialog from '../components/ForgotDialog'
+import Progress from './Progress';
 
 // Images
 import backgroundTopImage from "../assets/img/img_BackGroundWaves_top.png"
@@ -107,7 +107,9 @@ const styles = theme => ({
   }
 });
 
-
+const mapStateToProps = state => {
+  return { translations: state.translations };
+};
 function mapDispatchToProps(dispatch) {
   return {
     userCreated: (data) => dispatch(userCreated(data)),
@@ -274,6 +276,6 @@ class Landing extends React.Component {
   }
 }
 //export default withRouter(withStyles(styles)(Landing));
-export default connect(null, mapDispatchToProps)(withStyles(styles)(Landing));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Landing));
 
 

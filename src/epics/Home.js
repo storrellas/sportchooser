@@ -16,6 +16,9 @@ import { connect } from "react-redux";
 // Project Imports
 import config from '../config/env'
 import CookieMgr from "../utils/CookieMgr"
+import StorageMgr from "../utils/StorageMgr"
+import Progress from './Progress';
+
 
 // AwesomeSlider
 import AwesomeSlider from 'react-awesome-slider';
@@ -164,7 +167,7 @@ class IconMenu extends React.Component {
 // }
 
 const mapStateToProps = state => {
-  return { user: state.user };
+  return { user: state.user, translations: state.translations };
 };
 function mapDispatchToProps(dispatch) {
   return {
@@ -291,22 +294,6 @@ class Home extends React.Component {
     this.state.user_prompt.space = this.user_prompt_order[0].space
   }
 
-  /*
-  async fetch_translations(lan){
-    const response = await fetch(config.BASE_API_URL + `/api/config/translations/?lan=${lan}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },    
-    })
-    const data = await response.json()
-    console.log(data)
-    // setter
-    localStorage.setItem('translations', JSON.stringify(data));
-  }
-  /**/
-  
   componentDidMount(){
 
     //this.fetch_translations('en')
@@ -519,6 +506,10 @@ class Home extends React.Component {
     console.log("## Home:Rendering ##", selected)
     console.log(this.props.user)
     console.log(sport_list[selected])
+
+    // Return progress if dont have translations
+    if( StorageMgr.get(StorageMgr.keys.TRANSLATIONS) === undefined)
+      return (<Progress />);
 
     // Determine whether loading or spinner
     let sport_box = <div className={classNames(classes.loadingContainer)}>
