@@ -7,7 +7,9 @@ import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import UUID from 'uuid/v4'
+import Progress from './Progress';
+
+// Other imports
 import queryString from 'query-string'
 
 
@@ -92,6 +94,15 @@ const styles = theme => ({
     '&:hover':{
       backgroundColor: '#005643'
     }
+  },
+  progressRoot:{
+    height: 10
+  },
+  progressBarColor:{
+    backgroundColor: '#F76D1D'
+  },
+  progressColor:{
+    backgroundColor: '#FFCC27'
   }
 });
 
@@ -188,6 +199,20 @@ class Landing extends React.Component {
     
     console.log("-- Landing --")
     console.log(this.props.location.search)
+
+    // return (
+    //   <Container maxWidth="sm" className={classes.root} style={{ display: 'flex', backgroundColor:'#E5E7E9' }}>
+
+    //     <LinearProgress color="primary"
+    //       classes={{ root: classes.progressRoot, barColorPrimary: classes.progressBarColor,
+    //                  colorPrimary: classes.progressColor }} style={{ width: "100%", alignSelf: 'center', marginLeft: 16, marginRight: 16}} />
+    //   </Container>
+    // );
+
+    return (
+      <Progress />
+    );
+
     return (
       <div> 
         <Container maxWidth="sm" className={classes.root}>

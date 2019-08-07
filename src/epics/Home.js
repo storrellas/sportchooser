@@ -289,10 +289,27 @@ class Home extends React.Component {
     const data = await response.json()
     this.user_prompt_order = data
     this.state.user_prompt.space = this.user_prompt_order[0].space
-     
   }
 
+  /*
+  async fetch_translations(lan){
+    const response = await fetch(config.BASE_API_URL + `/api/config/translations/?lan=${lan}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },    
+    })
+    const data = await response.json()
+    console.log(data)
+    // setter
+    localStorage.setItem('translations', JSON.stringify(data));
+  }
+  /**/
+  
   componentDidMount(){
+
+    //this.fetch_translations('en')
 
     this.get_sport_list()
     .then( (sport_list) => {
