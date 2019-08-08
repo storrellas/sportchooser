@@ -64,21 +64,20 @@ class EmailDialog extends React.Component {
 
   render() {
 
-    const { classes, onClose, open } = this.props;
+    const { classes, onClose, open, translations } = this.props;
     const { error, helperText } = this.state;
     return (
       <TryASportDialog image={mailboxImage} open={open} onClose={onClose}>
 
           <DialogTitle id="email-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-            <p>By adding your mail to your profile, we can inform you 
-            of options to try out your selected sports.</p>
-            <p>Enter your email:</p>
+            <p>{translations.email_prompt_2_title}</p>
+            <p>{translations.email_prompt_2_form}</p>
           </DialogTitle>
 
           <Box mt={0} ml={3} mr={3} borderRadius={16}>
             <TextField          
               id="email-input"
-              label="Enter your email"
+              label={translations.email_prompt_2_placeholder}
               className={classes.textField}
               type="text"
               name="mail"
@@ -92,7 +91,7 @@ class EmailDialog extends React.Component {
             <TextField
               error={error}
               id="confirm-input"
-              label="Confirm your email"
+              label={translations.email_prompt_2_placeholder_confirm}
               className={classes.textField}
               type="text"
               name="confirm"
@@ -109,7 +108,8 @@ class EmailDialog extends React.Component {
           <SubmitButton onSubmit={(e) => this.handleSubmit(e)}/>
 
           <DialogTitle id="bottom-dialog-title" style={{textAlign: "center"}}>
-            <p>and use the link in your inbox to continue from last time.</p>
+            <p>{translations.email_prompt_2_bottom_1}</p>
+            <p>{translations.email_prompt_2_bottom_2}</p>
           </DialogTitle>       
       </TryASportDialog>
     );
