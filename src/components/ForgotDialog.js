@@ -28,6 +28,9 @@ function mapDispatchToProps(dispatch) {
     userProfile: (data) => dispatch(userProfile(data)),
   };
 }
+const mapStateToProps = state => {
+  return { translations: state.translations };
+};
 
 class ForgotDialog extends React.Component {
   constructor(props) {
@@ -65,22 +68,24 @@ class ForgotDialog extends React.Component {
   }
 
   render() {
-
-    const { classes, onClose, open } = this.props;
+    const { classes, onClose, open, translations } = this.props;
     const { error, helperText } = this.state;
+
+    // Translations JSON 
+    console.log(translations)
     return (
       <TryASportDialog className={classes.root} image={forgotImage} open={open} onClose={onClose}>
 
           <div style={{textAlign: "center"}}>
-            <b>Did you see the language selection again? Don't worry!</b>
-            <div>If you entered your email last time you can continue finding sports</div>
-            <div>Enter your email:</div>
+            <b>{translations.email_prompt_1_title}</b>
+            <div>{translations.email_prompt_1_sub}</div>
+            <div>{translations.email_prompt_1_form}</div>
           </div>
 
           <Box borderRadius={16}>
             <TextField          
               id="email-input"
-              label="Enter your email"
+              label={translations.email_prompt_1_form}
               className={classes.textField}
               type="text"
               name="mail"
@@ -96,7 +101,8 @@ class ForgotDialog extends React.Component {
           <SubmitButton onSubmit={(e) => this.handleSubmit(e)}/>
 
           <div style={{textAlign: "center"}}>
-            <p>and use the link in your inbox to continue from last time.</p>
+            <p>{translations.email_prompt_1_bottom_1}</p>
+            <p>{translations.email_prompt_1_bottom_2}</p>
           </div>
       </TryASportDialog>
     );
@@ -112,7 +118,7 @@ FriendDialog.propTypes = {
 /**/
 
 //export default withStyles(styles)(EmailDialog);
-export default connect(null, mapDispatchToProps)(withStyles(styles)(ForgotDialog));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ForgotDialog));
 
 
 

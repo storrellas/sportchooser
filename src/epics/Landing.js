@@ -121,7 +121,7 @@ class Landing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: true
     };
   }
 
@@ -206,10 +206,6 @@ class Landing extends React.Component {
     if( this.props.translations === undefined )
       return (<Progress />);
 
-    // Translations JSON 
-    console.log(translations)
-
-
     return (
       <div> 
         <Container maxWidth="sm" className={classes.root}>
@@ -268,7 +264,7 @@ class Landing extends React.Component {
             </Box>
 
             <ForgotDialog open={this.state.open} onClose={(e) => this.handleClose()} />
-            
+
           </Container>
 
         </Container>
