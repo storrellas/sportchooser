@@ -13,7 +13,7 @@ import queryString from 'query-string'
 
 
 // Redux
-import { userCreated } from "../redux";
+import { userCreated, translations } from "../redux";
 
 // React-redux
 import { connect } from "react-redux";
@@ -202,8 +202,8 @@ class Landing extends React.Component {
     
     console.log("-- Landing --")
 
-    // Return progress if dont have translations
-    if( StorageMgr.get(StorageMgr.keys.TRANSLATIONS) === undefined)
+    //Return progress if dont have translations
+    if( this.props.translations === undefined )
       return (<Progress />);
 
     return (

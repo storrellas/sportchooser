@@ -31,25 +31,78 @@ class Startup extends React.Component {
     this.confettiSettings = { target: 'my-canvas' }
   }
 
-  async fetch_translations(lan){
-    const response = await fetch(config.BASE_API_URL + `/api/config/translations/?lan=${lan}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },    
-    })
-    const data = await response.json()
-    //console.log("translations" + JSON.stringify(data))
-    // Store translations
-    StorageMgr.set(StorageMgr.keys.TRANSLATIONS, JSON.stringify(data));
+  fetch_translations(lan){
+    return new Promise( async (resolve, reject) => {
 
-    // Dispatch
-    this.props.translations(JSON.stringify(data))
+      const response = await fetch(config.BASE_API_URL + `/api/config/translations/?lan=${lan}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },    
+      })
+      const data = await response.json()
+      //console.log("translations" + JSON.stringify(data))
+      // Store translations
+      StorageMgr.set(StorageMgr.keys.TRANSLATIONS, JSON.stringify(data));
+  
+      return resolve(data)
+    })
+
   }
 
-  componentDidMount(){
-    this.fetch_translations('en')
+  fetch_geolocation(){
+    return new Promise( (resolve, reject) => {
+
+      if ("geolocation" in navigator) {
+        // check if geolocation is supported/enabled on current browser
+        navigator.geolocation.getCurrentPosition(
+          async function success(position) {
+  
+            // Get whoami
+            const lat = position.coords.latitude
+            const lng = position.coords.longitude
+            const response = await fetch(config.BASE_API_URL + `/api/geolocation/?lat=${lat}&lng=${lng}`)
+            const data = await response.json()
+            //console.log(data)
+            return resolve(data.response.country_code)
+          },
+          function error(error_message) {
+            // for when getting location results in an error
+            //console.error('An error has occured while retrieving location', error_message)
+            return resolve('uk')
+          }  
+        );
+      } else {
+        // geolocation is not supported
+        // get your location some other way
+        //console.log('geolocation is not enabled on this browser')
+        return resolve('uk')
+      }
+
+    })
+  }
+
+  async componentDidMount(){
+
+    const translations = StorageMgr.get(StorageMgr.keys.TRANSLATIONS)
+    if( translations === undefined ){
+      console.log("Translations undefined ...")
+
+      // Get country
+      const country = await this.fetch_geolocation()
+
+      // Fetch translations
+      const language = country=='nl'?'nl':'en'
+      const data = await this.fetch_translations(language)
+
+      // Dispatch
+      this.props.translations(JSON.stringify(data))
+    }else{
+      // Dispatch
+      this.props.translations(translations)
+    }
+
   }
 
   componentDidUpdate(){   

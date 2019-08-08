@@ -38,11 +38,15 @@ class Progress extends React.Component {
     const { classes } = this.props;
 
     return (
-      <Container maxWidth="sm" className={classes.root} style={{ display: 'flex', backgroundColor:'#E5E7E9' }}>
+      <Container maxWidth="sm" className={classes.root} style={{ display: 'flex',  backgroundColor:'#E5E7E9' }}>
 
-        <LinearProgress color="primary"
-          classes={{ root: classes.progressRoot, barColorPrimary: classes.progressBarColor,
-                     colorPrimary: classes.progressColor }} style={{ width: "100%", alignSelf: 'center', marginLeft: 16, marginRight: 16}} />
+        <div style={{ width: "100%", alignSelf: 'center', marginLeft: 16, marginRight: 16}}>
+          <LinearProgress color="primary"
+            classes={{ root: classes.progressRoot, barColorPrimary: classes.progressBarColor,
+                      colorPrimary: classes.progressColor }}/>
+          <div style={{ marginTop: 10, textAlign:'center' }}>Loading ...</div>          
+        </div>
+
       </Container>
     );
   }
