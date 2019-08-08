@@ -96,13 +96,24 @@ class Startup extends React.Component {
       let language = config.DEFAULT_LANGUAGE
       // if( country == 'nl') language = 'nl'
       // if( country == 'uk') language = 'en'
-      const data = await this.fetch_translations(language)
+      const translations_json = await this.fetch_translations(language)
+
+      // Transform to dict
+      const translations_dict = {}
+      for (const translation of translations_json)
+        translations_dict[translation.param]  = translation.value
 
       // Dispatch
-      this.props.translations(JSON.stringify(data))
+      this.props.translations(translations_dict)
     }else{
+      const translations_json = JSON.parse(translations)
+      // Transform to dict
+      const translations_dict = {}
+      for (const translation of translations_json)
+        translations_dict[translation.param]  = translation.value
+
       // Dispatch
-      this.props.translations(translations)
+      this.props.translations(translations_dict)
     }
 
   }

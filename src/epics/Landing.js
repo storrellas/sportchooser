@@ -198,7 +198,7 @@ class Landing extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, translations } = this.props;
     
     console.log("-- Landing --")
 
@@ -207,8 +207,8 @@ class Landing extends React.Component {
       return (<Progress />);
 
     // Translations JSON 
-    const translations_json = JSON.parse(this.props.translations)
-    console.log(translations_json)
+    console.log(translations)
+
 
     return (
       <div> 
@@ -218,19 +218,19 @@ class Landing extends React.Component {
           <Box m={0} p ={0} className={classes.mainTitle}>
               <img src={backgroundTopImage} className={classes.mainTitleBackground} />
               <div className={classes.mainTitleContainer}>
-                <b style={{paddingBottom: '1em'}}>Sport - Planner</b>
+                <b style={{paddingBottom: '1em'}}>{translations.landing_main_title}</b>
                 <div>
                   <img src={logoImage} style={{ width: "30%"}}></img> 
                 </div>
                 
-                <b>Find New Sports</b>
+                <b>{translations.landing_sub_title}</b>
               </div>
           </Box>
 
           <Container maxWidth={false}  className={classes.content}>
 
             <Box mt={2} ml={3} mr={3} borderRadius={16}>
-              <b style={{ fontSize: 18 }}>First time here?</b>
+              <b style={{ fontSize: 18 }}>{translations.landing_content_title}</b>
             </Box>
 
             <Box mt={2} ml={3} mr={3} borderRadius={16}>
@@ -238,7 +238,7 @@ class Landing extends React.Component {
             </Box>
 
             <Box mt={2} ml={3} mr={3} borderRadius={16}>
-              <div>Choose your language to start:</div>
+              <div>{translations.landing_content}</div>
             </Box>
 
             <Box mt={3} ml={3} mr={3} borderRadius={16} style={{display: 'flex', justifyContent: 'center'}}>
@@ -253,24 +253,22 @@ class Landing extends React.Component {
             </Box>
 
             <Box mt={2} ml={3} mr={3} borderRadius={16}>
-              <b>Coming back and seeing this screen again?</b>
+              <b>{translations.landing_content_sub}</b>
             </Box>
 
             <Box mt={2} ml={3} mr={3}>
               <Button variant="contained" color="secondary" className={classes.button} onClick={(e) => this.handleClick(e)}>       
-                <b>Enter Email</b>
+                <b>{translations.landing_button}</b>
               </Button>
             </Box>
 
 
             <Box mt={2} ml={3} mr={3} borderRadius={16}>
-              <div>Don't worry</div>
-              <div>Enter your email or use the link we sent to continue from last time</div>
+              <div>{translations.landing_bottom}</div>              
             </Box>
 
             <ForgotDialog open={this.state.open} onClose={(e) => this.handleClose()} />
-
-
+            
           </Container>
 
         </Container>
