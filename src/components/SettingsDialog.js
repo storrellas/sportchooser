@@ -27,7 +27,7 @@ class SettingsItem extends React.Component {
     const { classes, text, onClick } = this.props;
     return (
       <Box mt={2} >
-        <Button variant="contained" className={classes.button}>
+        <Button variant="contained" className={classes.button} style={{ width: "100%"}}>
           {this.props.children}          
           <div style={{flexGrow: 1}}>{text}</div>              
         </Button>
@@ -67,30 +67,30 @@ class SettingsDialog extends React.Component {
   
 
   render() {
-    const { classes, onClose, user, open } = this.props;
+    const { classes, onClose, user, open, translations } = this.props;
     const userJson = (user === undefined)?"":JSON.parse(user);
     //console.log(userJson)
     return (
       <TryASportDialog image={settingsImage} open={open} onClose={onClose}>
 
           <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-            Menu
+            {translations.menu_title}
           </DialogTitle>
 
           <Box mt={2} ml={3} mr={3} borderRadius={16}>
-            <SettingsItemStyled text="Login">
+            <SettingsItemStyled text={translations.menu_login}>
               <VpnKeyIcon style={{backgroundColor: '#117A65'}}/>
             </SettingsItemStyled>
-            <SettingsItemStyled text="Sports">
+            <SettingsItemStyled text={translations.menu_sports}>
               <RowingIcon style={{backgroundColor: '#117A65'}}/>
             </SettingsItemStyled>
-            <SettingsItemStyled text="Friends">
+            <SettingsItemStyled text={translations.menu_friends}>
               <WCIcon  style={{backgroundColor: '#117A65'}}/>
             </SettingsItemStyled>
-            <SettingsItemStyled text="Share">
+            <SettingsItemStyled text={translations.menu_share}>
               <ShareIcon  style={{backgroundColor: '#117A65'}}/>
             </SettingsItemStyled>
-            <SettingsItemStyled text="Profile">
+            <SettingsItemStyled text={translations.menu_profile}>
               <PersonIcon  style={{backgroundColor: '#117A65'}}/>
             </SettingsItemStyled>
             

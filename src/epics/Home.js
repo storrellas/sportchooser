@@ -220,7 +220,7 @@ class Home extends React.Component {
           email: false,
           moments: false,
           gender: false,
-          birthyear: true,
+          birthyear: false,
         }
       },
       settings_prompt: false,
