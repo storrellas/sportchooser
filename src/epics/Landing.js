@@ -125,6 +125,26 @@ class Landing extends React.Component {
     };
   }
 
+  fetch_translations(lan){
+    return new Promise( async (resolve, reject) => {
+
+      const response = await fetch(config.BASE_API_URL + `/api/config/translations/?lan=${lan}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },    
+      })
+      const data = await response.json()
+      //console.log("translations" + JSON.stringify(data))
+      // Store translations
+      StorageMgr.set(StorageMgr.keys.TRANSLATIONS, JSON.stringify(data));
+  
+      return resolve(data)
+    })
+
+  }
+
   async handleSelectLanguage(e, lan){
 
     // Create User
@@ -145,7 +165,11 @@ class Landing extends React.Component {
   
     // Move to Home URL
     this.props.history.push('/home')
-    this.props.userCreated(data)
+
+    // Get translations
+    const translations = await this.fetch_translations(lan);
+    
+    this.props.userCreated({user:data, translations: translations})
   }
 
   async componentDidMount(){
@@ -239,7 +263,7 @@ class Landing extends React.Component {
 
             <Box mt={3} ml={3} mr={3} borderRadius={16} style={{display: 'flex', justifyContent: 'center'}}>
               <Grid container spacing={3} style={{width: "75%"}}>
-                <Grid item xs={6} onClick={(e) => this.handleSelectLanguage(e, 'uk')}>
+                <Grid item xs={6} onClick={(e) => this.handleSelectLanguage(e, 'en')}>
                   <img src={ukImage} className={classes.flag}></img> 
                 </Grid>
                 <Grid item xs={6} onClick={(e) => this.handleSelectLanguage(e, 'nl')}>

@@ -89,13 +89,19 @@ class Startup extends React.Component {
     if( translations === undefined ){
       console.log("Translations undefined ...")
 
+      // Geolocate
+      let language = ''
+
       // Get country
       const country = await this.fetch_geolocation()
 
       // Fetch translations
-      let language = config.DEFAULT_LANGUAGE
+      language = config.DEFAULT_LANGUAGE
       // if( country == 'nl') language = 'nl'
       // if( country == 'uk') language = 'en'
+ 
+      console.log('selected language')
+
       const translations_json = await this.fetch_translations(language)
 
       // Transform to dict

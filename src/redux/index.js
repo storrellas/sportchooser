@@ -42,7 +42,8 @@ export function rootReducer(state = initialState, action) {
   }
   if (action.type === USER_CREATED) {
     return Object.assign({}, state, {
-      user: action.payload
+      user: action.payload.user,
+      translations: action.payload.translations
     });
   }
   if (action.type === USER_PROFILE) {
