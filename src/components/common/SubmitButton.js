@@ -3,6 +3,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 
+// Redux
+import { connect } from "react-redux";
+
 const styles = theme => ({
   button:{
     width: '75%', 
@@ -17,6 +20,10 @@ const styles = theme => ({
   },
 });
 
+const mapStateToProps = state => {
+  return { translations: state.translations };
+};
+
 class SubmitButton extends React.Component {
   constructor(props) {
     super(props);
@@ -24,12 +31,12 @@ class SubmitButton extends React.Component {
   }
 
   render() {
-    const { classes, onSubmit } = this.props;
+    const { classes, onSubmit, translations } = this.props;
 
     return (
       <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
         <Button variant="contained" className={classes.button} onClick={(e) => onSubmit(e)}>
-          <div style={{flexGrow: 1}}>OK</div>
+          <div style={{flexGrow: 1}}>{translations.common_ok_button}</div>
         </Button>
       </Box>
     );
@@ -44,7 +51,7 @@ FriendDialog.propTypes = {
 };
 /**/
 
-export default withStyles(styles)(SubmitButton);
+export default connect(mapStateToProps, null)(withStyles(styles)(SubmitButton));
 
 
 

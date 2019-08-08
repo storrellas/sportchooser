@@ -71,8 +71,6 @@ class ForgotDialog extends React.Component {
     const { classes, onClose, open, translations } = this.props;
     const { error, helperText } = this.state;
 
-    // Translations JSON 
-    console.log(translations)
     return (
       <TryASportDialog className={classes.root} image={forgotImage} open={open} onClose={onClose}>
 
