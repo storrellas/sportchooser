@@ -93,7 +93,9 @@ class Startup extends React.Component {
       const country = await this.fetch_geolocation()
 
       // Fetch translations
-      const language = country=='nl'?'nl':'en'
+      let language = config.DEFAULT_LANGUAGE
+      // if( country == 'nl') language = 'nl'
+      // if( country == 'uk') language = 'en'
       const data = await this.fetch_translations(language)
 
       // Dispatch

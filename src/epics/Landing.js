@@ -202,9 +202,13 @@ class Landing extends React.Component {
     
     console.log("-- Landing --")
 
-    //Return progress if dont have translations
+    // Return progress if dont have translations
     if( this.props.translations === undefined )
       return (<Progress />);
+
+    // Translations JSON 
+    const translations_json = JSON.parse(this.props.translations)
+    console.log(translations_json)
 
     return (
       <div> 
