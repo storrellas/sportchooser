@@ -501,14 +501,15 @@ class Home extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, translations } = this.props;
     const { sport_list, sport_dict, selected, user_prompt, open_new_friend, friend } = this.state;
     console.log("## Home:Rendering ##", selected)
     console.log(this.props.user)
     console.log(sport_list[selected])
+    console.log(translations)
 
     // Return progress if dont have translations
-    if( StorageMgr.get(StorageMgr.keys.TRANSLATIONS) === undefined)
+    if( this.props.translations === undefined)
       return (<Progress />);
 
     // Determine whether loading or spinner
@@ -529,7 +530,7 @@ class Home extends React.Component {
                     <Box ml={20} mr={20} mt={0} mb={0} className={classNames(classes.link, classes.linkPosition)}>
                       <a href={sport_list[selected].url} className={classNames(classes.linkContainer)}>
                         <img height="100%" src={wikipediaImage} style={{borderRadius: '10px'}}></img>
-                        <div className={classes.linkText}>More Info</div>
+                        <div className={classes.linkText}>{translations.main_page_wikipedia}</div>
                       </a>
                     </Box>
                 </div>;
@@ -537,14 +538,15 @@ class Home extends React.Component {
 
     const user_str = JSON.stringify(this.props.user, null, 2)
     const userId = this.props.user === undefined?0:this.props.user.id;
+
     return (
       <div> 
         <Container maxWidth="sm" className={classes.root}>
 
           <CssBaseline />
           <Box m={0} p ={0} className={classes.mainTitle}>
-              <b>Sport - Planner</b>
-              <div style={{fontSize: 14}}>Find New Sport</div>
+              <b>{translations.main_page_title}</b>
+              <div style={{fontSize: 14}}>{translations.main_page_sub}</div>
               <div  onClick={(e) => this.handleSettings(e)}>
                 <img src={gearImage} style={{position: 'absolute', right: 10, top: "12%", height: "75%", cursor: 'pointer'}}></img>
               </div>
@@ -553,7 +555,7 @@ class Home extends React.Component {
           <Container maxWidth={false} style={{paddingTop: 20}}>
 
             <Box mt={2} ml={3} mr={3} borderRadius={16} style={{color:'grey'}}>
-              <b>Try new Sport</b>
+              <b>{translations.main_page_sub}</b>
             </Box>
 
             <Box mt={2} ml={3} mr={3} borderRadius={16} style={{position: 'relative', backgroundColor: '#D5DBDB', height: '30vh'}}>
