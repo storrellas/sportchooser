@@ -5,12 +5,9 @@ import Button from '@material-ui/core/Button';
 
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
 
 // Project import
 import TryASportDialog from "./common/TryASportDialog"
@@ -95,7 +92,7 @@ class ShareDialog extends React.Component {
   }
 
   render() {
-    const { classes, onClose, open, user } = this.props;
+    const { classes, onClose, open, user, translations } = this.props;
     const userJson = (user === undefined)?"":JSON.parse(user);
     const username = (userJson==="")?"":userJson.username;
 
@@ -110,15 +107,14 @@ class ShareDialog extends React.Component {
       <TryASportDialog image={shareImage} open={open} onClose={onClose}>
 
           <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-              <b>Share!</b>
-              <div>Share your code with friends, so they can see 
-                if you want to try the same new sports</div>
+              <b>{translations.share_title}</b>
+              <div>{translations.share_sub}</div>
           </DialogTitle>
 
           <Box mt={2} ml={3} mr={3} borderRadius={16}>
           <TextField
               id="outlined-friend-input"
-              label="Enter your name here"
+              label={translations.share_placeholder}
               className={classes.textField}
               type="text"
               name="code"
@@ -149,7 +145,7 @@ class ShareDialog extends React.Component {
 
           <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
             <Button variant="contained" className={classes.button} onClick={(e) => this.handleSubmit(e)}>
-              <div style={{flexGrow: 1}}>Share</div>
+              <div style={{flexGrow: 1}}>{translations.share_button}</div>
             </Button>
           </Box>
 

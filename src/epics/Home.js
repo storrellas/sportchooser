@@ -215,7 +215,7 @@ class Home extends React.Component {
         current: null,
         display:{
           friends: false,
-          share: false,
+          share: true,
           location: false,
           email: false,
           moments: false,
@@ -509,7 +509,7 @@ class Home extends React.Component {
     console.log(translations)
 
     // Return progress if dont have translations
-    if( this.props.translations === undefined)
+    if( translations === undefined)
       return (<Progress />);
 
     // Determine whether loading or spinner
@@ -565,36 +565,46 @@ class Home extends React.Component {
 
           <Grid container spacing={0} className={classNames(classes.iconContainer)}>
               <Grid item xs className={classNames(classes.icon)}>
-                <IconMenu mt={2} text="Undo" image={undoImage} onClick={(e) => this.handleUndo(e)}></IconMenu>
+                <IconMenu mt={2} text={translations.main_page_undo} image={undoImage} onClick={(e) => this.handleUndo(e)}></IconMenu>
               </Grid>
               <Grid item xs className={classNames(classes.icon)}>
-                <IconMenu mt={6} text="No Interest" image={noInterestImage} onClick={(e) => this.handleSportClick(e, 'not_interested')}></IconMenu>
+                <IconMenu mt={6} text={translations.main_page_no_interest} image={noInterestImage} onClick={(e) => this.handleSportClick(e, 'not_interested')}></IconMenu>
               </Grid>
               <Grid item xs className={classNames(classes.icon)}>
-                <IconMenu mt={6} text="Like To Try" image={likeToTryImage} onClick={(e) => this.handleSportClick(e, 'like_to_try')}></IconMenu>
+                <IconMenu mt={6} text={translations.main_page_like_to_try} image={likeToTryImage} onClick={(e) => this.handleSportClick(e, 'like_to_try')}></IconMenu>
               </Grid>
               <Grid item xs className={classNames(classes.icon)}>
-                <IconMenu mt={2} text="Play Already" image={alreadyPlayedImage} onClick={(e) => this.handleSportClick(e, 'already_played')}></IconMenu>
+                <IconMenu mt={2} text={translations.main_page_played_already} image={alreadyPlayedImage} onClick={(e) => this.handleSportClick(e, 'already_played')}></IconMenu>
               </Grid>
             </Grid>            
 
 
-            <SettingsDialog user={user_str} open={this.state.settings_prompt} onClose={(e) => this.handleClose()} />
-            <BirthyearDialog userId={userId} open={user_prompt.display.birthyear} onClose={(e) => this.handleClose()} />
-            <EmailDialog userId={userId} open={user_prompt.display.email} onClose={(e) => this.handleClose()} />
+            <SettingsDialog user={user_str} open={this.state.settings_prompt} 
+                            translations={translations} onClose={(e) => this.handleClose()} />
+            <BirthyearDialog userId={userId} open={user_prompt.display.birthyear} 
+                            translations={translations} onClose={(e) => this.handleClose()} />
+            <EmailDialog userId={userId} open={user_prompt.display.email} 
+                            translations={translations} onClose={(e) => this.handleClose()} />
             <FriendDialog userId={userId} 
                           sportDict={sport_dict}
-                          open={user_prompt.display.friends} 
+                          open={user_prompt.display.friends}
+                          translations={translations} 
                           onClose={(e) => this.handleClose()} 
                           onCloseAddFriend={(friend) => this.handleCloseAddFriend(friend)} />                          
-            <NewFriendDialog open={open_new_friend} friend={friend} onClose={(e) => this.handleClose()} />
-            <ShareDialog userId={userId} user={user_str} open={user_prompt.display.share} onClose={(e) => this.handleClose()} />
-            <GenderDialog userId={userId} open={user_prompt.display.gender} onClose={(e) => this.handleClose()} />
-            <LocationDialog userId={userId} open={user_prompt.display.location} onClose={(e) => this.handleClose()} />
+            <NewFriendDialog open={open_new_friend} friend={friend} 
+                          translations={translations} 
+                          onClose={(e) => this.handleClose()} />
+            <ShareDialog userId={userId} user={user_str} open={user_prompt.display.share} 
+                          translations={translations} onClose={(e) => this.handleClose()} />
+            <GenderDialog userId={userId} open={user_prompt.display.gender} 
+                          translations={translations} onClose={(e) => this.handleClose()} />
+            <LocationDialog userId={userId} open={user_prompt.display.location} 
+                          translations={translations} onClose={(e) => this.handleClose()} />
             <MomentsDialog userId={userId} 
                            user={user_str} 
                            open={user_prompt.display.moments} 
                            key={user_prompt.display.moments} 
+                           translations={translations} 
                            onClose={(e) => this.handleClose()} />
 
         </Container>

@@ -90,7 +90,7 @@ class FriendDialog extends React.Component {
   }
 
   render() {
-    const { classes, onClose, sportDict, open } = this.props;
+    const { classes, onClose, sportDict, open, translations } = this.props;
     // console.log("-- FriendDialog --")
     // console.log(this.state.friendJson)
     let friendSearch = <div></div>
@@ -103,14 +103,13 @@ class FriendDialog extends React.Component {
       <TryASportDialog image={friendsImage} open={open} onClose={onClose}>
 
           <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-              Enter your friends codes to find out if your 
-              friends want to try the same new sports
+            {translations.friends_prompt_title}
           </DialogTitle>
 
           <Box mt={2} ml={3} mr={3} borderRadius={16}>
           <TextField
               id="outlined-friend-input"
-              label="Enter your friend code"
+              label={translations.friends_prompt_placeholder}
               className={classes.textField}
               type="text"
               name="code"

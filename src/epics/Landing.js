@@ -170,7 +170,7 @@ class Landing extends React.Component {
     const translations = await this.fetch_translations(lan);
     // Transform to dict
     const translations_dict = {}
-    for (const translation of translations_json)
+    for (const translation of translations)
       translations_dict[translation.param]  = translation.value
 
     this.props.userCreated({user:data, translations: translations_dict})

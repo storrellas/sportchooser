@@ -1,15 +1,9 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
 
 
-import CloseIcon from '@material-ui/icons/Close';
 import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-
 
 // Project import
 import SubmitButton from "./common/SubmitButton"
@@ -126,10 +120,12 @@ class MomentsDialog extends React.Component {
   }
 
   render() {
-    const { classes, onClose, open, user } = this.props;
+    const { classes, onClose, open, user, translations } = this.props;
 
     // Generate matrix
-    const header_array = Array.from(' MTWTFSS')
+    //const header_array = Array.from(' MTWTFSS')
+    const header_array = Array.from(' ' + translations.moments_prompt_weekday)
+
 
     let weekday_selected_list = this.generated_weekday_selected_list('before_6')
     const row_before_0_6 = this.generate_row(weekday_selected_list, '00-06', 'before_6')
@@ -164,10 +160,8 @@ class MomentsDialog extends React.Component {
       <TryASportDialog image={calendarImage} open={open} onClose={onClose}>
 
           <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-            <div>By adding your regular moments to do sports to your profile,
-            we can inform your options to try out your selected sports at a time that
-            is most likely to fit your schedule</div>
-            <i>Click on a time to select/cancel</i>
+            <div>{translations.moments_prompt_title}</div>
+            <i>{translations.moments_prompt_sub}</i>
           </DialogTitle>
 
           <Box mt={2} ml={3} mr={3} borderRadius={16}>
