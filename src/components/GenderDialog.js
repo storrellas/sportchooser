@@ -44,30 +44,35 @@ class GenderDialog extends React.Component {
   }
 
   render() {
-    const { classes, onClose, open } = this.props;
+    const { classes, onClose, open, translations } = this.props;
     return (
       <TryASportDialog image={genderImage} open={open} onClose={onClose}>
           <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-            What's your gender?
+            {translations.gender_prompt_title}
           </DialogTitle>
 
           <Box mt={2} mr={10} ml={10} style={{display:'flex', justifyContent: 'center'}}>
-            <Button variant="contained" style={{width: "30%"}} onClick={(e) => this.handleClick(e, 'male')}>
-              <img src={maleImage} style={{width:"100%"}} />
-            </Button>
+            <div style={{width: "30%"}} >
+              <Button variant="contained" style={{height: "50%"}} onClick={(e) => this.handleClick(e, 'male')}>
+                <img src={maleImage} style={{width:"100%"}} />
+              </Button>
+              <p>{translations.gender_prompt_male}</p>
+            </div>
             
-            <b style={{alignSelf: 'center', marginLeft: 10, marginRight: 10}}>OR</b>
-            
-            <Button variant="contained" style={{width: "30%"}} onClick={(e) => this.handleClick(e, 'female')}>
-              <img style={{width:"100%"}} src={femaleImage} />
-            </Button>
+            <b style={{alignSelf: 'center', marginLeft: 10, marginRight: 10}}>{translations.gender_prompt_or}</b>
+            <div style={{width: "30%"}} >
+              <Button variant="contained" style={{height: "50%"}} onClick={(e) => this.handleClick(e, 'female')}>
+                <img style={{width:"100%"}} src={femaleImage} />
+              </Button>
+              <p>{translations.gender_prompt_female}</p>
+            </div>
           </Box>
 
           <SubmitButton onSubmit={() => console.log("NotImplementedYet")}/>
 
           <Box mt={2} style={{display:'flex', justifyContent: 'center'}}>
             <Button variant="contained" onClick={(e) => this.handleClick(e, 'prefer_not_to_say')}>
-              Dont want to tell
+              {translations.gender_prompt_sub}
             </Button>
           </Box>
       </TryASportDialog>

@@ -75,19 +75,18 @@ class LocationDialog extends React.Component {
   }
 
   render() {
-    const { classes, onClose, open } = this.props;
+    const { classes, onClose, open, translations } = this.props;
     return (
       <TryASportDialog image={locationImage} open={open} onClose={onClose}>
 
           <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-            Add a location so we can inform you when we find activities of the sports
-            you like to try near you
+            {translations.location_prompt_title}
           </DialogTitle>
 
           <Box mt={2} ml={3} mr={3} borderRadius={16}>
             <TextField
               id="outlined-location-input"
-              label="Enter your location"
+              label={translations.location_prompt_placeholder}
               className={classes.textField}
               type="text"
               name="code"

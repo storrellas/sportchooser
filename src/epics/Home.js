@@ -217,10 +217,10 @@ class Home extends React.Component {
           friends: false,
           share: false,
           location: false,
-          email: true,
+          email: false,
           moments: false,
           gender: false,
-          birthyear: false,
+          birthyear: true,
         }
       },
       settings_prompt: false,

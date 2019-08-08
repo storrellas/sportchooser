@@ -54,13 +54,13 @@ class BirthyearDialog extends React.Component {
   }
 
   render() {
-    const { classes, onClose, open } = this.props;
+    const { classes, onClose, open, translations } = this.props;
 
     return (
       <TryASportDialog image={cakeImage} open={open} onClose={onClose}>
 
         <DialogTitle id="simple-dialog-title" style={{textAlign: "center", marginTop: 80}}>
-          What's your birthday year?
+          {translations.birthday_prompt_title}
         </DialogTitle>
 
         <Box mt={2} ml={3} mr={3} borderRadius={16}  style={{display:'flex', justifyContent: 'center'}}>
