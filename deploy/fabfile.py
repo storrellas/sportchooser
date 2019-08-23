@@ -178,16 +178,16 @@ def nginxLetsencrypt(c):
     with c.cd(nginx_conf_path):
         # Create LetsEncrypt certificate
         c.run('sudo /etc/init.d/nginx stop', echo=True)
-        c.run('sudo certbot certonly --standalone -d ' + config['app_domain'] + ' --manual-public-ip-logging-ok --force-renewal', echo=True, warn=True)
+        #c.run('sudo certbot certonly --standalone -d ' + config['app_domain'] + ' --manual-public-ip-logging-ok --force-renewal', echo=True, warn=True)
 
         # Generate configuration
-        c.put('./stem_ui', remote=nginx_conf_path)
-        c.run('sed -i "s/{{ssl_cert}}/\/etc\/letsencrypt\/live\/' + config['app_domain'] +  '\/fullchain.pem/g" stem_ui', echo=True)
-        c.run('sed -i "s/{{ssl_key}}/\/etc\/letsencrypt\/live\/' + config['app_domain'] + '\/privkey.pem/g" stem_ui', echo=True)
-        c.run('sed -i "s/{{domain}}/' + config['app_domain'] + '/g" stem_ui', echo=True)
+        c.put('./nginx_conf.template', remote=nginx_conf_path)
+        c.run('sed -i "s/{{ssl_cert}}/\/etc\/letsencrypt\/live\/' + config['app_domain'] +  '\/fullchain.pem/g" nginx_conf.template', echo=True)
+        c.run('sed -i "s/{{ssl_key}}/\/etc\/letsencrypt\/live\/' + config['app_domain'] + '\/privkey.pem/g" nginx_conf.template', echo=True)
+        c.run('sed -i "s/{{domain}}/' + config['app_domain'] + '/g" nginx_conf.template', echo=True)
 
         # Set configuration
-        c.run('sudo cp -rv ./stem_ui /etc/nginx/sites-available/' + config['app_domain'], echo=True)        
+        c.run('sudo cp -rv ./nginx_conf.template /etc/nginx/sites-available/' + config['app_domain'], echo=True)        
         c.run('sudo ln -s /etc/nginx/sites-available/' + config['app_domain'] + ' /etc/nginx/sites-enabled/' + config['app_domain'], echo=True, warn=True)
 
 
@@ -317,24 +317,6 @@ def halt(c):
         c.run('sudo docker-compose stop', echo=True)
 
     print_end_banner()
-
-@task(hosts=my_hosts)
-def ddns(c):
-    """
-    Update DNS A record
-    """
-    print_init_banner('Update DNS record in Godaddy')
-    print_end_banner()
-
-    c.put('./godaddy_ddns.py')
-    c.run('python3 godaddy_ddns.py --key ' + config['godaddy_key'] + \
-            ' --secret ' + config['godaddy_secret'] + ' ' + config['godaddy_domain'], echo=True)
-
-    # More complex version
-    # repo_folder = get_repo_folder(config['repository'])
-    # with c.cd(config['remote_workspace'] + '/' + repo_folder + '/deploy/'):
-    #     c.run('python3 godaddy_ddns.py --key ' + config['godaddy_key'] + \
-    #             ' --secret ' + config['godaddy_secret'] + ' ' + config['godaddy_domain'], echo=True)
 
 
 @task(hosts=my_hosts)
