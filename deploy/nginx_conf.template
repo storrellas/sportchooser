@@ -25,7 +25,7 @@ server {
   #    try_files $uri $uri/ /index.html;
   #}
 
-  location / {
+  location /try/ {
     proxy_pass http://localhost:8082/;
     include proxy_params;
   }
