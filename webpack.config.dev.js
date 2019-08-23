@@ -34,13 +34,13 @@ module.exports = {
   resolve: { extensions: ["*", ".js", ".jsx"] },
   output: {
     path: path.resolve(__dirname, "build/"),
-    publicPath: "/dist/",
+    publicPath: "/try/dist/",
     filename: "bundle.js"
   },
   devServer: {
     contentBase: path.join(__dirname, "public/"),
     port: 8080,
-    publicPath: "/dist/",
+    publicPath: "/try/dist/",
     historyApiFallback: true,
     disableHostCheck: true,
     //hotOnly: true,
