@@ -56,7 +56,7 @@ class AnonymousRoute extends React.Component {
   render() {
     // console.log("-- AnonymousRoute:render -- ", isAnonymous(), this.state.anonymous )
     // console.log( this.props )
-    if(window.location.pathname == '/try'){
+    if(window.location.pathname == '/'){
       return (this.state.anonymous?<Route {...this.props} />:<Redirect to='/home' />)
     }else{
       return ( <Route {...this.props} /> )
@@ -69,8 +69,8 @@ ReactDOM.render((
   <Provider store={store}>
       <BrowserRouter>
         <Startup> 
-          <AnonymousRoute path="/try" exact component={Landing} />
-          <AuthenticatedRouteContainer exact path="/try/home" component={Home} />
+          <AnonymousRoute path="/" exact component={Landing} />
+          <AuthenticatedRouteContainer exact path="/home" component={Home} />
         </Startup>
       </BrowserRouter>
   </Provider>
