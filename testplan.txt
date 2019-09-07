@@ -1,4 +1,4 @@
-Test plan Try new Sport
+Test plan Try new Sport - my test
 
 Scenarios to test basic flow
 1)	User 1 - First time visitor without any existing friends 
